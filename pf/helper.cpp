@@ -1,12 +1,17 @@
 #include "helper.h"
-#include <cstdlib>
 #include <iostream>
-
+#include <string>
+#include <numeric>
+#include <vector>
+#include <cstdlib> // for system()
+#include <ctime>   // for time() in srand( time(NULL) );
+#include <iomanip> // for setw()
+using namespace std;
 namespace pf
 {
     
-    const int kRows = 3;
-    const int kColumns = 5;
+    const int kRows = 5;
+    const int kColumns = 15;
     char kBoard[kRows][kColumns];
     
     class Map
@@ -51,26 +56,29 @@ namespace pf
 
     void CreateGameBoard()
     {
+    char objects[] = {'v','^','<','>',' ','h','p','r',' ', ' ', ' '};
+    int noOfObjects = 11;
         for (int row = 0; row < kRows; ++row)
         for (int col = 0; col < kColumns; ++col)
         {
-            int random_number = std::rand() % 2;
-            if (random_number)
-                kBoard[row][col] = '*';
-            else
-                kBoard[row][col] = 'r';
+            int objNo = rand() % noOfObjects;
+            kBoard[row][col] = objects[objNo];
         }
     }
 
     void ShowGameBoard()
     {
+        cout << "  _______________________________" << endl;
+        cout << " | Player, be ready for battle!  |" << endl;
+        cout << " |_______________________________|" << endl;
         for (int row = 0; row < kRows; ++row)
         {
             for (int col = 0; col < kColumns; ++col)
             {
-                std::cout << kBoard[row][col];
+                cout << "| ";
+                cout << kBoard[row][col] << "|";
             }
-            std::cout << std::endl;
+            cout << endl;
         }
             
     }
