@@ -54,6 +54,41 @@ namespace pf
         #endif
     }
 
+    void BoardEdit(int kRows, int kColumns)
+    {   
+        string a;
+
+        cout << "Board Settings" << endl;
+        cout << "---------------" << endl;
+        cout << "Board Rows : " << kRows;
+        cout << "Board Columns : " << kColumns;
+        //cout << "Zombie Count : " <<(variable); 
+
+        cout << "Do you wish to change the game settings? (y/n/q to return) : ";
+        cin >> a;
+
+        if (a == "y")
+        {
+            /* code */
+        }
+        else if (a == "n")
+        {
+            /* code */
+        }
+        else if (a == "q")
+        {
+            /*code*/
+        }
+        else
+        {
+            cout << "Invalid input, please try again.";
+            ClearScreen();
+            
+        }
+        
+        
+    }
+    
     void CreateGameBoard()
     {
     char objects[] = {'v','^','<','>',' ','h','p','r',' ', ' ', ' '};
