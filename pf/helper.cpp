@@ -71,6 +71,7 @@ namespace pf
         cout << "  _______________________________" << endl;
         cout << " | Player, be ready for battle!  |" << endl;
         cout << " |_______________________________|" << endl;
+        cout << "                                  " << endl;
         for (int row = 0; row < kRows; ++row)
         {
             for (int col = 0; col < kColumns; ++col)

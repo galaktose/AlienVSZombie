@@ -20,8 +20,9 @@ int main()
     cout << "Assignment (Part 1)" << endl;
     cout << "Let's Get Started!" << endl;
     pf::Pause();
-    pf::CreateGameBoard();
-    pf::ShowGameBoard();
+    srand(time(NULL));
+    pf::CreateGameBoard(); 
+    pf::ShowGameBoard(); 
     char sex;
     cin >> sex;
     //sex uoh dehya
