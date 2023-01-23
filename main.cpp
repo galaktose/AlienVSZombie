@@ -22,5 +22,6 @@ int main()
     pf::Pause();
     pf::CreateGameBoard();
     pf::ShowGameBoard();
+    //sex uoh dehya
 }
 
