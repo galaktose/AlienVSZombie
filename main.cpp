@@ -20,6 +20,7 @@ int main()
     cout << "Assignment (Part 1)" << endl;
     cout << "Let's Get Started!" << endl;
     pf::Pause();
+    pf::BoardEdit();
     srand(time(NULL));
     pf::CreateGameBoard(); 
     pf::ShowGameBoard(); 
