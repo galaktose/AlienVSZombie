@@ -13,7 +13,7 @@ namespace pf
     {
         public:
             int width;
-            int height;
+            int height;     
     };
 
     class Alien
