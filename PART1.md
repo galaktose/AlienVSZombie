@@ -31,21 +31,26 @@ List down the contribution of each group members.
 
 For example:
 
-### Tony Stark
+### Wan Muhammad Atif bin Taram Satiraksa
 
-1. Randomly generate game board.
-2. *add more*
+1. Documentation
 
-### Steve Rogers
 
-1. Zombie movement and attack behaviour.
-2. *add more*
+### Noor Hannan bin Noor Hamsuruddin
 
-### Dr. Strange
+1. Map generation
 
-1. Implement all game objects.
-2. *add more*
+### VividKitten
+
+1. watching
+2. being vividly retarded
+
+### Hina
+
+1. Emotional Support
+2. uoh 
 
 ## Problems Encountered & Solutions
 
 Describe the problems encountered and provide the solutions / plan for the solutions.
+
