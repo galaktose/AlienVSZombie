@@ -4,9 +4,32 @@
 
 namespace pf
 {
+    
     const int kRows = 3;
     const int kColumns = 5;
     char kBoard[kRows][kColumns];
+    
+    class Map
+    {
+        public:
+            int width;
+            int height;
+    };
+
+    class Alien
+    {
+        public:
+            int life;
+            int attack;
+    };
+
+    class Zombie
+    {
+        public:
+            int life;
+            int attack;
+            int range;
+    };
 
     int ClearScreen()
     {
