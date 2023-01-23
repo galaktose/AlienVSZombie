@@ -65,7 +65,6 @@ namespace pf
         cout << "Board Columns : " << kColumns << endl;
         //cout << "Zombie Count : " <<(variable);
 
-         
         cout << "Do you wish to change the game settings? (y/n/q to return) : ";
         string choice;
         cin >> choice;
@@ -74,7 +73,7 @@ namespace pf
         {
             cout << "kys bozo";
         }
-        else if (choice =="n")
+        else if (choice == "n")
         {
             cout << "The game will now begin." << endl;
             Pause();
