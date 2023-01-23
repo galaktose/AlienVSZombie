@@ -74,13 +74,27 @@ namespace pf
         cout << "                                  " << endl;
         for (int row = 0; row < kRows; ++row)
         {
+            cout << "  +---";
+            for (int col = 0;  col < kColumns - 1; ++col)
+            {
+                cout << "+---";
+            }
+            cout << "+";
+            cout << endl;
+            cout << setw(2) << (kRows - row);
             for (int col = 0; col < kColumns; ++col)
             {
                 cout << "| ";
-                cout << kBoard[row][col] << "|"; 
+                cout << kBoard[row][col] << " "; //shows the stuff inside the map
             }
+            cout << "|";
             cout << endl;
         }
-            
+        cout << "  +---";
+        for (int j = 0; j < kColumns - 1; ++j)
+            {
+            cout << "+---";
+            }
+        cout << "+" << endl;
     }
 }
