@@ -77,7 +77,7 @@ namespace pf
             for (int col = 0; col < kColumns; ++col)
             {
                 cout << "| ";
-                cout << kBoard[row][col] << "|";
+                cout << kBoard[row][col] << "|"; 
             }
             cout << endl;
         }
