@@ -107,37 +107,37 @@ namespace pf
         string a ="n";
         while(a =="n")
         {
-        cout << "Board Settings" << endl;
-        cout << "---------------" << endl;
-        cout << "Board Rows : " << kRows << endl;
-        cout << "Board Columns : " << kColumns << endl;
-        //cout << "Zombie Count : " <<(variable);
+            cout << "Board Settings" << endl;
+            cout << "---------------" << endl;
+            cout << "Board Rows : " << kRows << endl;
+            cout << "Board Columns : " << kColumns << endl;
+            //cout << "Zombie Count : " <<(variable);
 
-        cout << "Do you wish to change the game settings? (y/n/q to return) : ";
-        string choice;
-        cin >> choice;
-        
-        if (choice =="y")
-        {   
-            ClearScreen();
-            BoardEdit();
+            cout << "Do you wish to change the game settings? (y/n/q to return) : ";
+            string choice;
+            cin >> choice;
+            
+            if (choice =="y")
+            {   
+                ClearScreen();
+                BoardEdit();
+                break;
+            }
+            else if (choice == "n")
+            {   
+                ClearScreen();
+                cout << "The game will now begin." << endl;
+                Pause();
+            }
+            else
+            {   
+                choice = a;
+                cout << "Invalid input, please try again." << endl; 
+                Pause();
+                ClearScreen();
+                continue;  
+            }
             break;
-        }
-        else if (choice == "n")
-        {   
-            ClearScreen();
-            cout << "The game will now begin." << endl;
-            Pause();
-        }
-        else
-        {   
-            choice = a;
-            cout << "Invalid input, please try again." << endl; 
-            Pause();
-            ClearScreen();
-            continue;  
-        }
-        break;
         }
         
     }
