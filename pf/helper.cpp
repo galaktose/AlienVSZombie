@@ -54,7 +54,7 @@ namespace pf
         #endif
     }
 
-    void BoardEdit()
+    void BoardSettings()
     {   
         string a ="n";
         while(a =="n")
