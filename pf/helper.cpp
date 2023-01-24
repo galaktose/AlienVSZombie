@@ -53,6 +53,11 @@ namespace pf
             return std::system(R"(read -p "Press any key to continue . . . " dummy)");
         #endif
     }
+    
+    void BoardEdit()
+    {
+        //kufufu kufufu kufufu
+    }
 
     void BoardSettings()
     {   
@@ -71,7 +76,8 @@ namespace pf
         
         if (choice =="y")
         {
-            cout << "kys bozo";
+            BoardEdit();
+            break;
         }
         else if (choice == "n")
         {
@@ -81,7 +87,10 @@ namespace pf
         }
         else if (choice =="q")
         {
-            /*code*/
+            
+            cout << "Alright. Thank you for playing!" << endl;
+            Pause();
+            abort();
         }
         else
         {
