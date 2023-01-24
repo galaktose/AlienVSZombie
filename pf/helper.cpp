@@ -62,34 +62,44 @@ namespace pf
         int z;
         cout << "Change your game settings." << endl;
         cout << "---------------------------" << endl;
-        cout << "New Board Rows (1-15) : "; cin >> x;
-        if (x >= x % 15)
+        bool choice = true;
+        while(choice = true)
+        {
+        cout << "New Board Rows (1-15) : "; 
+        cin >> x;
+        if (x % 2 == 1 && x <= 15)
         {
            kRows = x;
-           cout << "Rows have been updated!";
-           ClearScreen();
+           cout << "Rows have been updated!" << endl;
+           break;
         }
         else
         {
-            cout << "Invalid input, please try again.";
-            ClearScreen();
-            cout << "New Board Rows (1-15) : "; cin >> x;
+            cout << "Invalid input, please try again." << endl;
+            continue;
         }
+        break;
+        
+        }
+        bool choice2 = true;
+        while(choice2 = true)
+        {
         cout << "New Board Columns (1-15): "; cin >> y;
-         if (y >= y % 15)
+         if (y % 2 == 1 && y <= 15)
         {
            kColumns = y;
-           cout << "Columns have been updated!";
-           ClearScreen();
+           cout << "Columns have been updated!" << endl;
+           break;
         }
         else
         {
-            cout << "Invalid input, please try again.";
-            ClearScreen();
-            cout << "New Columns Rows (1-15) : "; cin >> y;
+            cout << "Invalid input, please try again." << endl;
+            continue;
+        }
         }
         //cout << "Zombie Count : "; cin >> z;
         Pause();
+        ClearScreen();
     }
 
     void BoardSettings()
