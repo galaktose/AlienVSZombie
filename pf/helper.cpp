@@ -57,77 +57,88 @@ namespace pf
     void BoardEdit()
     {
         //kufufu kufufu kufufu
-        int x;
-        int y;
-        int z;
-        cout << "Change your game settings." << endl;
-        cout << "---------------------------" << endl;
-        cout << "New Board Rows (1-15) : "; cin >> x;
-        if (x >= x % 15)
+        int a = 16;
+        while (a == 16);
         {
-           kRows = x;
-           cout << "Rows have been updated!";
-           ClearScreen();
+            int x;
+            int y;
+            int z;
+            cout << "---------------------------" << endl;
+            cout << "Change your game settings." << endl;
+            cout << "---------------------------" << endl;
+            cout << "New Board Rows (1-15) : ";
+            cin >> x;
+            if (x <= 15)
+            {
+                kRows = x;
+                cout << "Rows have been updated!";
+                ClearScreen();
+            }
+            else
+            {
+                cout << "Invalid input, please try again.";
+                cout << "New Board Rows (1-15) : ";
+                cin >> x;
+            }
+            cout << "New Board Columns (1-15): ";
+            cin >> y;
+            if (y <= 15)
+            {
+                kColumns = y;
+                cout << "Columns have been updated!";
+                ClearScreen();
+            }
+            else
+            {   
+                y = a;
+                cout << "Invalid input, please try again.";
+                Pause();
+                ClearScreen();
+                continue;
+            }
+            break;
+            // cout << "Zombie Count : "; cin >> z;
+            //Pause();
         }
-        else
-        {
-            cout << "Invalid input, please try again.";
-            ClearScreen();
-            cout << "New Board Rows (1-15) : "; cin >> x;
-        }
-        cout << "New Board Columns (1-15): "; cin >> y;
-         if (y >= y % 15)
-        {
-           kColumns = y;
-           cout << "Columns have been updated!";
-           ClearScreen();
-        }
-        else
-        {
-            cout << "Invalid input, please try again.";
-            ClearScreen();
-            cout << "New Columns Rows (1-15) : "; cin >> y;
-        }
-        //cout << "Zombie Count : "; cin >> z;
-        Pause();
-    }
+        
+    }    
 
     void BoardSettings()
     {   
         string a ="n";
         while(a =="n")
         {
-        cout << "Board Settings" << endl;
-        cout << "---------------" << endl;
-        cout << "Board Rows : " << kRows << endl;
-        cout << "Board Columns : " << kColumns << endl;
-        //cout << "Zombie Count : " <<(variable);
+            cout << "Board Settings" << endl;
+            cout << "---------------" << endl;
+            cout << "Board Rows : " << kRows << endl;
+            cout << "Board Columns : " << kColumns << endl;
+            //cout << "Zombie Count : " <<(variable);
 
-        cout << "Do you wish to change the game settings? (y/n/q to return) : ";
-        string choice;
-        cin >> choice;
-        
-        if (choice =="y")
-        {   
-            ClearScreen();
-            BoardEdit();
+            cout << "Do you wish to change the game settings? (y/n/q to return) : ";
+            string choice;
+            cin >> choice;
+            
+            if (choice =="y")
+            {   
+                ClearScreen();
+                BoardEdit();
+                break;
+            }
+            else if (choice == "n")
+            {   
+                ClearScreen();
+                cout << "The game will now begin." << endl;
+                Pause();
+            }
+            else
+            {   
+                choice = a;
+                cout << "Invalid input, please try again." << endl; 
+                Pause();
+                ClearScreen();
+                continue;  
+            }
             break;
-        }
-        else if (choice == "n")
-        {   
-            ClearScreen();
-            cout << "The game will now begin." << endl;
-            Pause();
-        }
-        else
-        {   
-            choice = a;
-            cout << "Invalid input, please try again." << endl; 
-            Pause();
-            ClearScreen();
-            continue;  
-        }
-        break;
         }
         
     }
