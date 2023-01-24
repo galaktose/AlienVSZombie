@@ -10,9 +10,9 @@ using namespace std;
 namespace pf
 {
     
-    const int kRows = 5;
-    const int kColumns = 15;
-    char kBoard[kRows][kColumns];
+    int kRows = 5;
+    int kColumns = 15;
+    
     
     class Map
     {
@@ -57,6 +57,39 @@ namespace pf
     void BoardEdit()
     {
         //kufufu kufufu kufufu
+        int x;
+        int y;
+        int z;
+        cout << "Change your game settings." << endl;
+        cout << "---------------------------" << endl;
+        cout << "New Board Rows (1-15) : "; cin >> x;
+        if (x >= x % 15)
+        {
+           kRows = x;
+           cout << "Rows have been updated!";
+           ClearScreen();
+        }
+        else
+        {
+            cout << "Invalid input, please try again.";
+            ClearScreen();
+            cout << "New Board Rows (1-15) : "; cin >> x;
+        }
+        cout << "New Board Columns (1-15): "; cin >> y;
+         if (y >= y % 15)
+        {
+           kColumns = y;
+           cout << "Columns have been updated!";
+           ClearScreen();
+        }
+        else
+        {
+            cout << "Invalid input, please try again.";
+            ClearScreen();
+            cout << "New Columns Rows (1-15) : "; cin >> y;
+        }
+        //cout << "Zombie Count : "; cin >> z;
+        Pause();
     }
 
     void BoardSettings()
@@ -75,27 +108,21 @@ namespace pf
         cin >> choice;
         
         if (choice =="y")
-        {
+        {   
+            ClearScreen();
             BoardEdit();
             break;
         }
         else if (choice == "n")
-        {
+        {   
+            ClearScreen();
             cout << "The game will now begin." << endl;
             Pause();
-            ClearScreen();
-        }
-        else if (choice =="q")
-        {
-            
-            cout << "Alright. Thank you for playing!" << endl;
-            Pause();
-            abort();
         }
         else
-        {
+        {   
             choice = a;
-            cout << "Invalid input, please try again.";
+            cout << "Invalid input, please try again." << endl; 
             Pause();
             ClearScreen();
             continue;  
@@ -107,12 +134,14 @@ namespace pf
     
     void CreateGameBoard()
     {
-    char objects[] = {'v','^','<','>',' ','h','p','r',' ', ' ', ' '};
+    
+    char objects[] = {'v','^','<','>',' ','h','p','r', ' ', ' ', ' '};
     int noOfObjects = 11;
         for (int row = 0; row < kRows; ++row)
         for (int col = 0; col < kColumns; ++col)
         {
             int objNo = rand() % noOfObjects;
+            char kBoard[row][col];
             kBoard[row][col] = objects[objNo];
         }
     }
@@ -134,7 +163,8 @@ namespace pf
             cout << endl;
             cout << setw(2) << (kRows - row);
             for (int col = 0; col < kColumns; ++col)
-            {
+            {   
+                char kBoard[row][col];
                 cout << "| ";
                 cout << kBoard[row][col] << " "; //shows the stuff inside the map
             }
