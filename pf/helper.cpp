@@ -21,13 +21,6 @@ namespace pf
             int height;     
     };
 
-    class Alien
-    {
-        public:
-            int life;
-            int attack;
-    };
-
     class Zombie
     {
         public:
@@ -57,50 +50,43 @@ namespace pf
     void BoardEdit()
     {
         //kufufu kufufu kufufu
-        int x;
-        int y;
-        int z;
-        cout << "Change your game settings." << endl;
-        cout << "---------------------------" << endl;
-        bool choice = true;
-        while(choice = true)
+        string a ="n";
+        while(a =="n")
         {
-        cout << "New Board Rows (1-15) : "; 
-        cin >> x;
-        if (x % 2 == 1 && x <= 15)
-        {
-           kRows = x;
-           cout << "Rows have been updated!" << endl;
-           break;
+            cout << "Board Settings" << endl;
+            cout << "---------------" << endl;
+            cout << "Board Rows : " << kRows << endl;
+            cout << "Board Columns : " << kColumns << endl;
+            //cout << "Zombie Count : " <<(variable);
+
+            cout << "Do you wish to change the game settings? (y/n/q to return) : ";
+            string choice;
+            cin >> choice;
+
+            if (choice =="y")
+            {   
+                ClearScreen();
+                BoardEdit();
+                break;
+            }
+            else if (choice == "n")
+            {   
+                ClearScreen();
+                cout << "The game will now begin." << endl;
+                Pause();
+            }
+            else
+            {   
+                choice = a;
+                cout << "Invalid input, please try again." << endl; 
+                Pause();
+                ClearScreen();
+                continue;  
+            }
+            break;
         }
-        else
-        {
-            cout << "Invalid input, please try again." << endl;
-            continue;
-        }
-        break;
         
-        }
-        bool choice2 = true;
-        while(choice2 = true)
-        {
-        cout << "New Board Columns (1-15): "; cin >> y;
-         if (y % 2 == 1 && y <= 15)
-        {
-           kColumns = y;
-           cout << "Columns have been updated!" << endl;
-           break;
-        }
-        else
-        {
-            cout << "Invalid input, please try again." << endl;
-            continue;
-        }
-        }
-        //cout << "Zombie Count : "; cin >> z;
-        Pause();
-        ClearScreen();
-    }
+    }    
 
     void BoardSettings()
     {   
