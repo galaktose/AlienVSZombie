@@ -10,16 +10,16 @@ using namespace std;
 namespace pf
 {
     
-    int kRows = 5;
-    int kColumns = 15;
-    
-    
-    class Map
-    {
-        public:
-            int width;
-            int height;     
-    };
+    int kRows;
+    int kColumns;
+
+        
+        int row;
+        int col;
+        int rowMid;
+        int colMid;
+        vector<vector<char>>map;    
+
 
     class Zombie
     {
@@ -50,53 +50,62 @@ namespace pf
     void BoardEdit()
     {
         //kufufu kufufu kufufu
-        string a ="n";
-        while(a =="n")
+        int x;
+        int y;
+        int z;
+        cout << "Change your game settings." << endl;
+        cout << "---------------------------" << endl;
+        bool choice = true;
+        while(choice = true)
         {
-            cout << "Board Settings" << endl;
-            cout << "---------------" << endl;
-            cout << "Board Rows : " << kRows << endl;
-            cout << "Board Columns : " << kColumns << endl;
-            //cout << "Zombie Count : " <<(variable);
-
-            cout << "Do you wish to change the game settings? (y/n/q to return) : ";
-            string choice;
-            cin >> choice;
-
-            if (choice =="y")
-            {   
-                ClearScreen();
-                BoardEdit();
-                break;
-            }
-            else if (choice == "n")
-            {   
-                ClearScreen();
-                cout << "The game will now begin." << endl;
-                Pause();
-            }
-            else
-            {   
-                choice = a;
-                cout << "Invalid input, please try again." << endl; 
-                Pause();
-                ClearScreen();
-                continue;  
-            }
-            break;
+        cout << "New Board Rows (1-15) : "; 
+        cin >> x;
+        if (x % 2 == 1 && x <= 15)
+        {
+           row = x;
+           cout << "Rows have been updated!" << endl;
+           break;
         }
+        else
+        {
+            cout << "Invalid input, please try again." << endl;
+            continue;
+        }
+        break;
         
-    }    
+        }
+        bool choice2 = true;
+        while(choice2 = true)
+        {
+        cout << "New Board Columns (1-15): "; cin >> y;
+         if (y % 2 == 1 && y <= 15)
+        {
+           col = y;
+           cout << "Columns have been updated!" << endl;
+           break;
+        }
+        else
+        {
+            cout << "Invalid input, please try again." << endl;
+            continue;
+        }
+        }
+        //cout << "Zombie Count : "; cin >> z;
+        Pause();
+        ClearScreen();
+    }
 
     void BoardSettings()
     {   
         string a ="n";
         while(a =="n")
         {
+            int defkRows = 5;
+            int defkColumns = 15;
             cout << "Board Settings" << endl;
             cout << "---------------" << endl;
-            cout << "Board Rows : " << kRows << endl;
-            cout << "Board Columns : " << kColumns << endl;
+            cout << "Board Rows : " << defkRows << endl;
+            cout << "Board Columns : " << defkColumns << endl;
             //cout << "Zombie Count : " <<(variable);
 
             cout << "Do you wish to change the game settings? (y/n/q to return) : ";
@@ -111,6 +120,8 @@ namespace pf
             }
             else if (choice == "n")
             {   
+                row =5;
+                col = 15;
                 ClearScreen();
                 cout << "The game will now begin." << endl;
                 Pause();
@@ -130,16 +141,36 @@ namespace pf
     
     void CreateGameBoard()
     {
-    
-    char objects[] = {'v','^','<','>',' ','h','p','r', ' ', ' ', ' '};
-    int noOfObjects = 11;
-        for (int row = 0; row < kRows; ++row)
+    kRows = row;
+    kColumns = col;
+
+    char objects[] = {'v','^','<','>',' ','h','p','r',' ', ' ', ' '};
+    int noOfObjects = 11; // number of objects in the array
+
+    rowMid = (kRows /2);
+    colMid = (kColumns /2); //center of the map
+
+    map.resize(kRows); // create empty rows
+    for (int i = 0; i < kRows; ++i)
+    {
+        map[i].resize(kColumns); // resize each row
+    }
+
+    for (int row = 0; row < kRows; ++row)
+    {
         for (int col = 0; col < kColumns; ++col)
         {
-            int objNo = rand() % noOfObjects;
-            char kBoard[row][col];
-            kBoard[row][col] = objects[objNo];
+            if(row == rowMid && col == colMid)
+            {
+                map[row][col] = 'A';
+            }
+            else
+            {
+            int objNo = rand() % noOfObjects; 
+            map[row][col] = objects[objNo]; 
+            }
         }
+    }
     }
 
     void ShowGameBoard()
@@ -160,9 +191,8 @@ namespace pf
             cout << setw(2) << (kRows - row);
             for (int col = 0; col < kColumns; ++col)
             {   
-                char kBoard[row][col];
                 cout << "| ";
-                cout << kBoard[row][col] << " "; //shows the stuff inside the map
+                cout << map[row][col] << " "; //shows the stuff inside the map
             }
             cout << "|";
             cout << endl;

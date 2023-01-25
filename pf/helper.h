@@ -4,7 +4,9 @@ namespace pf
 {
     int ClearScreen();
     int Pause();
-
+    
+    void BoardSettings();
+    void BoardEdit();
     void CreateGameBoard();
     void ShowGameBoard();
 }
