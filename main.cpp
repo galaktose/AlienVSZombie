@@ -23,9 +23,16 @@ int main()
     pf::BoardSettings();
     srand(time(NULL));
     pf::CreateGameBoard(); 
-    pf::ShowGameBoard(); 
+    pf::ShowGameBoard();
+    pf:: Pause();
+    bool game = true;
+    while(game = true)
+    {
+    pf:: inProgressBoard();
+    
     char sex;
     cin >> sex;
+    }
     //sex uoh dehya
 }
 

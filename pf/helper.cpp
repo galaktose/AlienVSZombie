@@ -173,6 +173,53 @@ namespace pf
     }
     }
 
+    void commands()
+    {
+        string command;
+        cout << " What are your commands, player?" << endl;
+        bool commChoice = true;
+        while(commChoice = true)
+        {
+        cin >> command;
+        if(command == "up" || command == "down" || command == "left" || command == "right")
+        {
+            //movement();
+            break;
+        }
+        else if(command == "save")
+        {
+            //gameSave();
+            break;
+        }
+        else if(command == "load")
+        {
+            //gameLoad();
+            break;
+        }
+        else if(command == "quit" || command == "q")
+        {
+            //quit();
+            break;
+        }
+        else if(command == "help")
+        {
+            //helpMenu();
+            break;
+        }
+        else if(command == "skip") // for testing purposes
+        {
+            //helpMenu();
+            break;
+        }
+        else
+        {
+            cout << "Invalid input. Please try again." << endl;
+            continue;
+        }
+        break;
+        }
+    }
+
     void ShowGameBoard()
     {
         cout << "  _______________________________" << endl;
@@ -203,5 +250,41 @@ namespace pf
             cout << "+---";
             }
         cout << "+" << endl;
+        commands();
+    }
+
+    void inProgressBoard()
+    {
+        system("cls");
+        cout << "  ________________________________________________" << endl;
+        cout << " | The battle has begun! Who will be victorious?  |" << endl;
+        cout << " |________________________________________________|" << endl;
+        cout << "                                  " << endl;
+        for (int row = 0; row < kRows; ++row)
+        {
+            cout << "  +---";
+            for (int col = 0;  col < kColumns - 1; ++col)
+            {
+                cout << "+---";
+            }
+            cout << "+";
+            cout << endl;
+            cout << setw(2) << (kRows - row);
+            for (int col = 0; col < kColumns; ++col)
+            {   
+                cout << "| ";
+                cout << map[row][col] << " "; //shows the stuff inside the map
+            }
+            cout << "|";
+            cout << endl;
+        }
+        cout << "  +---";
+        for (int j = 0; j < kColumns - 1; ++j)
+            {
+            cout << "+---";
+            }
+        cout << "+" << endl;
+        commands();
     }
 }
+

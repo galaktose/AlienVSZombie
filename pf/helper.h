@@ -9,6 +9,9 @@ namespace pf
     void BoardEdit();
     void CreateGameBoard();
     void ShowGameBoard();
+    void inProgressBoard();
+    void commands();
+    void movement();
 }
 
 
