@@ -12,6 +12,8 @@ namespace pf
     
     int kRows;
     int kColumns;
+    int rowZom;
+    int colZom;
 
         
         int row; //up down size
@@ -154,6 +156,13 @@ namespace pf
 
     rowMid = (kRows /2);
     colMid = (kColumns /2); //center of the map
+    
+    while (!(rowZom == rowMid && colZom == colMid))
+    {
+    rowZom = rand() % ((kRows -1) + 1);
+    colZom = rand() % ((kColumns - 1) + 1);
+    break;
+    }
 
     map.resize(kRows); // create empty rows
     for (int i = 0; i < kRows; ++i)
@@ -168,6 +177,10 @@ namespace pf
             if(row == rowMid && col == colMid)
             {
                 map[row][col] = 'A';
+            }
+            else if(row == rowZom && col == colZom)
+            {
+                map[row][col] = 'Z';
             }
             else
             {
