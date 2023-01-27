@@ -29,10 +29,8 @@ int main()
     while(game = true)
     {
     pf:: inProgressBoard();
+    pf:: Pause();
     
-    char sex;
-    cin >> sex;
     }
-    //sex uoh dehya
 }
 

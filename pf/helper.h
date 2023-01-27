@@ -11,7 +11,10 @@ namespace pf
     void ShowGameBoard();
     void inProgressBoard();
     void commands();
-    void movement();
+    void moveUp();
+    void moveDown();
+    void moveLeft();
+    void moveRight();
 }
 
 

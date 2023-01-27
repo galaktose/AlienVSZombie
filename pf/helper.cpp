@@ -14,10 +14,12 @@ namespace pf
     int kColumns;
 
         
-        int row;
-        int col;
+        int row; //up down size
+        int col; //left right size
         int rowMid;
         int colMid;
+        int newrow;
+        int newcol;
         vector<vector<char>>map;    
 
 
@@ -58,9 +60,11 @@ namespace pf
         bool choice = true;
         while(choice = true)
         {
-        cout << "New Board Rows (1-15) : "; 
+        cout << "Tip : Row will be the size of the board from top to bottom." << endl;
+        
+        cout << "New Board Rows (1-11) : "; 
         cin >> x;
-        if (x % 2 == 1 && x <= 15)
+        if (x % 2 == 1 && x < 12)
         {
            row = x;
            cout << "Rows have been updated!" << endl;
@@ -77,8 +81,9 @@ namespace pf
         bool choice2 = true;
         while(choice2 = true)
         {
-        cout << "New Board Columns (1-15): "; cin >> y;
-         if (y % 2 == 1 && y <= 15)
+        cout << "Tip : Column will be the size of the board from left to right." << endl;
+        cout << "New Board Columns (1-29): "; cin >> y;
+         if (y % 2 == 1 && y < 30)
         {
            col = y;
            cout << "Columns have been updated!" << endl;
@@ -102,7 +107,7 @@ namespace pf
         {
             int defkRows = 5;
             int defkColumns = 15;
-            cout << "Board Settings" << endl;
+            cout << "Board Settings(Default)" << endl;
             cout << "---------------" << endl;
             cout << "Board Rows : " << defkRows << endl;
             cout << "Board Columns : " << defkColumns << endl;
@@ -181,9 +186,24 @@ namespace pf
         while(commChoice = true)
         {
         cin >> command;
-        if(command == "up" || command == "down" || command == "left" || command == "right")
+        if(command == "up")
         {
-            //movement();
+            moveUp();
+            break;
+        }
+        if(command == "down")
+        {
+            //moveDown();
+            break;
+        }
+        if(command == "left")
+        {
+            //moveLeft();
+            break;
+        }
+        if(command == "right")
+        {
+            //moveRight();
             break;
         }
         else if(command == "save")
@@ -220,8 +240,18 @@ namespace pf
         }
     }
 
+    void moveUp()
+    {
+        // newrow = row - 1;
+        // newcol = col;
+        // map[rowMid][colMid] = '.';
+        // map[newrow][col] = 'A';
+        // map[rowMid][colMid] = map[newrow][newcol];
+    }
+
     void ShowGameBoard()
     {
+        ClearScreen();
         cout << "  _______________________________" << endl;
         cout << " | Player, be ready for battle!  |" << endl;
         cout << " |_______________________________|" << endl;
@@ -235,7 +265,9 @@ namespace pf
             }
             cout << "+";
             cout << endl;
+            //display row number
             cout << setw(2) << (kRows - row);
+
             for (int col = 0; col < kColumns; ++col)
             {   
                 cout << "| ";
@@ -250,6 +282,27 @@ namespace pf
             cout << "+---";
             }
         cout << "+" << endl;
+        
+        //display column number
+        cout << "   ";
+        for (int j = 0; j < col; ++j)
+        {
+        int digit = (j + 1) / 10; //for > 10 numbers
+        cout << " ";
+        if (digit == 0)
+            cout << " ";
+        else
+            cout << digit;
+            cout <<"  ";
+        }
+
+        cout << endl;
+        cout << " ";
+        for (int j = 0; j < col; ++j)
+        {
+        cout << "   " << (j + 1) % 10;
+        }
+        cout << endl << endl;
         commands();
     }
 
@@ -284,6 +337,27 @@ namespace pf
             cout << "+---";
             }
         cout << "+" << endl;
+
+        //display column number
+        cout << "   ";
+        for (int j = 0; j < col; ++j)
+        {
+        int digit = (j + 1) / 10; //for > 10 numbers
+        cout << " ";
+        if (digit == 0)
+            cout << " ";
+        else
+            cout << digit;
+            cout <<"  ";
+        }
+
+        cout << endl;
+        cout << " ";
+        for (int j = 0; j < col; ++j)
+        {
+        cout << "   " << (j + 1) % 10;
+        }
+        cout << endl << endl;
         commands();
     }
 }
