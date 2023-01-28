@@ -206,7 +206,7 @@ namespace pf
         }
         if(command == "down")
         {
-            //moveDown();
+            moveDown();
             break;
         }
         if(command == "left")
@@ -216,7 +216,7 @@ namespace pf
         }
         if(command == "right")
         {
-            //moveRight();
+            moveRight();
             break;
         }
         else if(command == "save")
@@ -255,18 +255,32 @@ namespace pf
 
     void moveUp()
     {
-        // newrow = row - 1;
-        // newcol = col;
-        // map[rowMid][colMid] = '.';
-        // map[newrow][col] = 'A';
-        // map[rowMid][colMid] = map[newrow][newcol];
-        
+        map[rowMid - 1][colMid] ='A';
+        map[rowMid][colMid]='.';
+        rowMid = rowMid- 1;
+    }
+
+    void moveDown()
+    {
+        map[rowMid + 1][colMid] ='A';
+        map[rowMid][colMid]='.';
+        rowMid = rowMid + 1;
     }
 
     void moveLeft()
     {
-        //std::move(map.begin[rowMid][colMid], map.begin() -1);
+        map[rowMid][colMid - 1] ='A';
+        map[rowMid][colMid]='.';
+        colMid = colMid- 1;
     }
+
+    void moveRight()
+    {
+        map[rowMid][colMid + 1] ='A';
+        map[rowMid][colMid]='.';
+        colMid = colMid + 1;
+    }
+
 
     void ShowGameBoard()
     {
