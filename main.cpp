@@ -30,7 +30,6 @@ int main()
     {
     pf:: inProgressBoard();
     pf:: Pause();
-    
     }
 }
 
