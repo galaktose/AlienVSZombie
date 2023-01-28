@@ -211,7 +211,7 @@ namespace pf
         }
         if(command == "left")
         {
-            //moveLeft();
+            moveLeft();
             break;
         }
         if(command == "right")
@@ -265,7 +265,7 @@ namespace pf
 
     void moveLeft()
     {
-        //map.assign(1 , 5);
+        //std::move(map.begin[rowMid][colMid], map.begin() -1);
     }
 
     void ShowGameBoard()
