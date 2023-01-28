@@ -260,6 +260,12 @@ namespace pf
         // map[rowMid][colMid] = '.';
         // map[newrow][col] = 'A';
         // map[rowMid][colMid] = map[newrow][newcol];
+        
+    }
+
+    void moveLeft()
+    {
+        //map.assign(1 , 5);
     }
 
     void ShowGameBoard()
