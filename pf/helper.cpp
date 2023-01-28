@@ -18,8 +18,8 @@ namespace pf
         
         int row; //up down size
         int col; //left right size
-        int rowMid;
-        int colMid;
+        int alienrow;
+        int aliencol;
         int newrow;
         int newcol;
         vector<vector<char>>map;    
@@ -154,10 +154,10 @@ namespace pf
     char objects[] = {'v','^','<','>',' ','h','p','r',' ', ' ', ' '};
     int noOfObjects = 11; // number of objects in the array
 
-    rowMid = (kRows /2);
-    colMid = (kColumns /2); //center of the map
+    alienrow = (kRows /2);
+    aliencol = (kColumns /2); //center of the map
     
-    while (!(rowZom == rowMid && colZom == colMid))
+    while (!(rowZom == alienrow && colZom == aliencol))
     {
     rowZom = rand() % ((kRows -1) + 1);
     colZom = rand() % ((kColumns - 1) + 1);
@@ -174,7 +174,7 @@ namespace pf
     {
         for (int col = 0; col < kColumns; ++col)
         {
-            if(row == rowMid && col == colMid)
+            if(row == alienrow && col == aliencol)
             {
                 map[row][col] = 'A';
             }
@@ -255,30 +255,30 @@ namespace pf
 
     void moveUp()
     {
-        map[rowMid - 1][colMid] ='A';
-        map[rowMid][colMid]='.';
-        rowMid = rowMid- 1;
+        map[alienrow - 1][aliencol] ='A';
+        map[alienrow][aliencol]='.';
+        alienrow = alienrow - 1;
     }
 
     void moveDown()
     {
-        map[rowMid + 1][colMid] ='A';
-        map[rowMid][colMid]='.';
-        rowMid = rowMid + 1;
+        map[alienrow + 1][aliencol] ='A';
+        map[alienrow][aliencol]='.';
+        alienrow = alienrow + 1;
     }
 
     void moveLeft()
     {
-        map[rowMid][colMid - 1] ='A';
-        map[rowMid][colMid]='.';
-        colMid = colMid- 1;
+        map[alienrow][aliencol - 1] ='A';
+        map[alienrow][aliencol]='.';
+        aliencol = aliencol- 1;
     }
 
     void moveRight()
     {
-        map[rowMid][colMid + 1] ='A';
-        map[rowMid][colMid]='.';
-        colMid = colMid + 1;
+        map[alienrow][aliencol + 1] ='A';
+        map[alienrow][aliencol]='.';
+        aliencol = aliencol + 1;
     }
 
 
