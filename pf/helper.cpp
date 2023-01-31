@@ -265,15 +265,16 @@ namespace pf
         cout << "Select which arrow you want to turn." << endl;
         cout << "Arrow Row: ";
         cin >> arRow;
-        cout << endl;
         cout << "Arrow Column: ";
         cin >> arrowCol;
         bool arrowchoice = true;
         while(arrowchoice = true)
         {
+        arRow = arRow - 1; //computers start with 0 instead of 1 so add 1 to match the board
+        arrowCol = arrowCol - 1;
         row = arRow;
-        col = arrowCol; 
-            if(map[row][col] =='>' || map[row][col] =='<' || map[row][col] =='^' || map[row][col] =='v')
+        col = arrowCol;
+        if(map[row][col] =='>' || map[row][col] =='<' || map[row][col] =='^' || map[row][col] =='v')
             {
                 cout << "Choose a direction you want your arrow to face.(Up - U, Down - D , Left - L , Right - R)" << endl;
                 cout << "Current arrow direction : " << map[row][col] << endl;
@@ -282,25 +283,25 @@ namespace pf
                 bool arrowC2 = true;
                 while (arrowC2 = true)
                 {
-                    if(arrowD = 'U')
+                    if(arrowD == 'U')
                     {
                         map[row][col] = '^';
                         cout << "Arrow direction has been changed!" << endl;
                         break;
                     }
-                    else if (arrowD = 'D')
+                    else if (arrowD == 'D')
                     {
                         map[row][col] = 'v';
                         cout << "Arrow direction has been changed!" << endl;
                         break;
                     }
-                    else if (arrowD = 'L')
+                    else if (arrowD == 'L')
                     {
                         map[row][col] = '<';
                         cout << "Arrow direction has been changed!" << endl;
                         break;
                     }
-                    else if (arrowD = 'R')
+                    else if (arrowD == 'R')
                     {
                         map[row][col] = '>';
                         cout << "Arrow direction has been changed!" << endl;
@@ -451,7 +452,8 @@ namespace pf
         cout << "   " << (j + 1) % 10;
         }
         cout << endl;
-        cout << "Row : Top to down.            Column : Left to right." << endl;
+        cout << "Row : Top to down." << endl;
+        cout << "Column : Left to right." << endl;
         cout << endl;
         commands();
     }
@@ -490,7 +492,7 @@ namespace pf
 
         //display column number
         cout << "   ";
-        for (int j = 0; j < col; ++j)
+        for (int j = 0; j < kColumns; ++j)
         {
         int digit = (j + 1) / 10; //for > 10 numbers
         cout << " ";
@@ -503,11 +505,14 @@ namespace pf
 
         cout << endl;
         cout << " ";
-        for (int j = 0; j < col; ++j)
+        for (int j = 0; j < kColumns; ++j)
         {
         cout << "   " << (j + 1) % 10;
         }
-        cout << endl << endl;
+        cout << endl;
+        cout << "Row : Top to down." << endl;
+        cout << "Column : Left to right." << endl;
+        cout << endl;
         commands();
     }
 }
