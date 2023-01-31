@@ -382,27 +382,49 @@ namespace pf
         while(Qchoice = true)
         {
         
-        if (x =="y")
-        {
-            cout << "Thanks for playing!" << endl;
-            Pause();
-            exit(0);
+            if (x =="y")
+            {
+                cout << "Thanks for playing!" << endl;
+                Pause();
+                exit(0);
+                break;
+            }
+            else if (x== "n")
+            {
+                cout << "The game will continue. Good luck!" << endl;
+                break;
+            }
+            else
+            {
+                cout << "Invalid input, please try again.";
+                continue;
+            }
             break;
         }
-        else if (x== "n")
-        {
-            cout << "The game will continue. Good luck!" << endl;
-            break;
-        }
-        else
-        {
-            cout << "Invalid input, please try again.";
-            continue;
-        }
-        break;
-        }
-        
-        
+
+    }
+
+    void helpMenu()
+    {   
+        string x;
+
+        cout << "  _________________________________________________________________" << endl;
+        cout << " |  Command |                     Description                      | " << endl;
+        cout << " |__________|______________________________________________________| " << endl;
+        cout << " |    up    | Move alien upwards                                   |" << endl;
+        cout << " |   down   | Move alien downwards                                 |"  << endl;
+        cout << " |   left   | Move alien to the left                               |" << endl;
+        cout << " |   right  | Move alien to the right                              |" << endl;
+        cout << " |   arrow  | Switch the direction of an arrow object in the board |" << endl;
+        cout << " |   save   | Save the current game                                |" << endl;
+        cout << " |   load   | Load a saved game                                    |" << endl;
+        cout << " |   quit   | Quit the game                                        |" << endl;
+        cout << " |__________|______________________________________________________|" << endl;
+        cout <<"                                                                     " << endl;
+
+        Pause();
+        ClearScreen();
+        inProgressBoard();
         
 
     }
