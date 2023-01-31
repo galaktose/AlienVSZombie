@@ -302,8 +302,27 @@ namespace pf
     }
 
     void quit()
-    {
+    {   
+        string x;
+        cout << "Are you sure you want to quit the game? (y/n) : ";
+        cin >> x;
+        if (x =="y")
+        {
+            exit(0);
+        }
+        else if (x== "n")
+        {
+            inProgressBoard();
+        }
+        else
+        {
+            cout << "Invalid input, please try again.";
+            quit();
+        }
         
+        
+        
+
     }
 
 
