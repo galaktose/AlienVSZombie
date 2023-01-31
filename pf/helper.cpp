@@ -14,7 +14,6 @@ namespace pf
     int kColumns;
     int rowZom;
     int colZom;
-
         
         int row; //up down size
         int col; //left right size
@@ -255,23 +254,44 @@ namespace pf
 
     void moveUp()
     {
+        if(alienrow  > 0)
+        {
         map[alienrow - 1][aliencol] ='A';
         map[alienrow][aliencol]='.';
         alienrow = alienrow - 1;
+        }
+        else
+        {
+            cout <<"Invalid move." << endl;
+        }
     }
 
     void moveDown()
     {
-        map[alienrow + 1][aliencol] ='A';
-        map[alienrow][aliencol]='.';
-        alienrow = alienrow + 1;
+        if(alienrow > row) // doesnt work
+        {
+        cout << "Invalid move." << endl;
+        }
+        else
+        {
+            map[alienrow + 1][aliencol] ='A';
+            map[alienrow][aliencol]='.';
+            alienrow = alienrow + 1;
+        }
     }
 
     void moveLeft()
     {
+        if(aliencol > 0)
+        {
         map[alienrow][aliencol - 1] ='A';
         map[alienrow][aliencol]='.';
         aliencol = aliencol- 1;
+        }
+        else
+        {
+            cout <<"Invalid move." << endl;
+        }
     }
 
     void moveRight()
