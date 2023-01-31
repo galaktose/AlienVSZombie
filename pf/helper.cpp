@@ -301,6 +301,11 @@ namespace pf
         aliencol = aliencol + 1;
     }
 
+    void quit()
+    {
+        
+    }
+
 
     void ShowGameBoard()
     {
