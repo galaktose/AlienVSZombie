@@ -378,18 +378,28 @@ namespace pf
         string x;
         cout << "Are you sure you want to quit the game? (y/n) : ";
         cin >> x;
+        bool Qchoice = true;
+        while(Qchoice = true)
+        {
+        
         if (x =="y")
         {
+            cout << "Thanks for playing!" << endl;
+            Pause();
             exit(0);
+            break;
         }
         else if (x== "n")
         {
-            inProgressBoard();
+            cout << "The game will continue. Good luck!" << endl;
+            break;
         }
         else
         {
             cout << "Invalid input, please try again.";
-            quit();
+            continue;
+        }
+        break;
         }
         
         
