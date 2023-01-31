@@ -229,9 +229,14 @@ namespace pf
             //gameLoad();
             break;
         }
+        else if(command == "arrow")
+        {
+            arrowChange();
+            break;
+        }
         else if(command == "quit" || command == "q")
         {
-            //quit();
+            quit();
             break;
         }
         else if(command == "help")
@@ -252,7 +257,72 @@ namespace pf
         break;
         }
     }
-
+    
+    void arrowChange()
+    {
+        int arRow;
+        int arrowCol;
+        cout << "Select which arrow you want to turn." << endl;
+        cout << "Arrow Row: ";
+        cin >> arRow;
+        cout << endl;
+        cout << "Arrow Column: ";
+        cin >> arrowCol;
+        bool arrowchoice = true;
+        while(arrowchoice = true)
+        {
+        row = arRow;
+        col = arrowCol; 
+            if(map[row][col] =='>' || map[row][col] =='<' || map[row][col] =='^' || map[row][col] =='v')
+            {
+                cout << "Choose a direction you want your arrow to face.(Up - U, Down - D , Left - L , Right - R)" << endl;
+                cout << "Current arrow direction : " << map[row][col] << endl;
+                char arrowD;
+                cin >> arrowD;
+                bool arrowC2 = true;
+                while (arrowC2 = true)
+                {
+                    if(arrowD = 'U')
+                    {
+                        map[row][col] = '^';
+                        cout << "Arrow direction has been changed!" << endl;
+                        break;
+                    }
+                    else if (arrowD = 'D')
+                    {
+                        map[row][col] = 'v';
+                        cout << "Arrow direction has been changed!" << endl;
+                        break;
+                    }
+                    else if (arrowD = 'L')
+                    {
+                        map[row][col] = '<';
+                        cout << "Arrow direction has been changed!" << endl;
+                        break;
+                    }
+                    else if (arrowD = 'R')
+                    {
+                        map[row][col] = '>';
+                        cout << "Arrow direction has been changed!" << endl;
+                        break;
+                    }
+                    else
+                    {
+                        cout <<"Invalid direction. Try again." << endl;
+                        continue;
+                    }
+                    break;
+                }
+                
+            }
+            else
+            {
+                cout << "The selected coordinate does not have an arrow in it." << endl;
+            }
+        break;
+        }
+        
+    }
     void moveUp()
     {
         if(alienrow  > 0)
@@ -344,7 +414,7 @@ namespace pf
             cout << "+";
             cout << endl;
             //display row number
-            cout << setw(2) << (kRows - row);
+            cout << setw(2) << row + 1;
 
             for (int col = 0; col < kColumns; ++col)
             {   
@@ -380,7 +450,9 @@ namespace pf
         {
         cout << "   " << (j + 1) % 10;
         }
-        cout << endl << endl;
+        cout << endl;
+        cout << "Row : Top to down.            Column : Left to right." << endl;
+        cout << endl;
         commands();
     }
 
@@ -400,7 +472,7 @@ namespace pf
             }
             cout << "+";
             cout << endl;
-            cout << setw(2) << (kRows - row);
+            cout << setw(2) << row + 1;
             for (int col = 0; col < kColumns; ++col)
             {   
                 cout << "| ";
