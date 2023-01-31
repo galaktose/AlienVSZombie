@@ -10,7 +10,7 @@ Please provide the YouTube link to your [Video Demo](https://youtube.com).
 
 List all the features completed.
 
-1. Game controls (except for arrow, help, save and load)
+1. Game controls (except for save and load)
 2. Random map and game object generation
 3. Customisable board size
 
@@ -50,8 +50,6 @@ List down the contribution of each group members.
     - replaced array based map generation with vectors.
 2. Alien not moving
     - added + 1/ - 1 to the map container to be able to move the A char
-3. Alien going out of bounds
+3. Alien going out of bounds(lower bound and right border)
     - (to be solved)
-4. Failed to acquire Swimsuit Hoshino
-    - Hinata acquired.
 

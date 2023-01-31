@@ -241,7 +241,7 @@ namespace pf
         }
         else if(command == "help")
         {
-            //helpMenu();
+            helpMenu();
             break;
         }
         else if(command == "skip") // for testing purposes
@@ -405,7 +405,8 @@ namespace pf
     }
 
     void helpMenu()
-    {   
+    {
+        ClearScreen();    
         string x;
 
         cout << "  _________________________________________________________________" << endl;
@@ -421,12 +422,7 @@ namespace pf
         cout << " |   quit   | Quit the game                                        |" << endl;
         cout << " |__________|______________________________________________________|" << endl;
         cout <<"                                                                     " << endl;
-
-        Pause();
-        ClearScreen();
-        inProgressBoard();
-        
-
+    
     }
 
 

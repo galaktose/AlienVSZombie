@@ -17,6 +17,7 @@ namespace pf
     void moveRight();
     void arrowChange();
     void quit();
+    void helpMenu();
 }
 
 
