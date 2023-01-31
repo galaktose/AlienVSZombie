@@ -218,6 +218,7 @@ namespace pf
             moveRight();
             break;
         }
+        
         else if(command == "save")
         {
             //gameSave();
