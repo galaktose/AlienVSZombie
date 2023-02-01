@@ -2,7 +2,7 @@
 
 ## Video Demo
 
-Please provide the YouTube link to your [Video Demo](https://youtube.com).
+Please provide the YouTube link to your [Video Demo](https://youtu.be/dMx48-AR7vM).
 
 ## Minimum Requirements
 
@@ -22,7 +22,7 @@ List all the features not yet done. Remove this section if there is no incomplet
 2. Game objects' effects
 3. Additional features
 4. Save/Load feature
-5. Movement and attacks
+5. Alien interaction to game objects and zombies
 
 ## Additional Features
 
