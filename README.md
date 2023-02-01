@@ -27,35 +27,35 @@ Players can edit and change their board sizes before the game starts.
 The default rows and columns value are 5 and 15 respectively. 
 
 [Game Objects]
-Arrow 
-^ (up),
-v (down),
-< (left),
-> (right)
-
-• Changes Alien’s direction of movement.
-• Adds 20 attack to Alien.
-
-Health  (h) 
-• Adds 20 life to Alien.
-
-Pod (p) 
-• Instantly inflicts 10 damage to Zombie when hit by Alien.
-
-Rock (r) 
-• Hides a game object (except Rock and Trail) beneath it.
-• Reveals the hidden game object when hit by Alien.
-• Stops the Alien from moving.
-
-Empty Space 
-• Just an empty space on the board.
-
-Trail (.) 
-• Left by Alien when it moves.
-• Reset to a random game object (except the Trail) after Alien’s turn ends.
-
-For further gameplay questions, A help menu can be accessed in game by typing "help".
-
+Arrow  
+^ (up),  
+v (down),  
+< (left),  
+(>) (right)  
+  
+• Changes Alien’s direction of movement.  
+• Adds 20 attack to Alien.  
+  
+Health  (h)  
+• Adds 20 life to Alien.  
+  
+Pod (p)   
+• Instantly inflicts 10 damage to Zombie when hit by Alien.  
+  
+Rock (r)   
+• Hides a game object (except Rock and Trail) beneath it.  
+• Reveals the hidden game object when hit by Alien.  
+• Stops the Alien from moving.  
+  
+Empty Space   
+• Just an empty space on the board.  
+  
+Trail (.)   
+• Left by Alien when it moves.  
+• Reset to a random game object (except the Trail) after Alien’s turn ends.  
+  
+For further gameplay questions, A help menu can be accessed in game by typing "help".  
+  
 
 ## Progress Log
 
