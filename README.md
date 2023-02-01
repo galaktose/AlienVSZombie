@@ -4,7 +4,7 @@ Aliens vs. Zombie is a text-based game inspired by the hit mobile game "Alien Pa
 
 ![Alt text](pf/gameplay.jfif "Gameplay!")
 
-Please provide the YouTube link to your [Video Demo](https://youtu.be/dMx48-AR7vM).
+[Video Demo](https://youtu.be/dMx48-AR7vM).
 
 ## Compilation Instructions
 
