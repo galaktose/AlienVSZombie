@@ -8,30 +8,33 @@ Aliens vs. Zombie is a text-based game inspired by the hit mobile game "Alien Pa
 
 ## Compilation Instructions
 
-```
+
 Open cmd (when in the AlienVSZombie folder and type in :
 
+```
 g++ main.cpp pf/helper.cpp  
 
-An executable "main.exe" will be available in the AlienVSZombie directory. Run it.
 ```
+An executable "main.exe" will be available in the AlienVSZombie directory. Run it.
 
 ## User Manual
 
 To run : Execute by clicking on main.exe via File Explorer 
 Alternatively, use cmd, cd to the directory containing main.exe and type ;
 
-start main.exe
+``` 
+start main.exe 
+```
 
 Players can edit and change their board sizes before the game starts. 
 The default rows and columns value are 5 and 15 respectively. 
 
 [Game Objects]
-Arrow  
-^ (up),  
-v (down),  
-< (left),  
-(>) (right)  
+Arrow   
+^ (up),    
+v (down),    
+< (left),    
+(>) (right)    
   
 • Changes Alien’s direction of movement.  
 • Adds 20 attack to Alien.  
