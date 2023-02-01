@@ -29,7 +29,7 @@ start main.exe
 Players can edit and change their board sizes before the game starts. 
 The default rows and columns value are 5 and 15 respectively. 
 
-[Game Objects]
+[Game Objects]  
 Arrow   
 ^ (up),    
 v (down),    
