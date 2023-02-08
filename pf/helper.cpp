@@ -439,7 +439,7 @@ namespace pf
 
     void objectContact()
     {
-        if (tileObject =='H')
+        if (tileObject =='h')
         {
             HP = HP + 20;
             tileObject =' ';
