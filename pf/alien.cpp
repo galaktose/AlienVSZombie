@@ -21,9 +21,20 @@ using namespace std;
         life = alienhealth;
         }
 
+        void attackSet(int atk)
+        {
+            aliendamage = atk;
+            attack = aliendamage;
+        }
+
         void showLife()
         {
             cout << "Alien Life : " << life;
+        }
+
+        void showdamage()
+        {
+            cout << "Alien's Damage : " << attack;
         }
 
     };

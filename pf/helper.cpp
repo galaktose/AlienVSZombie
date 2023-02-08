@@ -16,6 +16,7 @@ namespace pf
     int rowZom;
     int colZom;
     int HP;
+    int dmg;
         
         int row; //up down size
         int col; //left right size
@@ -151,6 +152,7 @@ namespace pf
     void CreateGameBoard()
     {
     HP = 100;
+    dmg = 0;
     kRows = row;
     kColumns = col;
 
@@ -197,7 +199,7 @@ namespace pf
     void commands()
     {
         string command;
-        cout << " What are your commands, player?" << endl;
+        cout << "What are your commands, player?" << endl;
         bool commChoice = true;
         while(commChoice = true)
         {
@@ -444,6 +446,41 @@ namespace pf
             HP = HP + 20;
             tileObject =' ';
         }
+        else if (tileObject =='<')
+        {
+            dmg = dmg + 20;
+            tileObject =' ';
+        }
+        else if (tileObject =='>')
+        {
+            dmg = dmg + 20;
+            tileObject =' ';
+        }
+        else if (tileObject =='^')
+        {
+            dmg = dmg + 20;
+            tileObject =' ';
+        }
+        else if (tileObject =='v')
+        {
+            dmg = dmg + 20;
+            tileObject =' ';
+        }
+        else if (tileObject =='p')
+        {
+            //insert zombie code here(real)(not fake)
+        }
+        else if (tileObject =='r')
+        {
+            //Bocchi the rock
+        }
+        else
+        {
+            //literally nothing happens!!!
+        }
+        
+        
+        
         
     }
     void ShowGameBoard()
@@ -506,7 +543,10 @@ namespace pf
         Alien stats;
         stats.lifeSet(HP);
         stats.showLife();
-        cout << endl;
+        cout << "        ";
+        stats.attackSet(dmg);
+        stats.showdamage();
+        cout << endl << endl;;
         commands();
     }
 
@@ -568,7 +608,10 @@ namespace pf
         Alien stats;
         stats.lifeSet(HP);
         stats.showLife();
-        cout << endl;
+        cout << "        ";
+        stats.attackSet(dmg);
+        stats.showdamage();
+        cout << endl << endl;
         commands();
     }
 }
