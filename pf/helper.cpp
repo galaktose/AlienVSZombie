@@ -6,6 +6,7 @@
 #include <cstdlib> // for system()
 #include <ctime>   // for time() in srand( time(NULL) );
 #include <iomanip> // for setw()
+#include "alien.cpp"
 using namespace std;
 namespace pf
 {
@@ -14,6 +15,7 @@ namespace pf
     int kColumns;
     int rowZom;
     int colZom;
+    int HP;
         
         int row; //up down size
         int col; //left right size
@@ -21,6 +23,7 @@ namespace pf
         int aliencol;
         int newrow;
         int newcol;
+        char tileObject;
         vector<vector<char>>map;    
 
 
@@ -147,6 +150,7 @@ namespace pf
     
     void CreateGameBoard()
     {
+    HP = 100;
     kRows = row;
     kColumns = col;
 
@@ -326,6 +330,8 @@ namespace pf
     }
     void moveUp()
     {
+        tileObject = map[alienrow - 1][aliencol];
+        objectContact();
         if(alienrow  > 0)
         {
         map[alienrow - 1][aliencol] ='A';
@@ -340,6 +346,8 @@ namespace pf
 
     void moveDown()
     {
+        tileObject = map[alienrow + 1][aliencol];
+        objectContact();
         if(alienrow > row) // doesnt work
         {
         cout << "Invalid move." << endl;
@@ -354,6 +362,8 @@ namespace pf
 
     void moveLeft()
     {
+        tileObject = map[alienrow][aliencol - 1];
+        objectContact();
         if(aliencol > 0)
         {
         map[alienrow][aliencol - 1] ='A';
@@ -368,6 +378,8 @@ namespace pf
 
     void moveRight()
     {
+        tileObject = map[alienrow][aliencol + 1];
+        objectContact();
         map[alienrow][aliencol + 1] ='A';
         map[alienrow][aliencol]='.';
         aliencol = aliencol + 1;
@@ -425,7 +437,15 @@ namespace pf
     
     }
 
-
+    void objectContact()
+    {
+        if (tileObject =='H')
+        {
+            HP = HP + 20;
+            tileObject =' ';
+        }
+        
+    }
     void ShowGameBoard()
     {
         ClearScreen();
@@ -482,6 +502,10 @@ namespace pf
         cout << endl;
         cout << "Row : Top to down." << endl;
         cout << "Column : Left to right." << endl;
+        cout << endl << endl;
+        Alien stats;
+        stats.lifeSet(HP);
+        stats.showLife();
         cout << endl;
         commands();
     }
@@ -540,6 +564,10 @@ namespace pf
         cout << endl;
         cout << "Row : Top to down." << endl;
         cout << "Column : Left to right." << endl;
+        cout << endl;
+        Alien stats;
+        stats.lifeSet(HP);
+        stats.showLife();
         cout << endl;
         commands();
     }
