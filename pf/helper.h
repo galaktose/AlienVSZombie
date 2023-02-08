@@ -16,6 +16,8 @@ namespace pf
     void moveLeft();
     void moveRight();
     void arrowChange();
+    void gameSave();
+    void gameLoad();
     void quit();
     void helpMenu();
     void objectContact();

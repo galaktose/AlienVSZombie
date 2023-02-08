@@ -1,6 +1,7 @@
 #include "helper.h"
 #include <iostream>
-#include <string>
+#include <fstream>
+#include <ostream>
 #include <numeric>
 #include <vector>
 #include <cstdlib> // for system()
@@ -227,12 +228,12 @@ namespace pf
         
         else if(command == "save")
         {
-            //gameSave();
+            gameSave();
             break;
         }
         else if(command == "load")
         {
-            //gameLoad();
+            gameLoad();
             break;
         }
         else if(command == "arrow")
@@ -385,6 +386,72 @@ namespace pf
         map[alienrow][aliencol + 1] ='A';
         map[alienrow][aliencol]='.';
         aliencol = aliencol + 1;
+    }       
+
+    void gameSave()
+    {
+        ofstream savefile;
+        string filename;
+
+        cout << "Enter the name of the new save file : ";
+        cin >> filename;
+        savefile.open(filename);
+
+        // Saving the "CHANGE THIS TO THE GAME BOARD" string into the txt file
+        savefile << "CHANGE THIS TO THE GAME BOARD";
+        savefile.close();
+
+        bool choice = true;
+        while (choice = true)
+        {
+            string input;
+            cout << "Do you want to quit or continue the game? (q/c) : ";
+            cin >> input;
+
+            if (input == "q")
+            {
+                quit();
+                break;
+            }
+            else if (input == "c")
+            {
+                // backtogame(IDK THE FUNC)
+                break;
+            }
+            else
+            {
+                cout << "Invalid input, please try again." << endl;
+            }
+            break;
+        }
+    }
+
+    void gameLoad()
+    {
+        system("cls"); 
+        ifstream loadfile;
+        string map, filename;
+
+        bool choice = true;
+        while (choice = true)
+        {
+            cout << "Enter the name of the save file of your choice : "; //User input for the file name of the txt file
+            cin >> filename;
+            loadfile.open(filename); //opens the file with the name inputted by user
+            if (loadfile.is_open()) //checks if the file requested by user is open
+            {
+                while (getline(loadfile, map)) //gather all string in txt file 
+                {
+                    cout << map << endl; // print the strings in the txt file
+                };
+                loadfile.close();// close file (to basically save all changes made)
+                break;
+            }
+            else
+            {
+                cout << "File doesn't exist, please try again." << endl;
+            }
+        }
     }
 
     void quit()
