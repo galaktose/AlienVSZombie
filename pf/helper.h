@@ -21,6 +21,7 @@ namespace pf
     void quit();
     void helpMenu();
     void objectContact();
+    void arrowpush();
 }
 
 

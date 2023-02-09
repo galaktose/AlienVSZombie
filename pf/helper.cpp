@@ -27,7 +27,7 @@ namespace pf
         int newcol;
         char tileObject;
         vector<vector<char>>map;    
-
+        vector<vector<char>>savemap;
 
     class Zombie
     {
@@ -333,18 +333,29 @@ namespace pf
     }
     void moveUp()
     {
-        tileObject = map[alienrow - 1][aliencol];
-        objectContact();
         if(alienrow  > 0)
         {
+        tileObject = map[alienrow - 1][aliencol];
         map[alienrow - 1][aliencol] ='A';
         map[alienrow][aliencol]='.';
         alienrow = alienrow - 1;
+        while (tileObject =='>' || tileObject =='^' || tileObject =='v' || tileObject =='<')
+        {
+            arrowpush();
+            objectContact();
+            continue;
         }
+        
+       } 
+        
         else
         {
             cout <<"Invalid move." << endl;
         }
+        
+        
+        
+        
     }
 
     void moveDown()
@@ -360,6 +371,7 @@ namespace pf
             map[alienrow + 1][aliencol] ='A';
             map[alienrow][aliencol]='.';
             alienrow = alienrow + 1;
+            arrowpush();
         }
     }
 
@@ -372,6 +384,7 @@ namespace pf
         map[alienrow][aliencol - 1] ='A';
         map[alienrow][aliencol]='.';
         aliencol = aliencol- 1;
+        arrowpush();
         }
         else
         {
@@ -386,6 +399,7 @@ namespace pf
         map[alienrow][aliencol + 1] ='A';
         map[alienrow][aliencol]='.';
         aliencol = aliencol + 1;
+        arrowpush();
     }       
 
     void gameSave()
@@ -398,7 +412,10 @@ namespace pf
         savefile.open(filename);
 
         // Saving the "CHANGE THIS TO THE GAME BOARD" string into the txt file
-        savefile << "CHANGE THIS TO THE GAME BOARD";
+        for(int i=0;i<map.size();i++)
+        {
+            //savefile << map[i]<<endl;
+        }
         savefile.close();
 
         bool choice = true;
@@ -511,27 +528,22 @@ namespace pf
         if (tileObject =='h')
         {
             HP = HP + 20;
-            tileObject =' ';
         }
         else if (tileObject =='<')
         {
             dmg = dmg + 20;
-            tileObject =' ';
         }
         else if (tileObject =='>')
         {
             dmg = dmg + 20;
-            tileObject =' ';
         }
         else if (tileObject =='^')
         {
             dmg = dmg + 20;
-            tileObject =' ';
         }
         else if (tileObject =='v')
         {
             dmg = dmg + 20;
-            tileObject =' ';
         }
         else if (tileObject =='p')
         {
@@ -545,11 +557,46 @@ namespace pf
         {
             //literally nothing happens!!!
         }
-        
-        
+    
+    
         
         
     }
+    
+    void arrowpush()
+    {
+        if (tileObject =='<')
+        {
+        if(aliencol > 0)
+        {
+            map[alienrow][aliencol - 1] ='A';
+            map[alienrow][aliencol]='.';
+            aliencol = aliencol- 1;
+        }
+        }
+        else if (tileObject =='>')
+        {
+            map[alienrow][aliencol + 1] ='A';
+            map[alienrow][aliencol]='.';
+            aliencol = aliencol + 1;
+        }
+        else if (tileObject =='^')
+        {
+        if(alienrow  > 0)
+        {
+            map[alienrow - 1][aliencol] ='A';
+            map[alienrow][aliencol]='.';
+            alienrow = alienrow - 1;
+        }
+        }
+        else if (tileObject =='v')
+        {
+            map[alienrow - 1][aliencol] ='A';
+            map[alienrow][aliencol]='.';
+            alienrow = alienrow - 1;
+        }
+    }    
+        
     void ShowGameBoard()
     {
         ClearScreen();
