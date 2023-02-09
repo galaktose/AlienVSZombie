@@ -11,105 +11,105 @@
 using namespace std;
 namespace pf
 {
-    
+
     int kRows;
     int kColumns;
     int rowZom;
     int colZom;
     int HP;
     int dmg;
-        
-        int row; //up down size
-        int col; //left right size
-        int alienrow;
-        int aliencol;
-        int newrow;
-        int newcol;
-        char tileObject;
-        vector<vector<char>>map;    
-        vector<vector<char>>savemap;
+
+    int row; // up down size
+    int col; // left right size
+    int alienrow;
+    int aliencol;
+    int newrow;
+    int newcol;
+    char tileObject;
+    vector<vector<char>> map;
+    vector<vector<char>> savemap;
 
     class Zombie
     {
-        public:
-            int life;
-            int attack;
-            int range;
+    public:
+        int life;
+        int attack;
+        int range;
     };
 
     int ClearScreen()
     {
-        #if defined(_WIN32)
-            return std::system("cls");
-        #elif defined(__linux__) || defined(__APPLE__)
-            return std::system("clear");
-        #endif
+#if defined(_WIN32)
+        return std::system("cls");
+#elif defined(__linux__) || defined(__APPLE__)
+        return std::system("clear");
+#endif
     }
 
     int Pause()
     {
-        #if defined(_WIN32)
-            return std::system("pause");
-        #elif defined(__linux__) || defined(__APPLE__)
-            return std::system(R"(read -p "Press any key to continue . . . " dummy)");
-        #endif
+#if defined(_WIN32)
+        return std::system("pause");
+#elif defined(__linux__) || defined(__APPLE__)
+        return std::system(R"(read -p "Press any key to continue . . . " dummy)");
+#endif
     }
-    
+
     void BoardEdit()
     {
-        //kufufu kufufu kufufu
+        // kufufu kufufu kufufu
         int x;
         int y;
         int z;
         cout << "Change your game settings." << endl;
         cout << "---------------------------" << endl;
         bool choice = true;
-        while(choice = true)
+        while (choice = true)
         {
-        cout << "Tip : Row will be the size of the board from top to bottom." << endl;
-        
-        cout << "New Board Rows (1-11) : "; 
-        cin >> x;
-        if (x % 2 == 1 && x < 12)
-        {
-           row = x;
-           cout << "Rows have been updated!" << endl;
-           break;
-        }
-        else
-        {
-            cout << "Invalid input, please try again." << endl;
-            continue;
-        }
-        break;
-        
+            cout << "Tip : Row will be the size of the board from top to bottom." << endl;
+
+            cout << "New Board Rows (1-11) : ";
+            cin >> x;
+            if (x % 2 == 1 && x < 12)
+            {
+                row = x;
+                cout << "Rows have been updated!" << endl;
+                break;
+            }
+            else
+            {
+                cout << "Invalid input, please try again." << endl;
+                continue;
+            }
+            break;
         }
         bool choice2 = true;
-        while(choice2 = true)
+        while (choice2 = true)
         {
-        cout << "Tip : Column will be the size of the board from left to right." << endl;
-        cout << "New Board Columns (1-29): "; cin >> y;
-         if (y % 2 == 1 && y < 30)
-        {
-           col = y;
-           cout << "Columns have been updated!" << endl;
-           break;
+            cout << "Tip : Column will be the size of the board from left to right." << endl;
+            cout << "New Board Columns (1-29): ";
+            cin >> y;
+            if (y % 2 == 1 && y < 30)
+            {
+                col = y;
+                cout << "Columns have been updated!" << endl;
+                break;
+            }
+            else
+            {
+                cout << "Invalid input, please try again." << endl;
+                continue;
+            }
         }
-        else
-        {
-            cout << "Invalid input, please try again." << endl;
-            continue;
-        }
-        }
-        //cout << "Zombie Count : "; cin >> z;
+        // cout << "Zombie Count : "; cin >> z;
         Pause();
         ClearScreen();
     }
 
     void BoardSettings()
-    {   
-        string a ="n";
-        while(a =="n")
+    {
+        string a = "n";
+        while (a == "n")
         {
             int defkRows = 5;
             int defkColumns = 15;
@@ -117,84 +117,83 @@ namespace pf
             cout << "---------------" << endl;
             cout << "Board Rows : " << defkRows << endl;
             cout << "Board Columns : " << defkColumns << endl;
-            //cout << "Zombie Count : " <<(variable);
+            // cout << "Zombie Count : " <<(variable);
 
             cout << "Do you wish to change the game settings? (y/n/q to return) : ";
             string choice;
             cin >> choice;
-            
-            if (choice =="y")
-            {   
+
+            if (choice == "y")
+            {
                 ClearScreen();
                 BoardEdit();
                 break;
             }
             else if (choice == "n")
-            {   
-                row =5;
+            {
+                row = 5;
                 col = 15;
                 ClearScreen();
                 cout << "The game will now begin." << endl;
                 Pause();
             }
             else
-            {   
+            {
                 choice = a;
-                cout << "Invalid input, please try again." << endl; 
+                cout << "Invalid input, please try again." << endl;
                 Pause();
                 ClearScreen();
-                continue;  
+                continue;
             }
             break;
         }
-        
     }
-    
+
     void CreateGameBoard()
     {
-    HP = 100;
-    dmg = 0;
-    kRows = row;
-    kColumns = col;
+        HP = 100;
+        dmg = 0;
+        kRows = row;
+        kColumns = col;
 
-    char objects[] = {'v','^','<','>',' ','h','p','r',' ', ' ', ' '};
-    int noOfObjects = 11; // number of objects in the array
+        char objects[] = {'v', '^', '<', '>', ' ', 'h', 'p', 'r', ' ', ' ', ' '};
+        int noOfObjects = 11; // number of objects in the array
 
-    alienrow = (kRows /2);
-    aliencol = (kColumns /2); //center of the map
-    
-    while (!(rowZom == alienrow && colZom == aliencol))
-    {
-    rowZom = rand() % ((kRows -1) + 1);
-    colZom = rand() % ((kColumns - 1) + 1);
-    break;
-    }
+        alienrow = (kRows / 2);
+        aliencol = (kColumns / 2); // center of the map
 
-    map.resize(kRows); // create empty rows
-    for (int i = 0; i < kRows; ++i)
-    {
-        map[i].resize(kColumns); // resize each row
-    }
-
-    for (int row = 0; row < kRows; ++row)
-    {
-        for (int col = 0; col < kColumns; ++col)
+        while (!(rowZom == alienrow && colZom == aliencol))
         {
-            if(row == alienrow && col == aliencol)
+            rowZom = rand() % ((kRows - 1) + 1);
+            colZom = rand() % ((kColumns - 1) + 1);
+            break;
+        }
+
+        map.resize(kRows); // create empty rows
+        for (int i = 0; i < kRows; ++i)
+        {
+            map[i].resize(kColumns); // resize each row
+        }
+
+        for (int row = 0; row < kRows; ++row)
+        {
+            for (int col = 0; col < kColumns; ++col)
             {
-                map[row][col] = 'A';
-            }
-            else if(row == rowZom && col == colZom)
-            {
-                map[row][col] = 'Z';
-            }
-            else
-            {
-            int objNo = rand() % noOfObjects; 
-            map[row][col] = objects[objNo]; 
+                if (row == alienrow && col == aliencol)
+                {
+                    map[row][col] = 'A';
+                }
+                else if (row == rowZom && col == colZom)
+                {
+                    map[row][col] = 'Z';
+                }
+                else
+                {
+                    int objNo = rand() % noOfObjects;
+                    map[row][col] = objects[objNo];
+                }
             }
         }
-    }
     }
 
     void commands()
@@ -202,69 +201,69 @@ namespace pf
         string command;
         cout << "What are your commands, player?" << endl;
         bool commChoice = true;
-        while(commChoice = true)
+        while (commChoice = true)
         {
-        cin >> command;
-        if(command == "up")
-        {
-            moveUp();
+            cin >> command;
+            if (command == "up")
+            {
+                moveUp();
+                break;
+            }
+            if (command == "down")
+            {
+                moveDown();
+                break;
+            }
+            if (command == "left")
+            {
+                moveLeft();
+                break;
+            }
+            if (command == "right")
+            {
+                moveRight();
+                break;
+            }
+
+            else if (command == "save")
+            {
+                gameSave();
+                break;
+            }
+            else if (command == "load")
+            {
+                gameLoad();
+                break;
+            }
+            else if (command == "arrow")
+            {
+                arrowChange();
+                break;
+            }
+            else if (command == "quit" || command == "q")
+            {
+                quit();
+                break;
+            }
+            else if (command == "help")
+            {
+                helpMenu();
+                break;
+            }
+            else if (command == "skip") // for testing purposes
+            {
+                // helpMenu();
+                break;
+            }
+            else
+            {
+                cout << "Invalid input. Please try again." << endl;
+                continue;
+            }
             break;
-        }
-        if(command == "down")
-        {
-            moveDown();
-            break;
-        }
-        if(command == "left")
-        {
-            moveLeft();
-            break;
-        }
-        if(command == "right")
-        {
-            moveRight();
-            break;
-        }
-        
-        else if(command == "save")
-        {
-            gameSave();
-            break;
-        }
-        else if(command == "load")
-        {
-            gameLoad();
-            break;
-        }
-        else if(command == "arrow")
-        {
-            arrowChange();
-            break;
-        }
-        else if(command == "quit" || command == "q")
-        {
-            quit();
-            break;
-        }
-        else if(command == "help")
-        {
-            helpMenu();
-            break;
-        }
-        else if(command == "skip") // for testing purposes
-        {
-            //helpMenu();
-            break;
-        }
-        else
-        {
-            cout << "Invalid input. Please try again." << endl;
-            continue;
-        }
-        break;
         }
     }
-    
+
     void arrowChange()
     {
         int arRow;
@@ -275,13 +274,13 @@ namespace pf
         cout << "Arrow Column: ";
         cin >> arrowCol;
         bool arrowchoice = true;
-        while(arrowchoice = true)
+        while (arrowchoice = true)
         {
-        arRow = arRow - 1; //computers start with 0 instead of 1 so add 1 to match the board
-        arrowCol = arrowCol - 1;
-        row = arRow;
-        col = arrowCol;
-        if(map[row][col] =='>' || map[row][col] =='<' || map[row][col] =='^' || map[row][col] =='v')
+            arRow = arRow - 1; // computers start with 0 instead of 1 so add 1 to match the board
+            arrowCol = arrowCol - 1;
+            row = arRow;
+            col = arrowCol;
+            if (map[row][col] == '>' || map[row][col] == '<' || map[row][col] == '^' || map[row][col] == 'v')
             {
                 cout << "Choose a direction you want your arrow to face.(Up - U, Down - D , Left - L , Right - R)" << endl;
                 cout << "Current arrow direction : " << map[row][col] << endl;
@@ -290,7 +289,7 @@ namespace pf
                 bool arrowC2 = true;
                 while (arrowC2 = true)
                 {
-                    if(arrowD == 'U')
+                    if (arrowD == 'U')
                     {
                         map[row][col] = '^';
                         cout << "Arrow direction has been changed!" << endl;
@@ -316,91 +315,146 @@ namespace pf
                     }
                     else
                     {
-                        cout <<"Invalid direction. Try again." << endl;
+                        cout << "Invalid direction. Try again." << endl;
                         continue;
                     }
                     break;
                 }
-                
             }
             else
             {
                 cout << "The selected coordinate does not have an arrow in it." << endl;
             }
-        break;
+            break;
         }
-        
     }
     void moveUp()
     {
-        if(alienrow  > 0)
+        if (alienrow > 0)
         {
-        tileObject = map[alienrow - 1][aliencol];
-        map[alienrow - 1][aliencol] ='A';
-        map[alienrow][aliencol]='.';
-        alienrow = alienrow - 1;
-        while (tileObject =='>' || tileObject =='^' || tileObject =='v' || tileObject =='<')
-        {
-            arrowpush();
-            objectContact();
-            continue;
+            tileObject = map[alienrow - 1][aliencol];
+            map[alienrow - 1][aliencol] = 'A';
+            map[alienrow][aliencol] = '.';
+            alienrow = alienrow - 1;
+            bool arrowmove = true;
+            while (arrowmove = true)
+            {
+
+                if (tileObject == '>' || tileObject == '^' || tileObject == 'v' || tileObject == '<')
+                {
+                    objectContact();
+                    arrowpush();
+                    continue;
+                }
+                else
+                {
+                    objectContact();
+                    break;
+                }
+                break;
+            }
         }
-        
-       } 
-        
         else
         {
-            cout <<"Invalid move." << endl;
+            cout << "Invalid move." << endl;
         }
-        
-        
-        
-        
     }
 
     void moveDown()
     {
-        tileObject = map[alienrow + 1][aliencol];
-        objectContact();
-        if(alienrow > row) // doesnt work
+        if (alienrow <= kRows)
         {
-        cout << "Invalid move." << endl;
+            tileObject = map[alienrow + 1][aliencol];
+            map[alienrow + 1][aliencol] = 'A';
+            map[alienrow][aliencol] = '.';
+            alienrow = alienrow - 1;
+            bool arrowmove = true;
+            while (arrowmove = true)
+            {
+
+                if (tileObject == '>' || tileObject == '^' || tileObject == 'v' || tileObject == '<')
+                {
+                    objectContact();
+                    arrowpush();
+                    continue;
+                }
+                else
+                {
+                    objectContact();
+                    break;
+                }
+                break;
+            }
         }
         else
         {
-            map[alienrow + 1][aliencol] ='A';
-            map[alienrow][aliencol]='.';
-            alienrow = alienrow + 1;
-            arrowpush();
+            cout << "Invalid move." << endl;
         }
     }
 
     void moveLeft()
     {
-        tileObject = map[alienrow][aliencol - 1];
-        objectContact();
-        if(aliencol > 0)
+        if (aliencol > 0)
         {
-        map[alienrow][aliencol - 1] ='A';
-        map[alienrow][aliencol]='.';
-        aliencol = aliencol- 1;
-        arrowpush();
+            tileObject = map[alienrow][aliencol - 1];
+            map[alienrow][aliencol - 1] = 'A';
+            map[alienrow][aliencol] = '.';
+            aliencol = aliencol - 1;
+            bool arrowmove = true;
+            while (arrowmove = true)
+            {
+
+                if (tileObject == '>' || tileObject == '^' || tileObject == 'v' || tileObject == '<')
+                {
+                    objectContact();
+                    arrowpush();
+                    continue;
+                }
+                else
+                {
+                    objectContact();
+                    break;
+                }
+                break;
+            }
         }
         else
         {
-            cout <<"Invalid move." << endl;
+            cout << "Invalid move." << endl;
         }
     }
 
     void moveRight()
     {
-        tileObject = map[alienrow][aliencol + 1];
-        objectContact();
-        map[alienrow][aliencol + 1] ='A';
-        map[alienrow][aliencol]='.';
-        aliencol = aliencol + 1;
-        arrowpush();
-    }       
+        if (aliencol <= kColumns)
+        {
+            tileObject = map[alienrow][aliencol + 1];
+            map[alienrow][aliencol + 1] = 'A';
+            map[alienrow][aliencol] = '.';
+            aliencol = aliencol + 1;
+            bool arrowmove = true;
+            while (arrowmove = true)
+            {
+
+                if (tileObject == '>' || tileObject == '^' || tileObject == 'v' || tileObject == '<')
+                {
+                    objectContact();
+                    arrowpush();
+                    continue;
+                }
+                else
+                {
+                    objectContact();
+                    break;
+                }
+                break;
+            }
+        }
+        else
+        {
+            cout << "Invalid move." << endl;
+        }
+    }
 
     void gameSave()
     {
@@ -412,9 +466,9 @@ namespace pf
         savefile.open(filename);
 
         // Saving the "CHANGE THIS TO THE GAME BOARD" string into the txt file
-        for(int i=0;i<map.size();i++)
+        for (int i = 0; i < map.size(); i++)
         {
-            //savefile << map[i]<<endl;
+            // savefile << map[i]<<endl;
         }
         savefile.close();
 
@@ -445,23 +499,23 @@ namespace pf
 
     void gameLoad()
     {
-        system("cls"); 
+        system("cls");
         ifstream loadfile;
         string map, filename;
 
         bool choice = true;
         while (choice = true)
         {
-            cout << "Enter the name of the save file of your choice : "; //User input for the file name of the txt file
+            cout << "Enter the name of the save file of your choice : "; // User input for the file name of the txt file
             cin >> filename;
-            loadfile.open(filename); //opens the file with the name inputted by user
-            if (loadfile.is_open()) //checks if the file requested by user is open
+            loadfile.open(filename); // opens the file with the name inputted by user
+            if (loadfile.is_open())  // checks if the file requested by user is open
             {
-                while (getline(loadfile, map)) //gather all string in txt file 
+                while (getline(loadfile, map)) // gather all string in txt file
                 {
                     cout << map << endl; // print the strings in the txt file
                 };
-                loadfile.close();// close file (to basically save all changes made)
+                loadfile.close(); // close file (to basically save all changes made)
                 break;
             }
             else
@@ -472,22 +526,22 @@ namespace pf
     }
 
     void quit()
-    {   
+    {
         string x;
         cout << "Are you sure you want to quit the game? (y/n) : ";
         cin >> x;
         bool Qchoice = true;
-        while(Qchoice = true)
+        while (Qchoice = true)
         {
-        
-            if (x =="y")
+
+            if (x == "y")
             {
                 cout << "Thanks for playing!" << endl;
                 Pause();
                 exit(0);
                 break;
             }
-            else if (x== "n")
+            else if (x == "n")
             {
                 cout << "The game will continue. Good luck!" << endl;
                 break;
@@ -499,19 +553,18 @@ namespace pf
             }
             break;
         }
-
     }
 
     void helpMenu()
     {
-        ClearScreen();    
+        ClearScreen();
         string x;
 
         cout << "  _________________________________________________________________" << endl;
         cout << " |  Command |                     Description                      | " << endl;
         cout << " |__________|______________________________________________________| " << endl;
         cout << " |    up    | Move alien upwards                                   |" << endl;
-        cout << " |   down   | Move alien downwards                                 |"  << endl;
+        cout << " |   down   | Move alien downwards                                 |" << endl;
         cout << " |   left   | Move alien to the left                               |" << endl;
         cout << " |   right  | Move alien to the right                              |" << endl;
         cout << " |   arrow  | Switch the direction of an arrow object in the board |" << endl;
@@ -519,84 +572,71 @@ namespace pf
         cout << " |   load   | Load a saved game                                    |" << endl;
         cout << " |   quit   | Quit the game                                        |" << endl;
         cout << " |__________|______________________________________________________|" << endl;
-        cout <<"                                                                     " << endl;
-    
+        cout << "                                                                     " << endl;
     }
 
     void objectContact()
     {
-        if (tileObject =='h')
+        if (tileObject == 'h')
         {
             HP = HP + 20;
         }
-        else if (tileObject =='<')
+        else if (tileObject == '<' || tileObject == '>' || tileObject == '^' || tileObject == 'v')
         {
             dmg = dmg + 20;
         }
-        else if (tileObject =='>')
+        else if (tileObject == 'p')
         {
-            dmg = dmg + 20;
+            // insert zombie code here(real)(not fake)
         }
-        else if (tileObject =='^')
+        else if (tileObject == 'r')
         {
-            dmg = dmg + 20;
-        }
-        else if (tileObject =='v')
-        {
-            dmg = dmg + 20;
-        }
-        else if (tileObject =='p')
-        {
-            //insert zombie code here(real)(not fake)
-        }
-        else if (tileObject =='r')
-        {
-            //Bocchi the rock
+            // Bocchi the rock
         }
         else
         {
-            //literally nothing happens!!!
+            // literally nothing happens!!!
         }
-    
-    
-        
-        
     }
-    
+
     void arrowpush()
     {
-        if (tileObject =='<')
+        if (tileObject == '<')
         {
-        if(aliencol > 0)
-        {
-            map[alienrow][aliencol - 1] ='A';
-            map[alienrow][aliencol]='.';
-            aliencol = aliencol- 1;
+            if (aliencol > 0)
+            {
+                tileObject = map[alienrow][aliencol - 1];
+                map[alienrow][aliencol - 1] = 'A';
+                map[alienrow][aliencol] = '.';
+                aliencol = aliencol - 1;
+            }
         }
-        }
-        else if (tileObject =='>')
+        else if (tileObject == '>')
         {
-            map[alienrow][aliencol + 1] ='A';
-            map[alienrow][aliencol]='.';
+            tileObject = map[alienrow][aliencol + 1];
+            map[alienrow][aliencol + 1] = 'A';
+            map[alienrow][aliencol] = '.';
             aliencol = aliencol + 1;
         }
-        else if (tileObject =='^')
+        else if (tileObject == '^')
         {
-        if(alienrow  > 0)
+            if (alienrow > 0)
+            {
+                tileObject = map[alienrow - 1][aliencol];
+                map[alienrow - 1][aliencol] = 'A';
+                map[alienrow][aliencol] = '.';
+                alienrow = alienrow - 1;
+            }
+        }
+        else if (tileObject == 'v')
         {
-            map[alienrow - 1][aliencol] ='A';
-            map[alienrow][aliencol]='.';
+            tileObject = map[alienrow + 1][aliencol];
+            map[alienrow + 1][aliencol] = 'A';
+            map[alienrow][aliencol] = '.';
             alienrow = alienrow - 1;
         }
-        }
-        else if (tileObject =='v')
-        {
-            map[alienrow - 1][aliencol] ='A';
-            map[alienrow][aliencol]='.';
-            alienrow = alienrow - 1;
-        }
-    }    
-        
+    }
+
     void ShowGameBoard()
     {
         ClearScreen();
@@ -607,60 +647,63 @@ namespace pf
         for (int row = 0; row < kRows; ++row)
         {
             cout << "  +---";
-            for (int col = 0;  col < kColumns - 1; ++col)
+            for (int col = 0; col < kColumns - 1; ++col)
             {
                 cout << "+---";
             }
             cout << "+";
             cout << endl;
-            //display row number
+            // display row number
             cout << setw(2) << row + 1;
 
             for (int col = 0; col < kColumns; ++col)
-            {   
+            {
                 cout << "| ";
-                cout << map[row][col] << " "; //shows the stuff inside the map
+                cout << map[row][col] << " "; // shows the stuff inside the map
             }
             cout << "|";
             cout << endl;
         }
         cout << "  +---";
         for (int j = 0; j < kColumns - 1; ++j)
-            {
+        {
             cout << "+---";
-            }
+        }
         cout << "+" << endl;
-        
-        //display column number
+
+        // display column number
         cout << "   ";
         for (int j = 0; j < col; ++j)
         {
-        int digit = (j + 1) / 10; //for > 10 numbers
-        cout << " ";
-        if (digit == 0)
+            int digit = (j + 1) / 10; // for > 10 numbers
             cout << " ";
-        else
-            cout << digit;
-            cout <<"  ";
+            if (digit == 0)
+                cout << " ";
+            else
+                cout << digit;
+            cout << "  ";
         }
 
         cout << endl;
         cout << " ";
         for (int j = 0; j < col; ++j)
         {
-        cout << "   " << (j + 1) % 10;
+            cout << "   " << (j + 1) % 10;
         }
         cout << endl;
         cout << "Row : Top to down." << endl;
         cout << "Column : Left to right." << endl;
-        cout << endl << endl;
+        cout << endl
+             << endl;
         Alien stats;
         stats.lifeSet(HP);
         stats.showLife();
         cout << "        ";
         stats.attackSet(dmg);
         stats.showdamage();
-        cout << endl << endl;;
+        cout << endl
+             << endl;
+        ;
         commands();
     }
 
@@ -674,7 +717,7 @@ namespace pf
         for (int row = 0; row < kRows; ++row)
         {
             cout << "  +---";
-            for (int col = 0;  col < kColumns - 1; ++col)
+            for (int col = 0; col < kColumns - 1; ++col)
             {
                 cout << "+---";
             }
@@ -682,38 +725,38 @@ namespace pf
             cout << endl;
             cout << setw(2) << row + 1;
             for (int col = 0; col < kColumns; ++col)
-            {   
+            {
                 cout << "| ";
-                cout << map[row][col] << " "; //shows the stuff inside the map
+                cout << map[row][col] << " "; // shows the stuff inside the map
             }
             cout << "|";
             cout << endl;
         }
         cout << "  +---";
         for (int j = 0; j < kColumns - 1; ++j)
-            {
+        {
             cout << "+---";
-            }
+        }
         cout << "+" << endl;
 
-        //display column number
+        // display column number
         cout << "   ";
         for (int j = 0; j < kColumns; ++j)
         {
-        int digit = (j + 1) / 10; //for > 10 numbers
-        cout << " ";
-        if (digit == 0)
+            int digit = (j + 1) / 10; // for > 10 numbers
             cout << " ";
-        else
-            cout << digit;
-            cout <<"  ";
+            if (digit == 0)
+                cout << " ";
+            else
+                cout << digit;
+            cout << "  ";
         }
 
         cout << endl;
         cout << " ";
         for (int j = 0; j < kColumns; ++j)
         {
-        cout << "   " << (j + 1) % 10;
+            cout << "   " << (j + 1) % 10;
         }
         cout << endl;
         cout << "Row : Top to down." << endl;
@@ -725,8 +768,8 @@ namespace pf
         cout << "        ";
         stats.attackSet(dmg);
         stats.showdamage();
-        cout << endl << endl;
+        cout << endl
+             << endl;
         commands();
     }
 }
-
