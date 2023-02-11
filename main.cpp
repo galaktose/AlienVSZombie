@@ -25,11 +25,17 @@ int main()
     pf::CreateGameBoard(); 
     pf::ShowGameBoard();
     pf:: Pause();
+    pf::zombieTurn();
+    pf::Pause();
+    pf:: trailReset();
     bool game = true;
     while(game = true)
     {
     pf:: inProgressBoard();
     pf:: Pause();
+    pf::zombieTurn();
+    pf::Pause();
+    pf::trailReset();
     }
 }
 

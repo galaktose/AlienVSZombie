@@ -264,6 +264,7 @@ namespace pf
             }
             break;
         }
+        tileObject =' ';
     }
 
     void arrowChange()
@@ -639,6 +640,24 @@ namespace pf
         }
     }
 
+void trailReset()
+{
+    char newObjects[] ={'>' , '<' , '^' , 'v' , ' ', 'h','r','p'};
+    int numberObject = 8;
+    for(int row = 0; row < kRows; row++)
+    {
+        for(int col = 0; col < kColumns; col++)
+        {
+            if (map[row][col] =='.')
+            {
+                int objNum = rand() % numberObject;
+                map[row][col] = newObjects[objNum];
+            }
+            
+        }
+    }
+}
+
     void ShowGameBoard()
     {
         ClearScreen();
@@ -705,7 +724,6 @@ namespace pf
         stats.showdamage();
         cout << endl
              << endl;
-        ;
         commands();
     }
 
@@ -774,4 +792,132 @@ namespace pf
              << endl;
         commands();
     }
+
+void zombieBoard()
+{
+    for (int row = 0; row < kRows; ++row)
+        {
+            cout << "  +---";
+            for (int col = 0; col < kColumns - 1; ++col)
+            {
+                cout << "+---";
+            }
+            cout << "+";
+            cout << endl;
+            cout << setw(2) << row + 1;
+            for (int col = 0; col < kColumns; ++col)
+            {
+                cout << "| ";
+                cout << map[row][col] << " "; // shows the stuff inside the map
+            }
+            cout << "|";
+            cout << endl;
+        }
+        cout << "  +---";
+        for (int j = 0; j < kColumns - 1; ++j)
+        {
+            cout << "+---";
+        }
+        cout << "+" << endl;
+
+        // display column number
+        cout << "   ";
+        for (int j = 0; j < kColumns; ++j)
+        {
+            int digit = (j + 1) / 10; // for > 10 numbers
+            cout << " ";
+            if (digit == 0)
+                cout << " ";
+            else
+                cout << digit;
+            cout << "  ";
+        }
+
+        cout << endl;
+        cout << " ";
+        for (int j = 0; j < kColumns; ++j)
+        {
+            cout << "   " << (j + 1) % 10;
+        }
+        cout << endl;
+        cout << "Row : Top to down." << endl;
+        cout << "Column : Left to right." << endl;
+        cout << endl;
+}
+
+void zombieTurn()
+{
+    system("cls");
+    cout << "  ________________________________________________" << endl;
+    cout << " |        The zombie has taken its turn!          |" << endl;
+    cout << " |________________________________________________|" << endl;
+    cout << endl;
+    char zrand[] = {'v', '^', '<', '>', 'a'};
+    int zombierandom = 5;
+    char zTurn = rand() % zombierandom;
+    char zAction = zrand[zTurn];
+    if (zAction == 'v')
+    {
+        map[rowZom + 1][colZom] = 'Z';
+        map[rowZom][colZom] = ' ';
+        rowZom = rowZom + 1;
+        zombieBoard();
+        cout << endl;
+        cout << "The zombie has moved downwards!" << endl;
+    }
+    else if (zAction == '^')
+    {
+        if (rowZom > 0)
+        {
+            map[rowZom - 1][colZom] = 'Z';
+            map[rowZom][colZom] = ' ';
+            rowZom = rowZom - 1;
+            zombieBoard();
+            cout << endl;
+            cout << "The zombie has moved upwards!" << endl;
+        }
+        else
+        {
+            zombieBoard();
+            cout << endl;
+            cout << "The zombie tried to move, but it ran into a wall." << endl;
+        }
+    }
+    else if (zAction == '>')
+    {
+        map[rowZom][colZom + 1] = 'Z';
+        map[rowZom][colZom] = ' ';
+        colZom = colZom + 1;
+        zombieBoard();
+        cout << endl;
+        cout << "The zombie has moved to the right!" << endl;
+    }
+    else if (zAction == '<')
+    {
+    
+        if (colZom > 0)
+        {
+            map[rowZom][colZom - 1] = 'Z';
+            map[rowZom][colZom] = ' ';
+            colZom = colZom - 1;
+            zombieBoard();
+            cout << endl;
+            cout << "The zombie has moved to the left!" << endl;
+        }
+        else
+        {
+            zombieBoard();
+            cout << endl;
+            cout << "The zombie tried to move, but it ran into a wall." << endl;
+        }
+    }
+    else
+    {
+        cout << "The zombie attacks the alien!"<< endl;
+    }
+    
+    
+    
+}
+
 }

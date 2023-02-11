@@ -11,6 +11,7 @@ namespace pf
     void ShowGameBoard();
     void inProgressBoard();
     void commands();
+    void trailReset();
 
     void moveUp();
     void moveDown();
@@ -25,6 +26,9 @@ namespace pf
     void helpMenu();
     void objectContact();
     void arrowpush();
+
+    void zombieBoard();
+    void zombieTurn();
 }
 
 
