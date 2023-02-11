@@ -49,3 +49,9 @@ For example:
 ## Problems Encountered & Solutions
 
 Describe the problems encountered and provide the solutions / plan for the solutions.
+1. Randomising the initial values of the game character's HP, ATK and Range (for Zombies) within a set range
+    - figured out the formula being ;
+    ``` 
+    int random = offset + (rand() % range); 
+    ```
+      where offset is the starting limit and range is the number of values between first and last limit including the limits itself.
