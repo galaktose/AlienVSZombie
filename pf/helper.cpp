@@ -8,6 +8,7 @@
 #include <ctime>   // for time() in srand( time(NULL) );
 #include <iomanip> // for setw()
 #include "alien.cpp"
+#include "zombie.cpp"
 using namespace std;
 namespace pf
 {
@@ -18,6 +19,12 @@ namespace pf
     int colZom;
     int HP;
     int dmg;
+    int zHP;
+    int zDmg;
+    int zRange;
+    int HPlimit;
+    int zDmgLimit;
+    int zRangeLimit;
 
     int row; // up down size
     int col; // left right size
@@ -29,14 +36,7 @@ namespace pf
     vector<vector<char>> map;
     vector<vector<char>> savemap;
 
-    class Zombie
-    {
-    public:
-        int life;
-        int attack;
-        int range;
-    };
-
+  
     int ClearScreen()
     {
 #if defined(_WIN32)
@@ -150,9 +150,18 @@ namespace pf
     }
 
     void CreateGameBoard()
-    {
-        HP = 100;
+    {   
+        HPlimit = 50;
+        zRangeLimit = 5;
+        zDmgLimit = 50;
+
+        HP = 50 + (rand() % HPlimit);
         dmg = 0;
+
+        zHP = 50 + (rand() % HPlimit);
+        zDmg = 1 + (rand() % zDmgLimit);
+        zRange = 1 + (rand() % 5);
+
         kRows = row;
         kColumns = col;
 
@@ -722,9 +731,18 @@ void trailReset()
         cout << "        ";
         stats.attackSet(dmg);
         stats.showdamage();
+        cout << endl;
+
+        Zombie Zstats;
+        Zstats.ZlifeSet(zHP);
+        Zstats.showZLife();
+        cout << "        ";
+        Zstats.ZattackSet(zDmg);
+        Zstats.showZDamage();
         cout << endl
              << endl;
         commands();
+        
     }
 
     void inProgressBoard()
@@ -782,15 +800,26 @@ void trailReset()
         cout << "Row : Top to down." << endl;
         cout << "Column : Left to right." << endl;
         cout << endl;
+
         Alien stats;
         stats.lifeSet(HP);
         stats.showLife();
         cout << "        ";
         stats.attackSet(dmg);
         stats.showdamage();
+        cout << endl;
+
+        Zombie Zstats;
+        Zstats.ZlifeSet(zHP);
+        Zstats.showZLife();
+        cout << "        ";
+        Zstats.ZattackSet(zDmg);
+        Zstats.showZDamage();
+        Zstats.zombieRange(zRange); //range 
         cout << endl
              << endl;
         commands();
+        
     }
 
 void zombieBoard()
