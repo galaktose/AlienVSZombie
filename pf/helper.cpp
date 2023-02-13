@@ -152,7 +152,7 @@ namespace pf
     void CreateGameBoard()
     {   
         HPlimit = 50;
-        zRangeLimit = 5;
+        zRangeLimit = 4;
         zDmgLimit = 50;
 
         HP = 50 + (rand() % HPlimit);
@@ -160,7 +160,7 @@ namespace pf
 
         zHP = 50 + (rand() % HPlimit);
         zDmg = 1 + (rand() % zDmgLimit);
-        zRange = 1 + (rand() % 5);
+        zRange = 1 + (rand() % 4);
 
         kRows = row;
         kColumns = col;
@@ -266,6 +266,17 @@ namespace pf
                 // helpMenu();
                 break;
             }
+            // else if (command == "teleport") // god mode??!?!?
+            // {
+            //     cout << "Enter your new coordinates" << endl;
+            //     int Xrow; int Ycol;
+            //     cin >> Xrow >> Ycol;
+            //     map[alienrow][aliencol] = ' ';
+            //     alienrow = Xrow;
+            //     aliencol = Ycol;
+            //     map[Xrow - 1][Ycol - 1] = 'A';
+            //     break;
+            // }
             else
             {
                 cout << "Invalid input. Please try again." << endl;
@@ -351,7 +362,6 @@ namespace pf
             bool arrowmove = true;
             while (arrowmove = true)
             {
-
                 if (tileObject == '>' || tileObject == '^' || tileObject == 'v' || tileObject == '<')
                 {
                     objectContact();
@@ -379,7 +389,7 @@ namespace pf
             tileObject = map[alienrow + 1][aliencol];
             map[alienrow + 1][aliencol] = 'A';
             map[alienrow][aliencol] = '.';
-            alienrow = alienrow - 1;
+            alienrow = alienrow + 1;
             bool arrowmove = true;
             while (arrowmove = true)
             {
@@ -599,7 +609,14 @@ namespace pf
         }
         else if (tileObject == 'p')
         {
-            // insert zombie code here(real)(not fake)
+            if(zHP > 10)
+            {
+                zHP = zHP - 10;
+            }
+            else
+            {
+                zHP = 0;
+            }
         }
         else if (tileObject == 'r')
         {
@@ -645,7 +662,7 @@ namespace pf
             tileObject = map[alienrow + 1][aliencol];
             map[alienrow + 1][aliencol] = 'A';
             map[alienrow][aliencol] = '.';
-            alienrow = alienrow - 1;
+            alienrow = alienrow + 1;
         }
     }
 
@@ -739,6 +756,9 @@ void trailReset()
         cout << "        ";
         Zstats.ZattackSet(zDmg);
         Zstats.showZDamage();
+        Zstats.zombieRange(zRange);
+        cout << "        ";
+        Zstats.showRange();
         cout << endl
              << endl;
         commands();
@@ -805,7 +825,7 @@ void trailReset()
         stats.lifeSet(HP);
         stats.showLife();
         cout << "        ";
-        stats.attackSet(dmg);
+        stats.attackSet(0);
         stats.showdamage();
         cout << endl;
 
@@ -816,6 +836,8 @@ void trailReset()
         Zstats.ZattackSet(zDmg);
         Zstats.showZDamage();
         Zstats.zombieRange(zRange); //range 
+        cout << "        ";
+        Zstats.showRange();
         cout << endl
              << endl;
         commands();
@@ -881,7 +903,7 @@ void zombieTurn()
     cout << " |        The zombie has taken its turn!          |" << endl;
     cout << " |________________________________________________|" << endl;
     cout << endl;
-    char zrand[] = {'v', '^', '<', '>', 'a'};
+    char zrand[] = {'v', '^', '<', '>'}; //determine the zombie's move
     int zombierandom = 5;
     char zTurn = rand() % zombierandom;
     char zAction = zrand[zTurn];
@@ -940,12 +962,46 @@ void zombieTurn()
             cout << "The zombie tried to move, but it ran into a wall." << endl;
         }
     }
-    else
+
+    for(int distance = 0; distance < zRange; distance++)
     {
-        cout << "The zombie attacks the alien!"<< endl;
+        if (alienrow - rowZom == distance || alienrow - rowZom == -(distance)) //upwards/downwards range(ill fix this later gotta do discrete)
+        {
+            if((HP - zDmg) > 0)
+            {
+                HP = HP - zDmg;
+                zombieBoard();
+                cout << endl;
+                cout << "The zombie attacks the alien for " << zDmg << " Damage!" << endl;
+            }
+            else
+            {
+                HP = 0;
+                cout << "You lose fuck you!"<<endl;
+                Pause();
+                abort();
+            }
+        }
+        else if (aliencol - colZom == distance || aliencol - colZom == -(distance)) //leftright range
+        {
+            if((HP - zDmg) > 0)
+            {
+                HP = HP - zDmg;
+                zombieBoard();
+                cout << endl;
+                cout << "The zombie attacks the alien for " << zDmg << " Damage!" << endl;
+            }
+            else
+            {
+                HP = 0;
+                cout << "You lose fuck you!"<<endl;
+                Pause();
+                abort();
+            }
+        }
+        
+        
     }
-    
-    
     
 }
 

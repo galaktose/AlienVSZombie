@@ -26,9 +26,14 @@
             attack = zombieDamage;
         }
 
-        void zombieRange(int range)
+        void ZrangeSet(int dist)
         {
-            //code for range
+            range = dist;
+        }
+
+        void zombieRange(int Zrange)
+        {
+            range = Zrange;
         }
 
         void showZLife()
@@ -39,6 +44,11 @@
         void showZDamage()
         {
             cout << "Zombie Damage : " << attack;
+        }
+
+        void showRange()
+        {
+            cout <<"Zombie's range : " << range;
         }
 
     };
