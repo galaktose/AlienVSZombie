@@ -10,6 +10,7 @@ namespace pf
     void CreateGameBoard();
     void ShowGameBoard();
     void inProgressBoard();
+    void arrowBoard();
     void commands();
     void trailReset();
 
@@ -18,6 +19,7 @@ namespace pf
     void moveLeft();
     void moveRight();
     void arrowChange();
+    void rockSmash();
 
     void gameSave();
     void gameLoad();

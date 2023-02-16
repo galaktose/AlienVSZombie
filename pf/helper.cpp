@@ -210,10 +210,10 @@ namespace pf
     void commands()
     {
         string command;
-        cout << "What are your commands, player?" << endl;
         bool commChoice = true;
         while (commChoice = true)
         {
+            cout << "What are your commands, player?" << endl;
             cin >> command;
             if (command == "up")
             {
@@ -249,7 +249,8 @@ namespace pf
             else if (command == "arrow")
             {
                 arrowChange();
-                break;
+                arrowBoard();
+                continue;
             }
             else if (command == "quit" || command == "q")
             {
@@ -356,6 +357,13 @@ namespace pf
         if (alienrow > 0)
         {
             tileObject = map[alienrow - 1][aliencol];
+            if(tileObject == 'r')
+            {
+                rockSmash();
+                map[alienrow - 1][aliencol] = tileObject;
+            }
+            else
+            {
             map[alienrow - 1][aliencol] = 'A';
             map[alienrow][aliencol] = '.';
             alienrow = alienrow - 1;
@@ -375,6 +383,7 @@ namespace pf
                 }
                 break;
             }
+            }
         }
         else
         {
@@ -386,6 +395,14 @@ namespace pf
     {
         if (alienrow <= kRows)
         {
+            tileObject = map[alienrow + 1][aliencol];
+            if(tileObject == 'r')
+            {
+                rockSmash();
+                map[alienrow + 1][aliencol] = tileObject;
+            }
+            else
+            {
             tileObject = map[alienrow + 1][aliencol];
             map[alienrow + 1][aliencol] = 'A';
             map[alienrow][aliencol] = '.';
@@ -407,6 +424,7 @@ namespace pf
                 }
                 break;
             }
+            }
         }
         else
         {
@@ -416,8 +434,17 @@ namespace pf
 
     void moveLeft()
     {
+
         if (aliencol > 0)
         {
+            tileObject = map[alienrow][aliencol - 1];
+            if(tileObject == 'r')
+            {
+                rockSmash();
+                map[alienrow][aliencol - 1] = tileObject;
+            }
+            else
+            {
             tileObject = map[alienrow][aliencol - 1];
             map[alienrow][aliencol - 1] = 'A';
             map[alienrow][aliencol] = '.';
@@ -439,6 +466,7 @@ namespace pf
                 }
                 break;
             }
+            }
         }
         else
         {
@@ -450,6 +478,14 @@ namespace pf
     {
         if (aliencol <= kColumns)
         {
+            tileObject = map[alienrow][aliencol + 1];
+            if(tileObject == 'r')
+            {
+                rockSmash();
+                map[alienrow][aliencol + 1] = tileObject;
+            }
+            else
+            {
             tileObject = map[alienrow][aliencol + 1];
             map[alienrow][aliencol + 1] = 'A';
             map[alienrow][aliencol] = '.';
@@ -471,11 +507,20 @@ namespace pf
                 }
                 break;
             }
+            }
         }
         else
         {
             cout << "Invalid move." << endl;
         }
+    }
+
+    void rockSmash()
+    {
+        char rockObject[] ={' ','^','v','>','<','h','p'};
+        int noObjects =7;
+        int newRock = rand() % noObjects;
+        tileObject = rockObject[newRock];
     }
 
     void gameSave()
@@ -844,6 +889,83 @@ void trailReset()
         
     }
 
+    void arrowBoard()
+        {
+        system("cls");
+        cout << "  ________________________________________________" << endl;
+        cout << " |        The alien prepares its next move!       |" << endl;
+        cout << " |________________________________________________|" << endl;
+        cout << "                                  " << endl;
+        for (int row = 0; row < kRows; ++row)
+        {
+            cout << "  +---";
+            for (int col = 0; col < kColumns - 1; ++col)
+            {
+                cout << "+---";
+            }
+            cout << "+";
+            cout << endl;
+            cout << setw(2) << row + 1;
+            for (int col = 0; col < kColumns; ++col)
+            {
+                cout << "| ";
+                cout << map[row][col] << " "; // shows the stuff inside the map
+            }
+            cout << "|";
+            cout << endl;
+        }
+        cout << "  +---";
+        for (int j = 0; j < kColumns - 1; ++j)
+        {
+            cout << "+---";
+        }
+        cout << "+" << endl;
+
+        // display column number
+        cout << "   ";
+        for (int j = 0; j < kColumns; ++j)
+        {
+            int digit = (j + 1) / 10; // for > 10 numbers
+            cout << " ";
+            if (digit == 0)
+                cout << " ";
+            else
+                cout << digit;
+            cout << "  ";
+        }
+
+        cout << endl;
+        cout << " ";
+        for (int j = 0; j < kColumns; ++j)
+        {
+            cout << "   " << (j + 1) % 10;
+        }
+        cout << endl;
+        cout << "Row : Top to down." << endl;
+        cout << "Column : Left to right." << endl;
+        cout << endl;
+
+        Alien stats;
+        stats.lifeSet(HP);
+        stats.showLife();
+        cout << "        ";
+        stats.attackSet(0);
+        stats.showdamage();
+        cout << endl;
+
+        Zombie Zstats;
+        Zstats.ZlifeSet(zHP);
+        Zstats.showZLife();
+        cout << "        ";
+        Zstats.ZattackSet(zDmg);
+        Zstats.showZDamage();
+        Zstats.zombieRange(zRange); //range 
+        cout << "        ";
+        Zstats.showRange();
+        cout << endl
+             << endl;
+        }
+
 void zombieBoard()
 {
     for (int row = 0; row < kRows; ++row)
@@ -963,46 +1085,31 @@ void zombieTurn()
         }
     }
 
-    for(int distance = 0; distance < zRange; distance++)
+    int distance = 1; //doesnt work!!!
+    bool checkDist = true;
+    while (checkDist = true)
     {
-        if (alienrow - rowZom == distance || alienrow - rowZom == -(distance)) //upwards/downwards range(ill fix this later gotta do discrete)
+        if (alienrow - rowZom == distance || rowZom - aliencol == distance)
         {
-            if((HP - zDmg) > 0)
-            {
-                HP = HP - zDmg;
-                zombieBoard();
-                cout << endl;
-                cout << "The zombie attacks the alien for " << zDmg << " Damage!" << endl;
-            }
-            else
-            {
-                HP = 0;
-                cout << "You lose fuck you!"<<endl;
-                Pause();
-                abort();
-            }
+            HP = HP - zDmg;
+            cout << "The zombie attacks the alien for " << zDmg << " Damage!" << endl;
+            break;
         }
-        else if (aliencol - colZom == distance || aliencol - colZom == -(distance)) //leftright range
+        else if (aliencol - colZom == distance || colZom - aliencol == distance)
         {
-            if((HP - zDmg) > 0)
-            {
-                HP = HP - zDmg;
-                zombieBoard();
-                cout << endl;
-                cout << "The zombie attacks the alien for " << zDmg << " Damage!" << endl;
-            }
-            else
-            {
-                HP = 0;
-                cout << "You lose fuck you!"<<endl;
-                Pause();
-                abort();
-            }
+            HP = HP - zDmg;
+            cout << "The zombie attacks the alien for " << zDmg << " Damage!" << endl;
+            break;
         }
-        
-        
+        else
+        {
+            distance++;
+            continue;
+        }
     }
     
-}
+    cout << endl;
 
+
+}
 }

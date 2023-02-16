@@ -17,7 +17,7 @@ using namespace std;
 
 int main()
 {
-    cout << "Assignment (Part 1)" << endl;
+    cout << "Assignment (Part 2)" << endl;
     cout << "Let's Get Started!" << endl;
     pf::Pause();
     pf::BoardSettings();
