@@ -55,3 +55,5 @@ Describe the problems encountered and provide the solutions / plan for the solut
     int random = offset + (rand() % range); 
     ```
       where offset is the starting limit and range is the number of values between first and last limit including the limits itself.
+2. Zombie having infinite range
+    - (to be updated)
