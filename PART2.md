@@ -57,3 +57,5 @@ Describe the problems encountered and provide the solutions / plan for the solut
       where offset is the starting limit and range is the number of values between first and last limit including the limits itself.
 2. Zombie having infinite range
     - (to be updated)
+3. Unable to create multiple zombies
+    - (to be updated)
