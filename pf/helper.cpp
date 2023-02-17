@@ -27,16 +27,21 @@ namespace pf
     int zRangeLimit;
 
     int row; // up down size
+    int rowborder;
     int col; // left right size
+    int colborder;
     int alienrow;
     int aliencol;
     int newrow;
     int newcol;
     char tileObject;
+    char previousArrow;
     vector<vector<char>> map;
     vector<vector<char>> savemap;
 
-  
+    bool continueGame;
+    bool miss = false;
+
     int ClearScreen()
     {
 #if defined(_WIN32)
@@ -150,7 +155,7 @@ namespace pf
     }
 
     void CreateGameBoard()
-    {   
+    {
         HPlimit = 50;
         zRangeLimit = 4;
         zDmgLimit = 50;
@@ -164,6 +169,8 @@ namespace pf
 
         kRows = row;
         kColumns = col;
+        rowborder = row - 1;
+        colborder = col - 1;
 
         char objects[] = {'v', '^', '<', '>', ' ', 'h', 'p', 'r', ' ', ' ', ' '};
         int noOfObjects = 11; // number of objects in the array
@@ -204,8 +211,6 @@ namespace pf
             }
         }
     }
-
-    
 
     void commands()
     {
@@ -285,7 +290,7 @@ namespace pf
             }
             break;
         }
-        tileObject =' ';
+        tileObject = ' ';
     }
 
     void arrowChange()
@@ -357,32 +362,33 @@ namespace pf
         if (alienrow > 0)
         {
             tileObject = map[alienrow - 1][aliencol];
-            if(tileObject == 'r')
+            if (tileObject == 'r')
             {
                 rockSmash();
                 map[alienrow - 1][aliencol] = tileObject;
+                cout << "The alien smashes the rock!" << endl;
             }
             else
             {
-            map[alienrow - 1][aliencol] = 'A';
-            map[alienrow][aliencol] = '.';
-            alienrow = alienrow - 1;
-            bool arrowmove = true;
-            while (arrowmove = true)
-            {
-                if (tileObject == '>' || tileObject == '^' || tileObject == 'v' || tileObject == '<')
+                map[alienrow - 1][aliencol] = 'A';
+                map[alienrow][aliencol] = '.';
+                alienrow = alienrow - 1;
+                bool arrowmove = true;
+                while (arrowmove = true)
                 {
-                    objectContact();
-                    arrowpush();
-                    continue;
-                }
-                else
-                {
-                    objectContact();
+                    if (tileObject == '>' || tileObject == '^' || tileObject == 'v' || tileObject == '<')
+                    {
+                        objectContact();
+                        arrowpush();
+                        continue;
+                    }
+                    else
+                    {
+                        objectContact();
+                        break;
+                    }
                     break;
                 }
-                break;
-            }
             }
         }
         else
@@ -393,37 +399,62 @@ namespace pf
 
     void moveDown()
     {
-        if (alienrow <= kRows)
+        if (alienrow < rowborder)
         {
             tileObject = map[alienrow + 1][aliencol];
-            if(tileObject == 'r')
+            if (tileObject == 'r')
             {
                 rockSmash();
                 map[alienrow + 1][aliencol] = tileObject;
+                cout << "The alien smashes the rock!" << endl;
             }
             else
             {
-            tileObject = map[alienrow + 1][aliencol];
-            map[alienrow + 1][aliencol] = 'A';
-            map[alienrow][aliencol] = '.';
-            alienrow = alienrow + 1;
-            bool arrowmove = true;
-            while (arrowmove = true)
-            {
+                tileObject = map[alienrow + 1][aliencol];
+                map[alienrow + 1][aliencol] = 'A';
+                map[alienrow][aliencol] = '.';
+                alienrow = alienrow + 1;
+                bool arrowmove = true;
+                while (arrowmove = true)
+                {
+                    if (tileObject == '>' || tileObject == '^' || tileObject == 'v' || tileObject == '<')
+                    {
+                        objectContact();
+                        arrowpush();
+                        continue;
+                    }
+                    else if (tileObject == 'r')
+                    {
+                        rockSmash();
+                        if (previousArrow == '>')
+                        {
+                            map[alienrow][aliencol + 1] = tileObject;
+                            cout << "The alien smashes the rock!" << endl;
+                        }
+                        else if (previousArrow == '<')
+                        {
+                            map[alienrow][aliencol - 1] = tileObject;
+                            cout << "The alien smashes the rock!" << endl;
+                        }
+                        else if (previousArrow == '^')
+                        {
+                            map[alienrow - 1][aliencol] = tileObject;
+                            cout << "The alien smashes the rock!" << endl;
+                        }
+                        else if (previousArrow == 'v')
+                        {
+                            map[alienrow + 1][aliencol] = tileObject;
+                            cout << "The alien smashes the rock!" << endl;
+                        }
+                    }
 
-                if (tileObject == '>' || tileObject == '^' || tileObject == 'v' || tileObject == '<')
-                {
-                    objectContact();
-                    arrowpush();
-                    continue;
-                }
-                else
-                {
-                    objectContact();
+                    else
+                    {
+                        objectContact();
+                        break;
+                    }
                     break;
                 }
-                break;
-            }
             }
         }
         else
@@ -438,34 +469,35 @@ namespace pf
         if (aliencol > 0)
         {
             tileObject = map[alienrow][aliencol - 1];
-            if(tileObject == 'r')
+            if (tileObject == 'r')
             {
                 rockSmash();
                 map[alienrow][aliencol - 1] = tileObject;
+                cout << "The alien smashes the rock!" << endl;
             }
             else
             {
-            tileObject = map[alienrow][aliencol - 1];
-            map[alienrow][aliencol - 1] = 'A';
-            map[alienrow][aliencol] = '.';
-            aliencol = aliencol - 1;
-            bool arrowmove = true;
-            while (arrowmove = true)
-            {
+                tileObject = map[alienrow][aliencol - 1];
+                map[alienrow][aliencol - 1] = 'A';
+                map[alienrow][aliencol] = '.';
+                aliencol = aliencol - 1;
+                bool arrowmove = true;
+                while (arrowmove = true)
+                {
 
-                if (tileObject == '>' || tileObject == '^' || tileObject == 'v' || tileObject == '<')
-                {
-                    objectContact();
-                    arrowpush();
-                    continue;
-                }
-                else
-                {
-                    objectContact();
+                    if (tileObject == '>' || tileObject == '^' || tileObject == 'v' || tileObject == '<')
+                    {
+                        objectContact();
+                        arrowpush();
+                        continue;
+                    }
+                    else
+                    {
+                        objectContact();
+                        break;
+                    }
                     break;
                 }
-                break;
-            }
             }
         }
         else
@@ -476,37 +508,37 @@ namespace pf
 
     void moveRight()
     {
-        if (aliencol <= kColumns)
+        if (aliencol < colborder)
         {
             tileObject = map[alienrow][aliencol + 1];
-            if(tileObject == 'r')
+            if (tileObject == 'r')
             {
                 rockSmash();
                 map[alienrow][aliencol + 1] = tileObject;
+                cout << "The alien smashes the rock!" << endl;
             }
             else
             {
-            tileObject = map[alienrow][aliencol + 1];
-            map[alienrow][aliencol + 1] = 'A';
-            map[alienrow][aliencol] = '.';
-            aliencol = aliencol + 1;
-            bool arrowmove = true;
-            while (arrowmove = true)
-            {
-
-                if (tileObject == '>' || tileObject == '^' || tileObject == 'v' || tileObject == '<')
+                tileObject = map[alienrow][aliencol + 1];
+                map[alienrow][aliencol + 1] = 'A';
+                map[alienrow][aliencol] = '.';
+                aliencol = aliencol + 1;
+                bool arrowmove = true;
+                while (arrowmove = true)
                 {
-                    objectContact();
-                    arrowpush();
-                    continue;
-                }
-                else
-                {
-                    objectContact();
+                    if (tileObject == '>' || tileObject == '^' || tileObject == 'v' || tileObject == '<')
+                    {
+                        objectContact();
+                        arrowpush();
+                        continue;
+                    }
+                    else
+                    {
+                        objectContact();
+                        break;
+                    }
                     break;
                 }
-                break;
-            }
             }
         }
         else
@@ -517,8 +549,8 @@ namespace pf
 
     void rockSmash()
     {
-        char rockObject[] ={' ','^','v','>','<','h','p'};
-        int noObjects =7;
+        char rockObject[] = {' ', '^', 'v', '>', '<', 'h', 'p'};
+        int noObjects = 7;
         int newRock = rand() % noObjects;
         tileObject = rockObject[newRock];
     }
@@ -654,7 +686,7 @@ namespace pf
         }
         else if (tileObject == 'p')
         {
-            if(zHP > 10)
+            if (zHP > 10)
             {
                 zHP = zHP - 10;
             }
@@ -665,7 +697,7 @@ namespace pf
         }
         else if (tileObject == 'r')
         {
-            // Bocchi the rock
+            rockSmash();
         }
         else
         {
@@ -679,6 +711,7 @@ namespace pf
         {
             if (aliencol > 0)
             {
+                previousArrow = '<';
                 tileObject = map[alienrow][aliencol - 1];
                 map[alienrow][aliencol - 1] = 'A';
                 map[alienrow][aliencol] = '.';
@@ -687,15 +720,20 @@ namespace pf
         }
         else if (tileObject == '>')
         {
-            tileObject = map[alienrow][aliencol + 1];
-            map[alienrow][aliencol + 1] = 'A';
-            map[alienrow][aliencol] = '.';
-            aliencol = aliencol + 1;
+            if (aliencol < colborder)
+            {
+                previousArrow = '>';
+                tileObject = map[alienrow][aliencol + 1];
+                map[alienrow][aliencol + 1] = 'A';
+                map[alienrow][aliencol] = '.';
+                aliencol = aliencol + 1;
+            }
         }
         else if (tileObject == '^')
         {
             if (alienrow > 0)
             {
+                previousArrow = '^';
                 tileObject = map[alienrow - 1][aliencol];
                 map[alienrow - 1][aliencol] = 'A';
                 map[alienrow][aliencol] = '.';
@@ -704,30 +742,33 @@ namespace pf
         }
         else if (tileObject == 'v')
         {
-            tileObject = map[alienrow + 1][aliencol];
-            map[alienrow + 1][aliencol] = 'A';
-            map[alienrow][aliencol] = '.';
-            alienrow = alienrow + 1;
+            if (alienrow < rowborder)
+            {
+                previousArrow = 'v';
+                tileObject = map[alienrow + 1][aliencol];
+                map[alienrow + 1][aliencol] = 'A';
+                map[alienrow][aliencol] = '.';
+                alienrow = alienrow + 1;
+            }
         }
     }
 
-void trailReset()
-{
-    char newObjects[] ={'>' , '<' , '^' , 'v' , ' ', 'h','r','p'};
-    int numberObject = 8;
-    for(int row = 0; row < kRows; row++)
+    void trailReset()
     {
-        for(int col = 0; col < kColumns; col++)
+        char newObjects[] = {'>', '<', '^', 'v', ' ', 'h', 'r', 'p'};
+        int numberObject = 8;
+        for (int row = 0; row < kRows; row++)
         {
-            if (map[row][col] =='.')
+            for (int col = 0; col < kColumns; col++)
             {
-                int objNum = rand() % numberObject;
-                map[row][col] = newObjects[objNum];
+                if (map[row][col] == '.')
+                {
+                    int objNum = rand() % numberObject;
+                    map[row][col] = newObjects[objNum];
+                }
             }
-            
         }
     }
-}
 
     void ShowGameBoard()
     {
@@ -807,7 +848,6 @@ void trailReset()
         cout << endl
              << endl;
         commands();
-        
     }
 
     void inProgressBoard()
@@ -880,17 +920,16 @@ void trailReset()
         cout << "        ";
         Zstats.ZattackSet(zDmg);
         Zstats.showZDamage();
-        Zstats.zombieRange(zRange); //range 
+        Zstats.zombieRange(zRange); // range
         cout << "        ";
         Zstats.showRange();
         cout << endl
              << endl;
         commands();
-        
     }
 
     void arrowBoard()
-        {
+    {
         system("cls");
         cout << "  ________________________________________________" << endl;
         cout << " |        The alien prepares its next move!       |" << endl;
@@ -959,16 +998,16 @@ void trailReset()
         cout << "        ";
         Zstats.ZattackSet(zDmg);
         Zstats.showZDamage();
-        Zstats.zombieRange(zRange); //range 
+        Zstats.zombieRange(zRange); // range
         cout << "        ";
         Zstats.showRange();
         cout << endl
              << endl;
-        }
+    }
 
-void zombieBoard()
-{
-    for (int row = 0; row < kRows; ++row)
+    void zombieBoard()
+    {
+        for (int row = 0; row < kRows; ++row)
         {
             cout << "  +---";
             for (int col = 0; col < kColumns - 1; ++col)
@@ -1016,100 +1055,145 @@ void zombieBoard()
         cout << "Row : Top to down." << endl;
         cout << "Column : Left to right." << endl;
         cout << endl;
-}
+    }
 
-void zombieTurn()
-{
-    system("cls");
-    cout << "  ________________________________________________" << endl;
-    cout << " |        The zombie has taken its turn!          |" << endl;
-    cout << " |________________________________________________|" << endl;
-    cout << endl;
-    char zrand[] = {'v', '^', '<', '>'}; //determine the zombie's move
-    int zombierandom = 5;
-    char zTurn = rand() % zombierandom;
-    char zAction = zrand[zTurn];
-    if (zAction == 'v')
+    void zombieTurn()
     {
-        map[rowZom + 1][colZom] = 'Z';
-        map[rowZom][colZom] = ' ';
-        rowZom = rowZom + 1;
-        zombieBoard();
+        system("cls");
+        cout << "  ________________________________________________" << endl;
+        cout << " |        The zombie has taken its turn!          |" << endl;
+        cout << " |________________________________________________|" << endl;
         cout << endl;
-        cout << "The zombie has moved downwards!" << endl;
-    }
-    else if (zAction == '^')
-    {
-        if (rowZom > 0)
+        char zrand[] = {'v', '^', '<', '>'}; // determine the zombie's move
+        int zombierandom = 4;
+        char zTurn = rand() % zombierandom;
+        char zAction = zrand[zTurn];
+        if (zAction == 'v')
         {
-            map[rowZom - 1][colZom] = 'Z';
-            map[rowZom][colZom] = ' ';
-            rowZom = rowZom - 1;
-            zombieBoard();
-            cout << endl;
-            cout << "The zombie has moved upwards!" << endl;
+            if (rowZom < rowborder)
+            {
+                map[rowZom + 1][colZom] = 'Z';
+                map[rowZom][colZom] = ' ';
+                rowZom = rowZom + 1;
+                zombieBoard();
+                cout << endl;
+                cout << "The zombie has moved downwards!" << endl;
+            }
+            else
+            {
+                zombieBoard();
+                cout << endl;
+                cout << "The zombie tried to move, but it ran into a wall.(Downwards)" << endl;
+            }
         }
-        else
+        else if (zAction == '^')
         {
-            zombieBoard();
-            cout << endl;
-            cout << "The zombie tried to move, but it ran into a wall." << endl;
+            if (rowZom > 0)
+            {
+                map[rowZom - 1][colZom] = 'Z';
+                map[rowZom][colZom] = ' ';
+                rowZom = rowZom - 1;
+                zombieBoard();
+                cout << endl;
+                cout << "The zombie has moved upwards!" << endl;
+            }
+            else
+            {
+                zombieBoard();
+                cout << endl;
+                cout << "The zombie tried to move, but it ran into a wall.(Upwards)" << endl;
+            }
         }
-    }
-    else if (zAction == '>')
-    {
-        map[rowZom][colZom + 1] = 'Z';
-        map[rowZom][colZom] = ' ';
-        colZom = colZom + 1;
-        zombieBoard();
-        cout << endl;
-        cout << "The zombie has moved to the right!" << endl;
-    }
-    else if (zAction == '<')
-    {
-    
-        if (colZom > 0)
+        else if (zAction == '>')
         {
-            map[rowZom][colZom - 1] = 'Z';
-            map[rowZom][colZom] = ' ';
-            colZom = colZom - 1;
-            zombieBoard();
-            cout << endl;
-            cout << "The zombie has moved to the left!" << endl;
+            if (colZom < colborder)
+            {
+                map[rowZom][colZom + 1] = 'Z';
+                map[rowZom][colZom] = ' ';
+                colZom = colZom + 1;
+                zombieBoard();
+                cout << endl;
+                cout << "The zombie has moved to the right!" << endl;
+            }
+            else
+            {
+                zombieBoard();
+                cout << endl;
+                cout << "The zombie tried to move, but it ran into a wall.(To the right)" << endl;
+            }
         }
-        else
+        else if (zAction == '<')
         {
-            zombieBoard();
-            cout << endl;
-            cout << "The zombie tried to move, but it ran into a wall." << endl;
-        }
-    }
 
-    int distance = 1; //doesnt work!!!
-    bool checkDist = true;
-    while (checkDist = true)
-    {
-        if (alienrow - rowZom == distance || rowZom - aliencol == distance)
-        {
-            HP = HP - zDmg;
-            cout << "The zombie attacks the alien for " << zDmg << " Damage!" << endl;
-            break;
+            if (colZom > 0)
+            {
+                map[rowZom][colZom - 1] = 'Z';
+                map[rowZom][colZom] = ' ';
+                colZom = colZom - 1;
+                zombieBoard();
+                cout << endl;
+                cout << "The zombie has moved to the left!" << endl;
+            }
+            else
+            {
+                zombieBoard();
+                cout << endl;
+                cout << "The zombie tried to move, but it ran into a wall.(To the left)" << endl;
+            }
         }
-        else if (aliencol - colZom == distance || colZom - aliencol == distance)
-        {
-            HP = HP - zDmg;
-            cout << "The zombie attacks the alien for " << zDmg << " Damage!" << endl;
-            break;
-        }
-        else
-        {
-            distance++;
-            continue;
-        }
+
+        //     for(int distance = 1; distance <= zRange; distance++)
+        //     {
+        //         int distUP = colZom - distance;
+        //         int distDown = colZom + distance;
+        //         int distLeft = rowZom - distance;
+        //         int distRight = rowZom + distance;
+        //         if (map[rowZom][distDown] == 'A' || map[rowZom][distUP] == 'A')//range upwards
+        //         {
+        //             HP = HP - zDmg;
+        //             if (HP < 0)
+        //             {
+        //                 continueGame =false;
+        //                 miss = false;
+        //             }
+        //             else
+        //             {
+        //                 miss = false;
+        //             }
+        //             distance = zRange;
+        //             distance++;
+        //         }
+        //         else if (map[distRight][colZom] == 'A' || map[distLeft][colZom] == 'A')
+        //         {
+        //             HP = HP - zDmg;
+        //             if (HP < 0)
+        //             {
+        //                 continueGame =false;
+        //                 miss = false;
+        //             }
+        //             else
+        //             {
+        //                 miss = false;
+        //             }
+        //             distance = zRange;
+        //             distance++;
+        //         }
+        //         else
+        //         {
+        //             distance++;
+        //             miss = true;
+        //         }
+        //     }
+
+        //     if (miss = true)
+        //     {
+        //         cout <<"The zombie tries to attack the alien, but its out of range." << endl;
+        //     }
+        //     else if(miss = false)
+        //     {
+        //         cout <<"The zombie attacks the alien for " << zDmg <<" Damage!"<< endl;
+        //     }
+        //     cout << endl;
+        //     miss = false;
     }
-    
-    cout << endl;
-
-
-}
 }
