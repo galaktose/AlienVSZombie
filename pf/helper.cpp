@@ -1,6 +1,8 @@
 #include "helper.h"
 #include <iostream>
 #include <fstream>
+#include <iterator>
+#include <string>
 #include <ostream>
 #include <numeric>
 #include <vector>
@@ -567,13 +569,18 @@ namespace pf
 
         cout << "Enter the name of the new save file : ";
         cin >> filename;
-        savefile.open(filename);
+        savefile.open(filename); //opens the file
 
-        // Saving the "CHANGE THIS TO THE GAME BOARD" string into the txt file
-        for (int i = 0; i < map.size(); i++)
-        {
-            // savefile << map[i]<<endl;
-        }
+        // NEW SAVE CODE (HOPEFULLY THIS WORKS)(if not ill jump off a cliff)(real)
+        ofstream out_file(filename);
+
+        savefile << HP,dmg,zHP,zDmg,zRange;
+        savefile << endl;
+
+        ostream_iterator<string> iterator(out_file); // creates an iterator me thinks
+
+        copy(map.begin(),map.end(), iterator);//copy the result of iteration through the map vector from start to end using iterator
+
         savefile.close();
 
         bool choice = true;
@@ -590,7 +597,7 @@ namespace pf
             }
             else if (input == "c")
             {
-                // backtogame(IDK THE FUNC)
+                Pause();
                 break;
             }
             else
