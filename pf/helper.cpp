@@ -368,6 +368,11 @@ namespace pf
                 map[alienrow - 1][aliencol] = tileObject;
                 cout << "The alien smashes the rock!" << endl;
             }
+            else if (tileObject == 'Z')
+            {
+                cout << "The alien does no damage to the zombie!" << endl;
+            }
+            
             else
             {
                 map[alienrow - 1][aliencol] = 'A';
@@ -698,6 +703,23 @@ namespace pf
         else if (tileObject == 'r')
         {
             rockSmash();
+            if (previousArrow == '^')
+            {
+                map[alienrow - 1][aliencol] = tileObject;
+            }
+            else if (previousArrow == 'v')
+            {
+                map[alienrow + 1][aliencol] = tileObject;
+            }
+            else if (previousArrow == '>')
+            {
+                map[alienrow][aliencol + 1] = tileObject;
+            }
+            else if (previousArrow == '^')
+            {
+                map[alienrow][aliencol - 1] = tileObject;
+            }
+            cout << "The alien smashes the rock!" << endl;    
         }
         else
         {
@@ -711,44 +733,76 @@ namespace pf
         {
             if (aliencol > 0)
             {
+                if (map[alienrow][aliencol - 1] == 'r')
+                {
+                    tileObject = map[alienrow][aliencol - 1];
+                    previousArrow = '<';
+                }
+                else
+                {
                 previousArrow = '<';
                 tileObject = map[alienrow][aliencol - 1];
                 map[alienrow][aliencol - 1] = 'A';
                 map[alienrow][aliencol] = '.';
                 aliencol = aliencol - 1;
+                }
             }
         }
         else if (tileObject == '>')
         {
             if (aliencol < colborder)
             {
+                if (map[alienrow][aliencol + 1] == 'r')
+                {
+                    tileObject = map[alienrow][aliencol + 1];
+                    previousArrow = '>';
+                }
+                else
+                {
                 previousArrow = '>';
                 tileObject = map[alienrow][aliencol + 1];
                 map[alienrow][aliencol + 1] = 'A';
                 map[alienrow][aliencol] = '.';
                 aliencol = aliencol + 1;
+                }
             }
         }
         else if (tileObject == '^')
         {
             if (alienrow > 0)
             {
+                if (map[alienrow - 1][aliencol] == 'r')
+                {
+                    tileObject = map[alienrow - 1][aliencol];
+                    previousArrow = '^';
+                }
+                else
+                {
                 previousArrow = '^';
                 tileObject = map[alienrow - 1][aliencol];
                 map[alienrow - 1][aliencol] = 'A';
                 map[alienrow][aliencol] = '.';
                 alienrow = alienrow - 1;
+                }
             }
         }
         else if (tileObject == 'v')
         {
             if (alienrow < rowborder)
             {
+                if (map[alienrow][aliencol - 1] == 'r')
+                {
+                    tileObject = map[alienrow + 1][aliencol];
+                    previousArrow = 'v';
+                }
+                else
+                {
                 previousArrow = 'v';
                 tileObject = map[alienrow + 1][aliencol];
                 map[alienrow + 1][aliencol] = 'A';
                 map[alienrow][aliencol] = '.';
                 alienrow = alienrow + 1;
+                }
             }
         }
     }
