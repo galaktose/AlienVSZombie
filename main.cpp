@@ -41,7 +41,7 @@ int main()
             cout <<"Here we go again!" << endl;
             continue;
         }
-        else if(again == 'N')
+        else if(again == 'n')
         {
             cout <<"Alright! Have a nice day." << endl;
             break;

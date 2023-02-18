@@ -735,9 +735,15 @@ namespace pf
         else if (tileObject == 't')
         {
             char randomisedObjects[] = {'v', '^', '<', '>', ' ', 'h', 'p', 'r', ' ', ' ', ' '};
+            int teleportObject = 10;
+            int newteleportObject = rand() % teleportObject;
             
-            tileObject = randomisedObjects[1 + (rand()%11)];
-            map[alienrow][aliencol] = map[1+(rand()%row)][1+(rand()%col)];
+            int teleportRow = rand() % kRows - 1; //picks a random location
+            int teleportCol = rand() % kColumns - 1;
+            map[teleportRow][teleportCol] = 'A'; //sets the new random coordinates as the alien
+            map[alienrow][aliencol] = randomisedObjects[newteleportObject];  //places a new randomised object on the teleporter
+            alienrow = teleportRow;  //sets new alien coordinates
+            aliencol = teleportCol;
             
             cout << "The alien has been teleported to a random location on the map!" << endl;
 
