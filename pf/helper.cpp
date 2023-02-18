@@ -64,7 +64,6 @@ namespace pf
 
     void BoardEdit()
     {
-        // kufufu kufufu kufufu
         int x;
         int y;
         int z;
@@ -968,10 +967,6 @@ namespace pf
         cout << "        ";
         stats.chargeSet(charge);
         stats.showCharge();
-        if (charge < 3)
-        {
-            charge = charge + 1;
-        }
         cout << endl;
 
         Zombie Zstats;
@@ -1411,10 +1406,11 @@ namespace pf
             
             if (charge = 3 && (CharCol && CharRow <= 5))
             {   
-
+                
                 zHP = zHP - 15;
                 cout << "The alien shoots and hit the zombie!" << endl;
-
+                charge = -1;
+                break;
             }
             else if (charge < 3 )
             {
