@@ -8,7 +8,6 @@
 // Phones: 011-10255127 | 011-10030429 |
 // *********************************************************
 
-// TODO: Fill in the missing information above and delete this line.
 
 #include "pf/helper.h"
 #include "pf/helper.cpp"

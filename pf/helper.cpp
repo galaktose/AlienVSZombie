@@ -790,10 +790,14 @@ namespace pf
                     aliencol = aliencol - 1;
                 }
             }
+            else
+            {
+                tileObject = map[alienrow][aliencol - 1];
+            }
         }
         else if (tileObject == '>')
         {
-            if (aliencol < colborder)
+            if (aliencol < colborder - 1)
             {
                 if (map[alienrow][aliencol + 1] == 'r')
                 {
@@ -813,6 +817,10 @@ namespace pf
                     map[alienrow][aliencol] = '.';
                     aliencol = aliencol + 1;
                 }
+            }
+            else
+            {
+                tileObject = map[alienrow][aliencol + 1];
             }
         }
         else if (tileObject == '^')
@@ -838,6 +846,10 @@ namespace pf
                     alienrow = alienrow - 1;
                 }
             }
+            else
+            {
+                tileObject = map[alienrow - 1][aliencol];
+            }
         }
         else if (tileObject == 'v')
         {
@@ -861,6 +873,10 @@ namespace pf
                     map[alienrow][aliencol] = '.';
                     alienrow = alienrow + 1;
                 }
+            }
+            else
+            {
+                tileObject = map[alienrow + 1][aliencol];
             }
         }
     }

@@ -21,7 +21,8 @@ namespace pf
     void moveRight();
     void arrowChange();
     void rockSmash();
-
+    void shoot();
+    
     void gameSave();
     void gameLoad();
     void continueGame();
