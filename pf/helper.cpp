@@ -198,11 +198,11 @@ namespace pf
             {
                 if (row == alienrow && col == aliencol)
                 {
-                    map[row][col] = 'A';
+                    map[row][col] = 'A'; //place alien
                 }
                 else if (row == rowZom && col == colZom)
                 {
-                    map[row][col] = 'Z';
+                    map[row][col] = 'Z'; // place zombie
                 }
                 else
                 {
@@ -278,18 +278,6 @@ namespace pf
                 shoot();
                 break;
             }
-            
-            // else if (command == "teleport") // god mode??!?!?
-            // {
-            //     cout << "Enter your new coordinates" << endl;
-            //     int Xrow; int Ycol;
-            //     cin >> Xrow >> Ycol;
-            //     map[alienrow][aliencol] = ' ';
-            //     alienrow = Xrow;
-            //     aliencol = Ycol;
-            //     map[Xrow - 1][Ycol - 1] = 'A';
-            //     break;
-            // }
             else
             {
                 cout << "Invalid input. Please try again." << endl;
@@ -562,8 +550,8 @@ namespace pf
 
     void rockSmash()
     {
-        char rockObject[] = {' ', '^', 'v', '>', '<', 'h', 'p'};
-        int noObjects = 7;
+        char rockObject[] = {' ', '^', 'v', '>', '<', 'h', 'p', 't'};
+        int noObjects = 8;
         int newRock = rand() % noObjects;
         tileObject = rockObject[newRock];
     }
@@ -884,7 +872,7 @@ namespace pf
     {
         char newObjects[] = {'>', '<', '^', 'v', ' ', 'h', 'r', 'p'};
         int numberObject = 8;
-        for (int row = 0; row < kRows; row++)
+        for (int row = 0; row < kRows; row++) //searches for any dots inside the map to replace
         {
             for (int col = 0; col < kColumns; col++)
             {
@@ -1216,7 +1204,7 @@ namespace pf
         {
             if (rowZom < rowborder)
             {
-                if (map[rowZom + 1][colZom] == 'A')
+                if (map[rowZom + 1][colZom] == 'A') //checks if the direction would result in it moving directly into the alien
                 {
                     zombieBoard();
                     cout << "The zombie gives the alien a cold, hard stare, ready for an attack." <<endl;
@@ -1242,7 +1230,7 @@ namespace pf
         {
             if (rowZom > 0)
             {
-                if (map[rowZom - 1][colZom] == 'A')
+                if (map[rowZom - 1][colZom] == 'A')//checks if the direction would result in it moving directly into the alien
                 {
                     zombieBoard();
                     cout << "The zombie gives the alien a cold, hard stare, ready for an attack." <<endl;
@@ -1268,7 +1256,7 @@ namespace pf
         {
             if (colZom < colborder)
             {
-                if (map[rowZom][colZom + 1] == 'A')
+                if (map[rowZom][colZom + 1] == 'A')//checks if the direction would result in it moving directly into the alien
                 {
                     zombieBoard();
                     cout << "The zombie gives the alien a cold, hard stare, ready for an attack." <<endl;
@@ -1295,7 +1283,7 @@ namespace pf
 
             if (colZom > 0)
             {
-                if (map[rowZom][colZom - 1] == 'A')
+                if (map[rowZom][colZom - 1] == 'A')//checks if the direction would result in it moving directly into the alien
                 {
                     zombieBoard();
                     cout << "The zombie gives the alien a cold, hard stare, ready for an attack." <<endl;

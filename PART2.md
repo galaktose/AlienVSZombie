@@ -31,23 +31,26 @@ List all the features not yet done. Remove this section if there is no incomplet
 
 ## Additional Features
 
-Describe the additional features that has been implemented.
+1. Teleporter game object
+    - A new game object that teleports the alien to a random place inside the board. After teleporting, the teleporter will be randomised into a new game object that is not another teleporter.
+2. Alien "shoot" command
+    - The alien is given the ability to attack a  zombie from a very large distance, nearly infinite for smaller boards such as the default board(A range of 5). This ability can only be used once the alien accumulates a charge of 3, which is reset after the alien uses the shoot command. This attack ends the alien's turn, and does only 15 damage to the zombie.
 
 ## Contributions
 
-List down the contribution of each group members.
+### Noor Hannan bin Noor Hamsuruddin
 
-For example:
+1. Map generation
+2. Game Controls
+3. Board size customisation
+4. Alien attacks
+5. Zombie randomised movement
+6. Zombie attacks
+7. Interaction with game objects
 
-### Tony Stark
+### Wan Muhammad Atif bin Taram Satiraksa
 
-1. Randomly generate game board.
-2. *add more*
-
-### Steve Rogers
-
-1. Zombie movement and attack behaviour.
-2. *add more*
+1. Go on add your contributions
 
 
 ## Problems Encountered & Solutions
@@ -63,7 +66,10 @@ Describe the problems encountered and provide the solutions / plan for the solut
     - Found a logic error where zombie can attack if the alien is only a few rows away OR a few columns away. Fixed by using the AND operator.
 
 3. Arrows allow the alien to go off the board and possibly end the code forcefully.
-    -(pain)
+    -Modified some logical errors and added more restrictions to ensure the alien does not go off the board after going through arrows.
 
 4. Alien overlaps the rock after smashing it
     - Modified arrowpush() to take into account stopping at a rock and smashing it 
+
+5. Save and load feature does not work.
+    - gg
