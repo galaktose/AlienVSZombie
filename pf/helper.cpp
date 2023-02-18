@@ -358,7 +358,7 @@ namespace pf
             break;
         }
     }
-    
+
     void moveUp()
     {
         if (alienrow > 0)
@@ -1158,8 +1158,9 @@ namespace pf
         {
             if (rowZom < rowborder)
             {
-                if (map[rowZom + 1][colZom] = 'A')
+                if (map[rowZom + 1][colZom] == 'A')
                 {
+                    zombieBoard();
                     cout << "The zombie gives the alien a cold, hard stare, ready for an attack." <<endl;
                     Pause();
                 }
@@ -1183,8 +1184,9 @@ namespace pf
         {
             if (rowZom > 0)
             {
-                if (map[rowZom - 1][colZom] = 'A')
+                if (map[rowZom - 1][colZom] == 'A')
                 {
+                    zombieBoard();
                     cout << "The zombie gives the alien a cold, hard stare, ready for an attack." <<endl;
                     Pause();
                 }
@@ -1208,8 +1210,9 @@ namespace pf
         {
             if (colZom < colborder)
             {
-                if (map[rowZom][colZom + 1] = 'A')
+                if (map[rowZom][colZom + 1] == 'A')
                 {
+                    zombieBoard();
                     cout << "The zombie gives the alien a cold, hard stare, ready for an attack." <<endl;
                     Pause();
                 }
@@ -1234,8 +1237,9 @@ namespace pf
 
             if (colZom > 0)
             {
-                if (map[rowZom][colZom - 1] = 'A')
+                if (map[rowZom][colZom - 1] == 'A')
                 {
+                    zombieBoard();
                     cout << "The zombie gives the alien a cold, hard stare, ready for an attack." <<endl;
                     Pause();
                 }
@@ -1256,61 +1260,26 @@ namespace pf
             }
         }
 
-        //     for(int distance = 1; distance <= zRange; distance++)
-        //     {
-        //         int distUP = colZom - distance;
-        //         int distDown = colZom + distance;
-        //         int distLeft = rowZom - distance;
-        //         int distRight = rowZom + distance;
-        //         if (map[rowZom][distDown] == 'A' || map[rowZom][distUP] == 'A')//range upwards
-        //         {
-        //             HP = HP - zDmg;
-        //             if (HP < 0)
-        //             {
-        //                 continueGame =false;
-        //                 miss = false;
-        //             }
-        //             else
-        //             {
-        //                 miss = false;
-        //             }
-        //             distance = zRange;
-        //             distance++;
-        //         }
-        //         else if (map[distRight][colZom] == 'A' || map[distLeft][colZom] == 'A')
-        //         {
-        //             HP = HP - zDmg;
-        //             if (HP < 0)
-        //             {
-        //                 continueGame =false;
-        //                 miss = false;
-        //             }
-        //             else
-        //             {
-        //                 miss = false;
-        //             }
-        //             distance = zRange;
-        //             distance++;
-        //         }
-        //         else
-        //         {
-        //             distance++;
-        //             miss = true;
-        //         }
-        //     }
-
-        //     if (miss = true)
-        //     {
-        //         cout <<"The zombie tries to attack the alien, but its out of range." << endl;
-        //     }
-        //     else if(miss = false)
-        //     {
-        //         cout <<"The zombie attacks the alien for " << zDmg <<" Damage!"<< endl;
-        //     }
-        //     cout << endl;
-        //     miss = false;
-
-
+        int colrange = colZom - aliencol;
+        int rowrange = rowZom - alienrow;
+        if(colrange < 0)
+        {
+            colrange = -colrange;
+        }
+        if (rowrange < 0)
+        {
+            rowrange = -rowrange;
+        }
+        
+        if (colrange <= zRange && rowrange <= zRange)
+        {
+            HP = HP - zDmg;
+            cout << "The zombie attacks the alien for " << zDmg << " Damage!"<< endl;
+        }
+        else
+        {
+            cout << "The zombie tries to attack the alien, but it is out of range." << endl;
+        }
     }
     void gameOver()
     {
