@@ -577,9 +577,9 @@ namespace pf
         savefile << HP,dmg,zHP,zDmg,zRange;
         savefile << endl;
 
-        ostream_iterator<string> iterator(out_file); // creates an iterator me thinks
+        //ostream_iterator<string> iterator(out_file); // creates an iterator me thinks
 
-        copy(map.begin(),map.end(), iterator);//copy the result of iteration through the map vector from start to end using iterator
+        //copy(map.begin(),map.end(), iterator);//copy the result of iteration through the map vector from start to end using iterator
 
         savefile.close();
 
