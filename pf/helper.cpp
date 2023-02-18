@@ -173,8 +173,8 @@ namespace pf
         rowborder = row - 1;
         colborder = col - 1;
 
-        char objects[] = {'v', '^', '<', '>', ' ', 'h', 'p', 'r', ' ', ' ', ' '};
-        int noOfObjects = 11; // number of objects in the array
+        char objects[] = {'v', '^', '<', '>', ' ', 'h', 'p', 'r', ' ', ' ', ' ', 't'};
+        int noOfObjects = 12; // number of objects in the array
 
         alienrow = (kRows / 2);
         aliencol = (kColumns / 2); // center of the map
@@ -731,6 +731,17 @@ namespace pf
         else if (tileObject == 'Z')
         {
             cout << "The alien attacks the zombie after a hard charge!" << endl;
+        }
+        else if (tileObject == 't')
+        {
+            char randomisedObjects[] = {'v', '^', '<', '>', ' ', 'h', 'p', 'r', ' ', ' ', ' '};
+            
+            tileObject = randomisedObjects[1 + (rand()%11)];
+            map[alienrow][aliencol] = map[1+(rand()%row)][1+(rand()%col)];
+            
+            cout << "The alien has been teleported to a random location on the map!" << endl;
+
+            
         }
         
         else
