@@ -358,6 +358,7 @@ namespace pf
             break;
         }
     }
+    
     void moveUp()
     {
         if (alienrow > 0)
