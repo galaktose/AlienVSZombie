@@ -10,7 +10,7 @@ Please provide the YouTube link to your [Video Demo](https://youtube.com).
 
 List all the features completed.
 
-1. Game controls (except for save and load)
+1. Game controls 
 2. Random map and game object generation
 3. Customisable board size
 4. Alien movement(including arrows)
@@ -33,6 +33,7 @@ List all the features not yet done. Remove this section if there is no incomplet
 
 1. Teleporter game object
     - A new game object that teleports the alien to a random place inside the board. After teleporting, the teleporter will be randomised into a new game object that is not another teleporter.
+
 2. Alien "shoot" command
     - The alien is given the ability to attack a  zombie from a very large distance, nearly infinite for smaller boards such as the default board(A range of 5). This ability can only be used once the alien accumulates a charge of 3, which is reset after the alien uses the shoot command. This attack ends the alien's turn, and does only 15 damage to the zombie.
 
@@ -50,8 +51,12 @@ List all the features not yet done. Remove this section if there is no incomplet
 
 ### Wan Muhammad Atif bin Taram Satiraksa
 
-1. Go on add your contributions
-
+1. Frameworks for Game Saving and Loading
+2. Alien "shoot" feature 
+3. Randomisation of Zombie, Alien stats
+4. Help menu
+5. Zombie.cpp
+6. Partial assistance on other features (Map generation, Board size customisation and Zombie attacks)
 
 ## Problems Encountered & Solutions
 
@@ -62,14 +67,15 @@ Describe the problems encountered and provide the solutions / plan for the solut
     int random = offset + (rand() % range); 
     ```
       where offset is the starting limit and range is the number of values between first and last limit including the limits itself.
+
 2. Zombie having infinite range.
     - Found a logic error where zombie can attack if the alien is only a few rows away OR a few columns away. Fixed by using the AND operator.
 
 3. Arrows allow the alien to go off the board and possibly end the code forcefully.
     -Modified some logical errors and added more restrictions to ensure the alien does not go off the board after going through arrows.
 
-4. Alien overlaps the rock after smashing it
-    - Modified arrowpush() to take into account stopping at a rock and smashing it 
-
+4. Alien overlaps the rock after smashing it  
+    - Modified arrowpush() to take into account stopping at a rock and smashing it  
+ 
 5. Save and load feature does not work.
     - gg

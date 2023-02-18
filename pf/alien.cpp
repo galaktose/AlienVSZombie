@@ -41,16 +41,12 @@ using namespace std;
         
         void chargeSet(int charge)
         {
-            if (charge < 3)
-            {
-                int charge = charge + 1;
-            }
             
             aliencharge = charge;
             aCharge = aliencharge;
             
         }
-        
+
         void showCharge()
         {   
             cout << "Charges : " << aCharge;

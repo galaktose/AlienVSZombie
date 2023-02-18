@@ -56,6 +56,10 @@ Empty Space
 Trail (.)   
 • Left by Alien when it moves.  
 • Reset to a random game object (except the Trail) after Alien’s turn ends.  
+
+Teleporter (t)  
+• Teleports the Alien to a random location in the map  
+• Reset to a random game object (except the Teleporter) after Alien's turn ends.
   
 For further gameplay questions, A help menu can be accessed in game by typing "help".  
   
