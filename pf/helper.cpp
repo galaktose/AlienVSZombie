@@ -727,6 +727,11 @@ namespace pf
             }
             cout << "The alien smashes the rock!" << endl;
         }
+        else if (tileObject == 'Z')
+        {
+            cout << "The alien attacks the zombie after a hard charge!" << endl;
+        }
+        
         else
         {
             // literally nothing happens!!!
@@ -743,6 +748,11 @@ namespace pf
                 {
                     tileObject = map[alienrow][aliencol - 1];
                     previousArrow = '<';
+                }
+                else if (map[alienrow][aliencol - 1] == 'Z')
+                {
+                    tileObject = map[alienrow][aliencol - 1];
+                    zHP = zHP - dmg;
                 }
                 else
                 {
@@ -763,6 +773,11 @@ namespace pf
                     tileObject = map[alienrow][aliencol + 1];
                     previousArrow = '>';
                 }
+                else if (map[alienrow][aliencol + 1] == 'Z')
+                {
+                    tileObject = map[alienrow][aliencol + 1];
+                    zHP = zHP - dmg;
+                }
                 else
                 {
                     previousArrow = '>';
@@ -782,6 +797,11 @@ namespace pf
                     tileObject = map[alienrow - 1][aliencol];
                     previousArrow = '^';
                 }
+                else if (map[alienrow - 1][aliencol] == 'Z')
+                {
+                    tileObject = map[alienrow - 1][aliencol];
+                    zHP = zHP - dmg;
+                }
                 else
                 {
                     previousArrow = '^';
@@ -796,10 +816,15 @@ namespace pf
         {
             if (alienrow < rowborder)
             {
-                if (map[alienrow][aliencol - 1] == 'r')
+                if (map[alienrow + 1][aliencol] == 'r')
                 {
                     tileObject = map[alienrow + 1][aliencol];
                     previousArrow = 'v';
+                }
+                else if (map[alienrow + 1][aliencol] == 'Z')
+                {
+                    tileObject = map[alienrow + 1][aliencol];
+                    zHP = zHP - dmg;
                 }
                 else
                 {
@@ -1132,12 +1157,19 @@ namespace pf
         {
             if (rowZom < rowborder)
             {
+                if (map[rowZom + 1][colZom] = 'A')
+                {
+                    cout << "The zombie gives the alien a cold, hard stare, ready for an attack." <<endl;
+                    Pause();
+                }
+                else{
                 map[rowZom + 1][colZom] = 'Z';
                 map[rowZom][colZom] = ' ';
                 rowZom = rowZom + 1;
                 zombieBoard();
                 cout << endl;
                 cout << "The zombie has moved downwards!" << endl;
+                }
             }
             else
             {
@@ -1150,12 +1182,19 @@ namespace pf
         {
             if (rowZom > 0)
             {
+                if (map[rowZom - 1][colZom] = 'A')
+                {
+                    cout << "The zombie gives the alien a cold, hard stare, ready for an attack." <<endl;
+                    Pause();
+                }
+                else{
                 map[rowZom - 1][colZom] = 'Z';
                 map[rowZom][colZom] = ' ';
                 rowZom = rowZom - 1;
                 zombieBoard();
                 cout << endl;
                 cout << "The zombie has moved upwards!" << endl;
+                }
             }
             else
             {
@@ -1168,12 +1207,19 @@ namespace pf
         {
             if (colZom < colborder)
             {
+                if (map[rowZom][colZom + 1] = 'A')
+                {
+                    cout << "The zombie gives the alien a cold, hard stare, ready for an attack." <<endl;
+                    Pause();
+                }
+                else{
                 map[rowZom][colZom + 1] = 'Z';
                 map[rowZom][colZom] = ' ';
                 colZom = colZom + 1;
                 zombieBoard();
                 cout << endl;
                 cout << "The zombie has moved to the right!" << endl;
+                }
             }
             else
             {
@@ -1187,12 +1233,19 @@ namespace pf
 
             if (colZom > 0)
             {
+                if (map[rowZom][colZom - 1] = 'A')
+                {
+                    cout << "The zombie gives the alien a cold, hard stare, ready for an attack." <<endl;
+                    Pause();
+                }
+                else{
                 map[rowZom][colZom - 1] = 'Z';
                 map[rowZom][colZom] = ' ';
                 colZom = colZom - 1;
                 zombieBoard();
                 cout << endl;
                 cout << "The zombie has moved to the left!" << endl;
+                }
             }
             else
             {
@@ -1258,16 +1311,6 @@ namespace pf
 
 
     }
-
-    void continueGame()
-    {
-        if (HP < 1)
-        {
-            exit(0);
-        }
-        
-    }
-
     void gameOver()
     {
         cout << " The zombie has taken down the alien!!"<<endl;
@@ -1275,8 +1318,19 @@ namespace pf
     }
     void victory()
     {
+        system("cls");
         cout << "The zombie has been defeated by the alien!"<<endl;
         cout << "           You are victorious!            "<< endl;
+        cout << "           Here is your prize.            "<< endl;
+        cout << "           '._==_==_=_.'"<< endl;
+        cout << "           .-|:      |-."<< endl;
+        cout << "          | (|:.     |) |"<< endl;
+        cout << "           '-|:.     |-'"<< endl;
+        cout << "             |::.    |"<< endl;
+        cout << "             '::. .' "<< endl;
+        cout << "                ) ("<< endl;
+        cout << "              _.' '._"<< endl;
+        cout << "            """"""""""" << endl;
     }
 
     void activeBoard()

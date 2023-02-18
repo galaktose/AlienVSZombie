@@ -19,9 +19,10 @@ int main()
 {
     cout << "Assignment (Part 2)" << endl;
     cout << "Let's Get Started!" << endl;
+    pf::Pause();
     while (bool restart = true)
     {
-        pf::Pause();
+        system("cls");
         pf::BoardSettings();
         srand(time(NULL));
         pf::CreateGameBoard();
