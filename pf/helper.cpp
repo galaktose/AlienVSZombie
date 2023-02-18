@@ -577,9 +577,9 @@ namespace pf
         savefile << HP,dmg,zHP,zDmg,zRange;
         savefile << endl;
 
-        //ostream_iterator<string> iterator(out_file); // creates an iterator me thinks
+        ostream_iterator<string> iterator(out_file); // creates an iterator me thinks
 
-        //copy(map.begin(),map.end(), iterator);//copy the result of iteration through the map vector from start to end using iterator
+        copy(map.begin(),map.end(), iterator);//copy the result of iteration through the map vector from start to end using iterator
 
         savefile.close();
 
@@ -1260,26 +1260,6 @@ namespace pf
             }
         }
 
-        int colrange = colZom - aliencol;
-        int rowrange = rowZom - alienrow;
-        if(colrange < 0)
-        {
-            colrange = -colrange;
-        }
-        if (rowrange < 0)
-        {
-            rowrange = -rowrange;
-        }
-        
-        if (colrange <= zRange && rowrange <= zRange)
-        {
-            HP = HP - zDmg;
-            cout << "The zombie attacks the alien for " << zDmg << " Damage!"<< endl;
-        }
-        else
-        {
-            cout << "The zombie tries to attack the alien, but it is out of range." << endl;
-        }
     }
     void gameOver()
     {
@@ -1313,6 +1293,7 @@ namespace pf
             inProgressBoard();
             Pause();
             zombieTurn();
+            zombieAttack();
             Pause();
             trailReset();
             continue;
@@ -1332,4 +1313,27 @@ namespace pf
         
     }
     
+    void zombieAttack()
+    {
+        int colrange = colZom - aliencol;
+        int rowrange = rowZom - alienrow;
+        if (colrange < 0)
+        {
+            colrange = -colrange;
+        }
+        if (rowrange < 0)
+        {
+            rowrange = -rowrange;
+        }
+
+        if (colrange <= zRange && rowrange <= zRange)
+        {
+            HP = HP - zDmg;
+            cout << "The zombie attacks the alien for " << zDmg << " Damage!" << endl;
+        }
+        else
+        {
+            cout << "The zombie tries to attack the alien, but it is out of range." << endl;
+        }
+    }
 }
