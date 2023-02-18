@@ -848,12 +848,12 @@ namespace pf
             }
             else
             {
-                tileObject = map[alienrow - 1][aliencol];
+                tileObject = ' ';
             }
         }
         else if (tileObject == 'v')
         {
-            if (alienrow < rowborder)
+            if (alienrow < rowborder - 1)
             {
                 if (map[alienrow + 1][aliencol] == 'r')
                 {
@@ -876,7 +876,7 @@ namespace pf
             }
             else
             {
-                tileObject = map[alienrow + 1][aliencol];
+                tileObject = ' ';
             }
         }
     }
@@ -952,8 +952,11 @@ namespace pf
             cout << "   " << (j + 1) % 10;
         }
 
-        
-
+        if (charge < 3)
+            {
+                int charge = charge + 1;
+            }
+            
         cout << endl;
         cout << "Row : Top to down." << endl;
         cout << "Column : Left to right." << endl;
@@ -1040,6 +1043,11 @@ namespace pf
         cout << "Column : Left to right." << endl;
         cout << endl;
 
+        if (charge < 3)
+            {
+                int charge = charge + 1;
+            }
+            
         Alien stats;
         stats.lifeSet(HP);
         stats.showLife();
@@ -1121,6 +1129,11 @@ namespace pf
         cout << "Column : Left to right." << endl;
         cout << endl;
 
+        if (charge < 3)
+            {
+                int charge = charge + 1;
+            }
+            
         Alien stats;
         stats.lifeSet(HP);
         stats.showLife();
@@ -1419,8 +1432,7 @@ namespace pf
                 charge = 0;
                 Pause();
                 break;
-            }
-            
+            } 
             
         }
     }
