@@ -27,7 +27,6 @@ namespace pf
     int HPlimit;
     int zDmgLimit;
     int zRangeLimit;
-    
 
     int row; // up down size
     int rowborder;
@@ -196,7 +195,7 @@ namespace pf
             {
                 if (row == alienrow && col == aliencol)
                 {
-                    map[row][col] = 'A'; //place alien
+                    map[row][col] = 'A'; // place alien
                 }
                 else if (row == rowZom && col == colZom)
                 {
@@ -272,7 +271,7 @@ namespace pf
                 break;
             }
             else if (command == "shoot")
-            {   
+            {
                 shoot();
                 break;
             }
@@ -561,17 +560,23 @@ namespace pf
 
         cout << "Enter the name of the new save file : ";
         cin >> filename;
-        savefile.open(filename); //opens the file
+        savefile.open(filename); // opens the file
 
         // NEW SAVE CODE (HOPEFULLY THIS WORKS)(if not ill jump off a cliff)(real)
         ofstream out_file(filename);
 
-        savefile << HP,dmg,zHP,zDmg,zRange;
+        for (int row = 0; row < kRows; row++)
+        {
+            for (int col = 0; col < kColumns; col++)
+            {
+                savefile << map[row][col];
+            }
+        }
         savefile << endl;
 
-        //ostream_iterator<string> iterator(out_file); // creates an iterator me thinks
+        // ostream_iterator<string> iterator(out_file); // creates an iterator me thinks
 
-        //copy(map.begin(),map.end(), iterator);//copy the result of iteration through the map vector from start to end using iterator
+        // copy(map.begin(),map.end(), iterator);//copy the result of iteration through the map vector from start to end using iterator
 
         savefile.close();
 
@@ -589,7 +594,6 @@ namespace pf
             }
             else if (input == "c")
             {
-                Pause();
                 break;
             }
             else
@@ -604,7 +608,7 @@ namespace pf
     {
         system("cls");
         ifstream loadfile;
-        string map, filename;
+        string mapstring, filename;
 
         bool choice = true;
         while (choice = true)
@@ -614,9 +618,17 @@ namespace pf
             loadfile.open(filename); // opens the file with the name inputted by user
             if (loadfile.is_open())  // checks if the file requested by user is open
             {
-                while (getline(loadfile, map)) // gather all string in txt file
+                while (getline(loadfile, mapstring)) // gather all string in txt file
                 {
-                    cout << map << endl; // print the strings in the txt file
+                    int mapchar =0;
+                    for (int row = 0; row < kRows; row++)
+                    {
+                        for (int col = 0; col < kColumns; col++)
+                        {
+                            map[row][col] = mapstring[mapchar];
+                            mapchar = mapchar + 1;
+                        }
+                    }
                 };
                 loadfile.close(); // close file (to basically save all changes made)
                 break;
@@ -731,20 +743,18 @@ namespace pf
             char randomisedObjects[] = {'v', '^', '<', '>', ' ', 'h', 'p', 'r', ' ', ' ', ' '};
             int teleportObject = 10;
             int newteleportObject = rand() % teleportObject;
-            
-            int teleportRow = rand() % kRows - 1; //picks a random location
-            int teleportCol = rand() % kColumns - 1;
-            map[teleportRow][teleportCol] = 'A'; //sets the new random coordinates as the alien
-            map[alienrow][aliencol] = randomisedObjects[newteleportObject];  //places a new randomised object on the teleporter
-            alienrow = teleportRow;  //sets new alien coordinates
-            aliencol = teleportCol;
-            
-            cout << "The alien has been teleported to a random location on the map!" << endl;
 
-            
+            int teleportRow = rand() % kRows - 1; // picks a random location
+            int teleportCol = rand() % kColumns - 1;
+            map[teleportRow][teleportCol] = 'A';                            // sets the new random coordinates as the alien
+            map[alienrow][aliencol] = randomisedObjects[newteleportObject]; // places a new randomised object on the teleporter
+            alienrow = teleportRow;                                         // sets new alien coordinates
+            aliencol = teleportCol;
+
+            cout << "The alien has been teleported to a random location on the map!" << endl;
         }
-        
-        else  
+
+        else
         {
             // literally nothing happens!!!
         }
@@ -870,7 +880,7 @@ namespace pf
     {
         char newObjects[] = {'>', '<', '^', 'v', ' ', 'h', 'r', 'p'};
         int numberObject = 8;
-        for (int row = 0; row < kRows; row++) //searches for any dots inside the map to replace
+        for (int row = 0; row < kRows; row++) // searches for any dots inside the map to replace
         {
             for (int col = 0; col < kColumns; col++)
             {
@@ -937,8 +947,6 @@ namespace pf
             cout << "   " << (j + 1) % 10;
         }
 
-        
-            
         cout << endl;
         cout << "Row : Top to down." << endl;
         cout << "Column : Left to right." << endl;
@@ -1029,7 +1037,7 @@ namespace pf
         {
             charge = charge + 1;
         }
-            
+
         Alien stats;
         stats.lifeSet(HP);
         stats.showLife();
@@ -1110,7 +1118,7 @@ namespace pf
         cout << "Row : Top to down." << endl;
         cout << "Column : Left to right." << endl;
         cout << endl;
- 
+
         Alien stats;
         stats.lifeSet(HP);
         stats.showLife();
@@ -1202,19 +1210,20 @@ namespace pf
         {
             if (rowZom < rowborder)
             {
-                if (map[rowZom + 1][colZom] == 'A') //checks if the direction would result in it moving directly into the alien
+                if (map[rowZom + 1][colZom] == 'A') // checks if the direction would result in it moving directly into the alien
                 {
                     zombieBoard();
-                    cout << "The zombie gives the alien a cold, hard stare, ready for an attack." <<endl;
+                    cout << "The zombie gives the alien a cold, hard stare, ready for an attack." << endl;
                     Pause();
                 }
-                else{
-                map[rowZom + 1][colZom] = 'Z';
-                map[rowZom][colZom] = ' ';
-                rowZom = rowZom + 1;
-                zombieBoard();
-                cout << endl;
-                cout << "The zombie has moved downwards!" << endl;
+                else
+                {
+                    map[rowZom + 1][colZom] = 'Z';
+                    map[rowZom][colZom] = ' ';
+                    rowZom = rowZom + 1;
+                    zombieBoard();
+                    cout << endl;
+                    cout << "The zombie has moved downwards!" << endl;
                 }
             }
             else
@@ -1228,19 +1237,20 @@ namespace pf
         {
             if (rowZom > 0)
             {
-                if (map[rowZom - 1][colZom] == 'A')//checks if the direction would result in it moving directly into the alien
+                if (map[rowZom - 1][colZom] == 'A') // checks if the direction would result in it moving directly into the alien
                 {
                     zombieBoard();
-                    cout << "The zombie gives the alien a cold, hard stare, ready for an attack." <<endl;
+                    cout << "The zombie gives the alien a cold, hard stare, ready for an attack." << endl;
                     Pause();
                 }
-                else{
-                map[rowZom - 1][colZom] = 'Z';
-                map[rowZom][colZom] = ' ';
-                rowZom = rowZom - 1;
-                zombieBoard();
-                cout << endl;
-                cout << "The zombie has moved upwards!" << endl;
+                else
+                {
+                    map[rowZom - 1][colZom] = 'Z';
+                    map[rowZom][colZom] = ' ';
+                    rowZom = rowZom - 1;
+                    zombieBoard();
+                    cout << endl;
+                    cout << "The zombie has moved upwards!" << endl;
                 }
             }
             else
@@ -1254,19 +1264,20 @@ namespace pf
         {
             if (colZom < colborder)
             {
-                if (map[rowZom][colZom + 1] == 'A')//checks if the direction would result in it moving directly into the alien
+                if (map[rowZom][colZom + 1] == 'A') // checks if the direction would result in it moving directly into the alien
                 {
                     zombieBoard();
-                    cout << "The zombie gives the alien a cold, hard stare, ready for an attack." <<endl;
+                    cout << "The zombie gives the alien a cold, hard stare, ready for an attack." << endl;
                     Pause();
                 }
-                else{
-                map[rowZom][colZom + 1] = 'Z';
-                map[rowZom][colZom] = ' ';
-                colZom = colZom + 1;
-                zombieBoard();
-                cout << endl;
-                cout << "The zombie has moved to the right!" << endl;
+                else
+                {
+                    map[rowZom][colZom + 1] = 'Z';
+                    map[rowZom][colZom] = ' ';
+                    colZom = colZom + 1;
+                    zombieBoard();
+                    cout << endl;
+                    cout << "The zombie has moved to the right!" << endl;
                 }
             }
             else
@@ -1281,19 +1292,20 @@ namespace pf
 
             if (colZom > 0)
             {
-                if (map[rowZom][colZom - 1] == 'A')//checks if the direction would result in it moving directly into the alien
+                if (map[rowZom][colZom - 1] == 'A') // checks if the direction would result in it moving directly into the alien
                 {
                     zombieBoard();
-                    cout << "The zombie gives the alien a cold, hard stare, ready for an attack." <<endl;
+                    cout << "The zombie gives the alien a cold, hard stare, ready for an attack." << endl;
                     Pause();
                 }
-                else{
-                map[rowZom][colZom - 1] = 'Z';
-                map[rowZom][colZom] = ' ';
-                colZom = colZom - 1;
-                zombieBoard();
-                cout << endl;
-                cout << "The zombie has moved to the left!" << endl;
+                else
+                {
+                    map[rowZom][colZom - 1] = 'Z';
+                    map[rowZom][colZom] = ' ';
+                    colZom = colZom - 1;
+                    zombieBoard();
+                    cout << endl;
+                    cout << "The zombie has moved to the left!" << endl;
                 }
             }
             else
@@ -1303,28 +1315,33 @@ namespace pf
                 cout << "The zombie tried to move, but it ran into a wall.(To the left)" << endl;
             }
         }
-
     }
     void gameOver()
     {
-        cout << " The zombie has taken down the alien!!"<<endl;
+        cout << " The zombie has taken down the alien!!" << endl;
         cout << "           You are defeated!          " << endl;
     }
     void victory()
     {
         system("cls");
-        cout << "The zombie has been defeated by the alien!"<<endl;
-        cout << "           You are victorious!            "<< endl;
-        cout << "           Here is your prize.            "<< endl;
-        cout << "           '._==_==_=_.'"<< endl;
-        cout << "           .-|:      |-."<< endl;
-        cout << "          | (|:.     |) |"<< endl;
-        cout << "           '-|:.     |-'"<< endl;
-        cout << "             |::.    |"<< endl;
-        cout << "             '::. .' "<< endl;
-        cout << "                ) ("<< endl;
-        cout << "              _.' '._"<< endl;
-        cout << "            """"""""""" << endl;
+        cout << "The zombie has been defeated by the alien!" << endl;
+        cout << "           You are victorious!            " << endl;
+        cout << "           Here is your prize.            " << endl;
+        cout << "           '._==_==_=_.'" << endl;
+        cout << "           .-|:      |-." << endl;
+        cout << "          | (|:.     |) |" << endl;
+        cout << "           '-|:.     |-'" << endl;
+        cout << "             |::.    |" << endl;
+        cout << "             '::. .' " << endl;
+        cout << "                ) (" << endl;
+        cout << "              _.' '._" << endl;
+        cout << "            "
+                ""
+                ""
+                ""
+                ""
+                ""
+             << endl;
     }
 
     void activeBoard()
@@ -1334,15 +1351,15 @@ namespace pf
         {
             if (HP > 0 && zHP > 0)
             {
-            inProgressBoard();
-            Pause();
-            zombieTurn();
-            zombieAttack();
-            Pause();
-            trailReset();
-            continue;
+                inProgressBoard();
+                Pause();
+                zombieTurn();
+                zombieAttack();
+                Pause();
+                trailReset();
+                continue;
             }
-            else if(HP < 1)
+            else if (HP < 1)
             {
                 gameOver();
                 break;
@@ -1352,11 +1369,10 @@ namespace pf
                 victory();
                 break;
             }
-            break; 
+            break;
         }
-        
     }
-    
+
     void zombieAttack()
     {
         int colrange = colZom - aliencol;
@@ -1382,23 +1398,23 @@ namespace pf
     }
 
     void shoot()
-    {   
+    {
         int CharCol = colZom - aliencol;
         int CharRow = rowZom - alienrow;
 
         bool shoot = true;
         while (shoot = true)
-        {   
-            
+        {
+
             if (charge = 3 && (CharCol && CharRow <= 5))
-            {   
-                
+            {
+
                 zHP = zHP - 15;
                 cout << "The alien shoots and hit the zombie!" << endl;
                 charge = -1;
                 break;
             }
-            else if (charge < 3 )
+            else if (charge < 3)
             {
                 cout << "Not enough charges to shoot!" << endl;
                 Pause();
@@ -1410,8 +1426,7 @@ namespace pf
                 charge = 0;
                 Pause();
                 break;
-            } 
-            
+            }
         }
     }
 }
