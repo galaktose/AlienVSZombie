@@ -42,8 +42,6 @@ namespace pf
     vector<vector<char>> map;
     vector<vector<char>> savemap;
 
-    bool miss = false;
-
     int ClearScreen()
     {
 #if defined(_WIN32)
