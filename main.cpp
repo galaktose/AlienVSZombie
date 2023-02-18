@@ -29,6 +29,7 @@ int main()
         pf::ShowGameBoard();
         pf::Pause();
         pf::zombieTurn();
+        pf::zombieAttack();
         pf::Pause();
         pf::trailReset();
         pf::activeBoard();
