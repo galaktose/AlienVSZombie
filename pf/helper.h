@@ -35,6 +35,7 @@ namespace pf
 
     void zombieBoard();
     void zombieTurn();
+    void zombieAttack();
 }
 
 
