@@ -14,7 +14,7 @@
 using namespace std;
 namespace pf
 {
-
+    int charge;
     int kRows;
     int kColumns;
     int rowZom;
@@ -27,6 +27,7 @@ namespace pf
     int HPlimit;
     int zDmgLimit;
     int zRangeLimit;
+    
 
     int row; // up down size
     int rowborder;
@@ -273,6 +274,12 @@ namespace pf
                 // helpMenu();
                 break;
             }
+            else if (command == "shoot")
+            {   
+                shoot();
+                break;
+            }
+            
             // else if (command == "teleport") // god mode??!?!?
             // {
             //     cout << "Enter your new coordinates" << endl;
@@ -678,6 +685,8 @@ namespace pf
         cout << " |   down   | Move alien downwards                                 |" << endl;
         cout << " |   left   | Move alien to the left                               |" << endl;
         cout << " |   right  | Move alien to the right                              |" << endl;
+        cout << " |   shoot  | Expend 3 charges and shoot the zombie for 15HP when  |" << endl;
+        cout << " |          | it is within 5 blocks away from the alien            |" << endl;
         cout << " |   arrow  | Switch the direction of an arrow object in the board |" << endl;
         cout << " |   save   | Save the current game                                |" << endl;
         cout << " |   load   | Load a saved game                                    |" << endl;
@@ -750,7 +759,7 @@ namespace pf
             
         }
         
-        else
+        else  
         {
             // literally nothing happens!!!
         }
@@ -926,6 +935,9 @@ namespace pf
         {
             cout << "   " << (j + 1) % 10;
         }
+
+        
+
         cout << endl;
         cout << "Row : Top to down." << endl;
         cout << "Column : Left to right." << endl;
@@ -937,6 +949,9 @@ namespace pf
         cout << "        ";
         stats.attackSet(dmg);
         stats.showdamage();
+        cout << "        ";
+        stats.chargeSet(charge);
+        stats.showCharge();
         cout << endl;
 
         Zombie Zstats;
@@ -1015,6 +1030,9 @@ namespace pf
         cout << "        ";
         stats.attackSet(0);
         stats.showdamage();
+        cout << "        ";
+        stats.chargeSet(charge);
+        stats.showCharge();
         cout << endl;
 
         Zombie Zstats;
@@ -1093,6 +1111,9 @@ namespace pf
         cout << "        ";
         stats.attackSet(0);
         stats.showdamage();
+        cout << "        ";
+        stats.chargeSet(charge);
+        stats.showCharge();
         cout << endl;
 
         Zombie Zstats;
@@ -1351,6 +1372,40 @@ namespace pf
         else
         {
             cout << "The zombie tries to attack the alien, but it is out of range." << endl;
+        }
+    }
+
+    void shoot()
+    {   
+        int CharCol = colZom - aliencol;
+        int CharRow = rowZom - alienrow;
+
+        bool shoot = true;
+        while (shoot = true)
+        {   
+            
+            if (charge = 3 && (CharCol && CharRow <= 5))
+            {   
+
+                zHP = zHP - 15;
+                cout << "The alien shoots and hit the zombie!" << endl;
+
+            }
+            else if (charge < 3 )
+            {
+                cout << "Not enough charges to shoot!" << endl;
+                Pause();
+                break;
+            }
+            else if (CharCol && CharRow <= 5)
+            {
+                cout << "The alien tries to shoot the zombie but the zombie is not in range!" << endl;
+                charge = 0;
+                Pause();
+                break;
+            }
+            
+            
         }
     }
 }

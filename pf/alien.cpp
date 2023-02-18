@@ -11,9 +11,11 @@ using namespace std;
         private:
         int alienhealth;
         int aliendamage;
+        int aliencharge;
         public:
             int life;
             int attack;
+            int aCharge;
 
         void lifeSet(int Hvalue)
         {
@@ -36,7 +38,23 @@ using namespace std;
         {
             cout << "Alien's Damage : " << attack;
         }
-
+        
+        void chargeSet(int charge)
+        {
+            if (charge < 3)
+            {
+                int charge = charge + 1;
+            }
+            
+            aliencharge = charge;
+            aCharge = aliencharge;
+            
+        }
+        
+        void showCharge()
+        {   
+            cout << "Charges : " << aCharge;
+        }
     };
 
 
