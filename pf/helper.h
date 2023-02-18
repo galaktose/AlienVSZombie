@@ -13,6 +13,7 @@ namespace pf
     void arrowBoard();
     void commands();
     void trailReset();
+    void activeBoard();
 
     void moveUp();
     void moveDown();
@@ -23,6 +24,9 @@ namespace pf
 
     void gameSave();
     void gameLoad();
+    void continueGame();
+    void gameOver();
+    void victory();
     
     void quit();
     void helpMenu();

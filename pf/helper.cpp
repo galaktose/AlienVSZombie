@@ -39,7 +39,6 @@ namespace pf
     vector<vector<char>> map;
     vector<vector<char>> savemap;
 
-    bool continueGame;
     bool miss = false;
 
     int ClearScreen()
@@ -372,7 +371,7 @@ namespace pf
             {
                 cout << "The alien does no damage to the zombie!" << endl;
             }
-            
+
             else
             {
                 map[alienrow - 1][aliencol] = 'A';
@@ -719,7 +718,7 @@ namespace pf
             {
                 map[alienrow][aliencol - 1] = tileObject;
             }
-            cout << "The alien smashes the rock!" << endl;    
+            cout << "The alien smashes the rock!" << endl;
         }
         else
         {
@@ -740,11 +739,11 @@ namespace pf
                 }
                 else
                 {
-                previousArrow = '<';
-                tileObject = map[alienrow][aliencol - 1];
-                map[alienrow][aliencol - 1] = 'A';
-                map[alienrow][aliencol] = '.';
-                aliencol = aliencol - 1;
+                    previousArrow = '<';
+                    tileObject = map[alienrow][aliencol - 1];
+                    map[alienrow][aliencol - 1] = 'A';
+                    map[alienrow][aliencol] = '.';
+                    aliencol = aliencol - 1;
                 }
             }
         }
@@ -759,11 +758,11 @@ namespace pf
                 }
                 else
                 {
-                previousArrow = '>';
-                tileObject = map[alienrow][aliencol + 1];
-                map[alienrow][aliencol + 1] = 'A';
-                map[alienrow][aliencol] = '.';
-                aliencol = aliencol + 1;
+                    previousArrow = '>';
+                    tileObject = map[alienrow][aliencol + 1];
+                    map[alienrow][aliencol + 1] = 'A';
+                    map[alienrow][aliencol] = '.';
+                    aliencol = aliencol + 1;
                 }
             }
         }
@@ -778,11 +777,11 @@ namespace pf
                 }
                 else
                 {
-                previousArrow = '^';
-                tileObject = map[alienrow - 1][aliencol];
-                map[alienrow - 1][aliencol] = 'A';
-                map[alienrow][aliencol] = '.';
-                alienrow = alienrow - 1;
+                    previousArrow = '^';
+                    tileObject = map[alienrow - 1][aliencol];
+                    map[alienrow - 1][aliencol] = 'A';
+                    map[alienrow][aliencol] = '.';
+                    alienrow = alienrow - 1;
                 }
             }
         }
@@ -797,11 +796,11 @@ namespace pf
                 }
                 else
                 {
-                previousArrow = 'v';
-                tileObject = map[alienrow + 1][aliencol];
-                map[alienrow + 1][aliencol] = 'A';
-                map[alienrow][aliencol] = '.';
-                alienrow = alienrow + 1;
+                    previousArrow = 'v';
+                    tileObject = map[alienrow + 1][aliencol];
+                    map[alienrow + 1][aliencol] = 'A';
+                    map[alienrow][aliencol] = '.';
+                    alienrow = alienrow + 1;
                 }
             }
         }
@@ -1249,5 +1248,57 @@ namespace pf
         //     }
         //     cout << endl;
         //     miss = false;
+
+
     }
+
+    void continueGame()
+    {
+        if (HP < 1)
+        {
+            exit(0);
+        }
+        
+    }
+
+    void gameOver()
+    {
+        cout << " The zombie has taken down the alien!!"<<endl;
+        cout << "           You are defeated!          " << endl;
+    }
+    void victory()
+    {
+        cout << "The zombie has been defeated by the alien!"<<endl;
+        cout << "           You are victorious!            "<< endl;
+    }
+
+    void activeBoard()
+    {
+        bool gaming = true;
+        while (gaming = true)
+        {
+            if (HP > 0 && zHP > 0)
+            {
+            inProgressBoard();
+            Pause();
+            zombieTurn();
+            Pause();
+            trailReset();
+            continue;
+            }
+            else if(HP < 1)
+            {
+                gameOver();
+                break;
+            }
+            else if (zHP < 1)
+            {
+                victory();
+                break;
+            }
+            break; 
+        }
+        
+    }
+    
 }
