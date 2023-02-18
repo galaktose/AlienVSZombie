@@ -952,10 +952,7 @@ namespace pf
             cout << "   " << (j + 1) % 10;
         }
 
-        if (charge < 3)
-            {
-                int charge = charge + 1;
-            }
+        
             
         cout << endl;
         cout << "Row : Top to down." << endl;
@@ -971,6 +968,10 @@ namespace pf
         cout << "        ";
         stats.chargeSet(charge);
         stats.showCharge();
+        if (charge < 3)
+        {
+            charge = charge + 1;
+        }
         cout << endl;
 
         Zombie Zstats;
@@ -1044,9 +1045,9 @@ namespace pf
         cout << endl;
 
         if (charge < 3)
-            {
-                int charge = charge + 1;
-            }
+        {
+            charge = charge + 1;
+        }
             
         Alien stats;
         stats.lifeSet(HP);
@@ -1128,12 +1129,7 @@ namespace pf
         cout << "Row : Top to down." << endl;
         cout << "Column : Left to right." << endl;
         cout << endl;
-
-        if (charge < 3)
-            {
-                int charge = charge + 1;
-            }
-            
+ 
         Alien stats;
         stats.lifeSet(HP);
         stats.showLife();
