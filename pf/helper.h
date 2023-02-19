@@ -12,6 +12,7 @@ namespace pf
     void inProgressBoard();
     void arrowBoard();
     void commands();
+    void devCommands();
     void trailReset();
     void activeBoard();
 
@@ -37,6 +38,9 @@ namespace pf
     void zombieBoard();
     void zombieTurn();
     void zombieAttack();
+
+    void devTeleport();
+    void objectChange();
 }
 
 

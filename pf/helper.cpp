@@ -38,8 +38,9 @@ namespace pf
     int newcol;
     char tileObject;
     char previousArrow;
+
+    bool devmode = false;
     vector<vector<char>> map;
-    vector<vector<char>> savemap;
 
     int ClearScreen()
     {
@@ -157,6 +158,7 @@ namespace pf
         HPlimit = 50;
         zRangeLimit = 4;
         zDmgLimit = 50;
+        charge = 0;
 
         HP = 50 + (rand() % HPlimit);
         dmg = 0;
@@ -209,8 +211,8 @@ namespace pf
             }
         }
     }
-
-    void commands()
+    
+    void devCommands()
     {
         string command;
         bool commChoice = true;
@@ -271,6 +273,116 @@ namespace pf
             else if (command == "skip") // for testing purposes
             {
                 // helpMenu();
+                break;
+            }
+            else if (command == "shoot")
+            {
+                shoot();
+                break;
+            }
+            else if (command == "teleport")
+            {
+                devTeleport();
+                break;
+            }
+            else if (command == "cure") //kills all zombies
+            {
+                zHP = 0;
+                break;
+            }
+            else if (command =="gg") //give up
+            {
+                HP = 0;
+                break;
+            }
+            else if (command =="object")
+            {
+                objectChange();
+                break;
+            } 
+            else
+            {
+                cout << "Invalid input. Please try again." << endl;
+                continue;
+            }
+            break;
+        }
+        tileObject = ' ';
+    }
+    void commands()
+    {
+        string command;
+        bool commChoice = true;
+        while (commChoice = true)
+        {
+            cout << "What are your commands, player?" << endl;
+            cin >> command;
+            if (command == "up")
+            {
+                moveUp();
+                break;
+            }
+            if (command == "down")
+            {
+                moveDown();
+                break;
+            }
+            if (command == "left")
+            {
+                moveLeft();
+                break;
+            }
+            if (command == "right")
+            {
+                moveRight();
+                break;
+            }
+
+            else if (command == "save")
+            {
+                gameSave();
+                inProgressBoard();
+                continue;
+            }
+            else if (command == "load")
+            {
+                gameLoad();
+                system("cls");
+                inProgressBoard();
+                continue;
+            }
+            else if (command == "arrow")
+            {
+                arrowChange();
+                arrowBoard();
+                continue;
+            }
+            else if (command == "quit" || command == "q")
+            {
+                quit();
+                break;
+            }
+            else if (command == "help")
+            {
+                helpMenu();
+                break;
+            }
+            else if (command == "devmode")
+            {
+                string password;
+                cin >> password;
+                if (password == "WongYaPingIsCool")
+                {
+                    devmode = true;
+                    cout << "Developer cheats activated!" << endl;
+                    HP = 9999;
+                    charge = 999;
+                }
+                else
+                {
+                    cout << "Nice try..." << endl;
+                }
+                
                 break;
             }
             else if (command == "shoot")
@@ -573,22 +685,21 @@ namespace pf
             for (int col = 0; col < kColumns; col++)
             {
                 savefile << map[row][col];
-                savefile << endl;
-                int savedata[] = {HP, dmg, charge, zHP, zDmg, zRange};
-                savefile << savedata;
             }
         }
         savefile << endl;
 
-        savefile << HP << " ";
-        savefile << charge << " ";
-        savefile << zHP << " ";
-        savefile << zDmg << " ";
-        savefile << zRange << " ";
-        savefile << aliencol << " ";
-        savefile << alienrow << " ";
-        savefile << rowZom << " ";
-        savefile << colZom << " ";
+        savefile << HP << endl;
+        savefile << charge <<endl;
+        savefile << zHP << endl;
+        savefile << zDmg << endl;
+        savefile << zRange << endl;
+        savefile << aliencol << endl;
+        savefile << alienrow << endl;
+        savefile << rowZom << endl;
+        savefile << colZom << endl;
+        savefile << kRows << endl;
+        savefile << kColumns << endl;
         savefile << endl;
         savefile.close();
 
@@ -635,8 +746,7 @@ namespace pf
             {
                 while (getline(loadfile, mapstring)) // gather all string in txt file
                 {
-
-                    if (loadfile >> letter)
+                    if (loadfile >> letter) // check if it is a char
                     {
                         int mapchar = 0;
                         for (int row = 0; row < kRows; row++)
@@ -648,21 +758,23 @@ namespace pf
                             }
                         }
                     }
-                    else if (loadfile >> number)
-                    {
-                        values.push_back(number);
-                    }
-                    cout << values[0];
-                    Pause();
                 };
-
+                break;
+                while (loadfile >> number)
+                {
+                    values.push_back(number);
+                };
+                break;
                 loadfile.close(); // close file (to basically save all changes made)
+                break;
             }
             else
             {
                 cout << "File doesn't exist, please try again." << endl;
+                continue;
             }
         }
+        Pause();
     }
 
     void quit()
@@ -1085,7 +1197,15 @@ namespace pf
         Zstats.showRange();
         cout << endl
              << endl;
-        commands();
+        if (devmode == true)
+        {
+            cout << "(Dev mode active)" <<endl;
+            devCommands();
+        }
+        else
+        {
+            commands();
+        }  
     }
 
     void arrowBoard()
@@ -1345,6 +1465,13 @@ namespace pf
     {
         cout << " The zombie has taken down the alien!!" << endl;
         cout << "           You are defeated!          " << endl;
+        cout <<"                _____"<< endl;
+        cout <<"              |       |"<< endl;
+        cout <<"             |         | "<< endl;
+        cout <<"             |  () ()  |"<< endl;
+        cout <<"              |       |"<< endl;
+        cout <<"               |  ^  |"<< endl;
+        cout <<"                |||||"<< endl;
     }
     void victory()
     {
@@ -1378,19 +1505,29 @@ namespace pf
             {
                 inProgressBoard();
                 Pause();
-                zombieTurn();
-                zombieAttack();
-                Pause();
-                trailReset();
-                continue;
+                if (zHP > 0)
+                {
+                    zombieTurn();
+                    zombieAttack();
+                    Pause();
+                    trailReset();
+                    continue;
+                }
+                else
+                {
+                    victory();
+                    break;
+                }   
             }
             else if (HP < 1)
             {
+                system("cls");
                 gameOver();
                 break;
             }
             else if (zHP < 1)
             {
+                system("cls");
                 victory();
                 break;
             }
@@ -1452,6 +1589,98 @@ namespace pf
                 Pause();
                 break;
             }
+        }
+    }
+    
+    void devTeleport()
+    {
+        cout << "Choose a teleport destination." << endl;
+        cout << "Row: " << endl;
+        cin >> newrow;
+        cout << "Column: " << endl;
+        cin >> newcol;
+        newrow = newrow - 1; //take into account computers starting at 0 instead of 1
+        newcol = newcol - 1;
+        if (map[newrow][newcol] == 'Z')
+        {
+            cout << "Invalid teleport." << endl;
+        }
+        else
+        {
+            map[newrow][newcol] = 'A';
+            map[alienrow][aliencol] = ' ';
+            alienrow = newrow;
+            aliencol = newcol;
+        } 
+    }
+
+    void objectChange()
+    {
+        int objRow;
+        int objCol;
+        bool validPlace = true;
+        while(validPlace = true)
+        {
+        cout << "Choose the location of the object." << endl;
+        cout << "Row: " << endl;
+        cin >> objRow;
+        objRow = objRow - 1;
+        cout << "Column: " << endl;
+        cin >> objCol;
+        objCol = objCol - 1;
+        if (map[objRow][objCol] == 'Z')
+        {
+            cout << "Invalid location. The zombie is in that place. Try again." << endl;
+            continue;
+        }
+        else
+        {
+        bool validObj = true;
+        while(validObj = true)
+        {
+        cout << "Choose an item to place." << endl;
+        char newObj;
+        cout << "<  v  >  ^  r  h  p" << endl;
+        cin >> newObj;
+        switch (newObj)
+        {
+        case '<':
+            map[objRow][objCol] = '<';
+            cout << "Object updated!" << endl;
+            break;
+        case '>':
+            map[objRow][objCol] = '>';
+            cout << "Object updated!" << endl;
+            break;
+        case '^':
+            map[objRow][objCol] = '^';
+            cout << "Object updated!" << endl;
+            break;
+        case 'v':
+            map[objRow][objCol] = 'v';
+            cout << "Object updated!" << endl;
+            break;
+        case 'r':
+            map[objRow][objCol] = 'r';
+            cout << "Object updated!" << endl;
+            break;
+        case 'h':
+            map[objRow][objCol] = 'h';
+            cout << "Object updated!" << endl;
+            break;
+        case 'p':
+            map[objRow][objCol] = 'p';
+            cout << "Object updated!" << endl;
+            break;
+        
+        default:
+            cout << "Invalid object. Try again." << endl;
+            break;
+        }
+        break;
+        }
+        }
+        break;
         }
     }
 }

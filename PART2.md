@@ -36,6 +36,14 @@ List all the features not yet done. Remove this section if there is no incomplet
 
 2. Alien "shoot" command
     - The alien is given the ability to attack a  zombie from a very large distance, nearly infinite for smaller boards such as the default board(A range of 5). This ability can only be used once the alien accumulates a charge of 3, which is reset after the alien uses the shoot command. This attack ends the alien's turn, and does only 15 damage to the zombie.
+3. Developer Mode
+    - The user can type in "devmode" as one of the possible commands. This command will not be listed in the help menu, and once its typed in, it will go to a new line below but seemingly not ask the user for an input. If the correct password is entered, the player will enter devmode.
+
+    In dev mode,
+    -The player will be given 9999 health and 999 charge.
+    -The player will get 4 new commands. The first one, teleport, allows the player to teleport anywhere on the map according to their inputs. The second and third, "cure" and "gg" allow the player to instantly eliminate the zombie or alien respectively, and instantly see the game over or victory screen. The last one, "object" allows the player to place a game object in a desired location. The player cannot teleport onto or change the object of the zombie.
+
+    -Once the game ends, dev mode is disabled.
 
 ## Contributions
 
@@ -48,6 +56,9 @@ List all the features not yet done. Remove this section if there is no incomplet
 5. Zombie randomised movement
 6. Zombie attacks
 7. Interaction with game objects
+8. Developer mode(all features)
+9. Teleporter
+10. Finished game save
 
 ### Wan Muhammad Atif bin Taram Satiraksa
 
