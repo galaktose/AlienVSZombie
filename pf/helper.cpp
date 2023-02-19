@@ -242,12 +242,15 @@ namespace pf
             else if (command == "save")
             {
                 gameSave();
-                break;
+                inProgressBoard();
+                continue;
             }
             else if (command == "load")
             {
                 gameLoad();
-                break;
+                system("cls");
+                inProgressBoard();
+                continue;
             }
             else if (command == "arrow")
             {
@@ -574,10 +577,16 @@ namespace pf
         }
         savefile << endl;
 
-        // ostream_iterator<string> iterator(out_file); // creates an iterator me thinks
-
-        // copy(map.begin(),map.end(), iterator);//copy the result of iteration through the map vector from start to end using iterator
-
+        savefile << HP << " ";
+        savefile << charge << " ";
+        savefile << zHP << " ";
+        savefile << zDmg << " ";
+        savefile << zRange << " ";
+        savefile << aliencol << " ";
+        savefile << alienrow << " ";
+        savefile << rowZom << " ";
+        savefile << colZom << " ";
+        savefile << endl;
         savefile.close();
 
         bool choice = true;
@@ -607,9 +616,12 @@ namespace pf
     void gameLoad()
     {
         system("cls");
-        ifstream loadfile;
+        ifstream loadfile, binary;
         string mapstring, filename;
-
+        vector<int> values;
+        int number;
+        char letter;
+        int count = 0;
         bool choice = true;
         while (choice = true)
         {
@@ -620,18 +632,28 @@ namespace pf
             {
                 while (getline(loadfile, mapstring)) // gather all string in txt file
                 {
-                    int mapchar =0;
-                    for (int row = 0; row < kRows; row++)
+
+                    if (loadfile >> letter)
                     {
-                        for (int col = 0; col < kColumns; col++)
+                        int mapchar = 0;
+                        for (int row = 0; row < kRows; row++)
                         {
-                            map[row][col] = mapstring[mapchar];
-                            mapchar = mapchar + 1;
+                            for (int col = 0; col < kColumns; col++)
+                            {
+                                map[row][col] = mapstring[mapchar];
+                                mapchar = mapchar + 1;
+                            }
                         }
                     }
+                    else if (loadfile >> number)
+                    {
+                        values.push_back(number);
+                    }
+                    cout << values[0];
+                    Pause();
                 };
+
                 loadfile.close(); // close file (to basically save all changes made)
-                break;
             }
             else
             {
