@@ -565,7 +565,7 @@ namespace pf
         cin >> filename;
         savefile.open(filename); // opens the file
 
-        // NEW SAVE CODE (HOPEFULLY THIS WORKS)(if not ill jump off a cliff)(real)
+        
         ofstream out_file(filename);
 
         for (int row = 0; row < kRows; row++)
@@ -573,6 +573,9 @@ namespace pf
             for (int col = 0; col < kColumns; col++)
             {
                 savefile << map[row][col];
+                savefile << endl;
+                int savedata[] = {HP, dmg, charge, zHP, zDmg, zRange};
+                savefile << savedata;
             }
         }
         savefile << endl;
