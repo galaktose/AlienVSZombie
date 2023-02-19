@@ -27,7 +27,7 @@ List all the features completed.
 List all the features not yet done. Remove this section if there is no incomplete requirements.
 
 1. Multiple zombies
-2. Saving and loading the game
+2. Loading the game
 
 ## Additional Features
 
