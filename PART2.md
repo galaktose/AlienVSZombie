@@ -89,4 +89,4 @@ Describe the problems encountered and provide the solutions / plan for the solut
     - Modified arrowpush() to take into account stopping at a rock and smashing it  
  
 5. Save and load feature does not work.
-    - gg
+    - Save feature has been fixed. Load feature remains unfunctional.
